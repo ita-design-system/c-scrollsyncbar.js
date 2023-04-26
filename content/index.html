@@ -1,0 +1,43 @@
+---
+layout: libdoc/page-codemirror
+permalink: index.html
+unlisted: true
+---
+<nav c-scrollsyncbar="foo">
+    <a href="#">ScrollSyncBar</a>
+</nav>
+
+<p>ScrollSyncBar is a scroll synced show hide. ScrollSyncBar makes navigation or any element show and hide progressively in sync with window scroll.</p>
+
+<nav c-scrollsyncbar="bar" data-transform="translateY(calc(0.01 * |x| * 100%))">
+    <a href="#">top</a>
+</nav>
+
+<!-- DEMO ONLY -->
+<style>
+    * {
+        box-sizing: border-box;
+    }
+    body {
+        height: 500vh;
+        margin: 0;
+        padding: 0;
+        background-color: ghostwhite;
+    }
+    [c-scrollsyncbar="foo"] {
+        position: sticky;
+        top: 0%;
+        left: 0;
+        width: 100%;
+        padding: 1em;
+        background-color: dodgerblue;
+    }
+    [c-scrollsyncbar="bar"] {
+        position: fixed;
+        bottom: 0%;
+        left: 0;
+        width: 100%;
+        padding: 1em;
+        background-color: yellowgreen;
+    }
+</style>
