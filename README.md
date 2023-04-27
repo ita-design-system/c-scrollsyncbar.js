@@ -1,9 +1,9 @@
 # c-scrollsyncbar.js
 
-c-scrollsyncbar.js est une barre d'affichage et de masquage synchronisée avec le défilement de la fenêtre. c-scrollsyncbar.js permet d'afficher et de masquer progressivement la navigation ou tout autre élément en synchronisation avec le sens de défilement de la fenêtre.
+c-scrollsyncbar.js est une librairie permettant d'afficher/masquer des éléments HTML progressivement en fonction du sens de défilement de la fenêtre.
 
-![Kapture 2023-04-26 at 15 35 42](https://user-images.githubusercontent.com/13103047/234616162-0b5b4222-8bce-4d18-ab16-709a6ead5a11.gif)
-![Kapture 2023-04-26 at 15 39 16](https://user-images.githubusercontent.com/13103047/234616353-a2431b8d-6e02-422a-a2de-05fb4dbff243.gif)
+![GIF exemple usage c-scrollsyncbar.js 1](https://user-images.githubusercontent.com/13103047/234616162-0b5b4222-8bce-4d18-ab16-709a6ead5a11.gif)
+![GIF exemple usage c-scrollsyncbar.js 2](https://user-images.githubusercontent.com/13103047/234616353-a2431b8d-6e02-422a-a2de-05fb4dbff243.gif)
 
 ## Installation
 
@@ -14,7 +14,6 @@ Il est recommandé de placer les fichiers dans cet ordre avant la balise fin de 
 ```html
 <body>
     <script src="/path/to/c-scrollsyncbar.js"></script> <!-- obligatoire -->
-    <script src="/path/to/c-scrollsyncbar-callbacks.js"></script> <!-- optionnel -->
 </body>
 ```
 
@@ -52,14 +51,41 @@ https://cdn.jsdelivr.net/gh/ita-design-system/c-scrollsyncbar.js@v0.1.0/ui/js/c-
 
 ## Usage
 
-Ajouter `c-scrollsyncbar="IDENTIFIANT_UNIQUE"` à l'élément. Par défaut l'élément subit une [transformation CSS](https://developer.mozilla.org/fr/docs/Web/CSS/transform) `translateY(-|x|%)` dans laquelle `|x|` est un nombre compris entre à et 100.
+Ajouter `c-scrollsyncbar="IDENTIFIANT_UNIQUE_OPTIONNEL"` à l'élément. Par défaut l'élément subit une [transformation CSS](https://developer.mozilla.org/fr/docs/Web/CSS/transform) `translateY(-|x|%)` dans laquelle `|x|` est un nombre compris entre à et 100.
 
 ```html
+<!-- Minimal -->
+<div c-scrollsyncbar="">
+    <!-- Contenu -->
+</div>
+
+<!-- Avec id personnalisé -->
 <div c-scrollsyncbar="foo">
     <!-- Contenu -->
 </div>
 ```
 
+### Sensibilité `scrollSteps`
+
+Par défaut, l'initialisation se fait avec paramètre de sensibilité de `scrollSteps: 200`, qui correspond au nombre de pixels de défilement qu'il faut pour compléter la course de l'élément.
+
+Il est possible de modifier cette sensibilité en invoquant la méthode `cScrollSyncBar.update({scrollSteps: <INTEGER>});`
+
+* Plus le paramètre `scrollSteps` est élevé, plus la course du défilement nécessaire est longue
+* Plus le paramètre `scrollSteps` est petit, plus la course du défilement nécessaire est courte
+
+```javascript
+// Faible sensibilité, course longue
+cScrollSyncBar.update({scrollSteps: 500});
+
+// Par défaut
+cScrollSyncBar.update();
+// Est équivalent à
+cScrollSyncBar.update({scrollSteps: 200});
+
+// Haute sensibilité, course courte
+cScrollSyncBar.update({scrollSteps: 50});
+```
 
 ### Formule personnalisée
 
@@ -79,8 +105,40 @@ c-scrollsyncbar.js fonctionne uniquement avec la [propriété CSS transform](htt
 
 ### Méthode `cScrollSyncBar.update()`
 
-Indispensable pour démarrer l'application, crée les instances des éléments sur lequel appliquer l'effet.
+* Indispensable pour initialiser l'application, crée les instances des éléments sur lequels appliquer l'effet.
+* Mettre à jour les options
 
 ```javascript
+// Initialisation ou mise à jour avec paramètres par défaut
 cScrollSyncBar.update();
+
+// Initialisation ou mise à jour avec paramètres personnalisés
+cScrollSyncBar.update({scrollSteps: 500});
+```
+
+### Méthode `cScrollSyncBar.pause()`
+
+Interrompre l'effet de la librairie. Maintient les élements dans l'état courant.
+
+```javascript
+cScrollSyncBar.pause();
+```
+
+### Méthode `cScrollSyncBar.stop()`
+
+Stoppe l'effet de la librairie et réinitialise les élements dans leur état d'origine.
+
+```javascript
+cScrollSyncBar.stop();
+```
+
+## API
+
+Toutes les instances de cScrollSyncBar sont placées dans `cScrollSyncBar.instances[ID_DE_L_INSTANCE]`. `ID_DE_L_INSTANCE` est l'id de l'élément s'il est présent, s'il est absent, cScrollSyncBar applique un id préfixé de `cssb_` suivi de l'index de l'instance.
+
+```javascript
+// Élément DOM activé
+cScrollSyncBar.instances[ID_DE_L_INSTANCE].el;
+// Formule CSS transform en application
+cScrollSyncBar.instances[ID_DE_L_INSTANCE].formula;
 ```

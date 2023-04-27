@@ -31,8 +31,14 @@ const cScrollSyncBar = {
             }
         });
         // Seek for elements
-        document.querySelectorAll('[c-scrollsyncbar]').forEach(function(el) {
-            const identifier = el.getAttribute('c-scrollsyncbar');
+        document.querySelectorAll('[c-scrollsyncbar]').forEach(function(el, index) {
+            let identifier = el.getAttribute('c-scrollsyncbar');
+            if (el.id.length > 0) {
+                identifier = el.id;
+            }
+            if (identifier == '') {
+                identifier = 'cssb_'+index;
+            }
             // Store elements into the pre-defined object cScrollSyncBar.instances
             cScrollSyncBar.instances[identifier] = {
                 el: el,
