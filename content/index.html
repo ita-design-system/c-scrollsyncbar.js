@@ -4,8 +4,10 @@ permalink: index.html
 unlisted: true
 ---
 <nav c-scrollsyncbar="foo">
-    <a href="#">ScrollSyncBar</a>
+    <a href="#">c-scrollsyncbar.js</a>
 </nav>
+
+<p>Défiler vers le bas pour observer l'effet.</p>
 
 <p>ScrollSyncBar est une barre d'affichage et de masquage synchronisée avec le défilement de la fenêtre.</p>
 
@@ -13,8 +15,11 @@ unlisted: true
 
 <nav id="commands">
     <menu>
+        <li><button onclick="scrollSyncBar.update()">scrollSyncBar.update()</button> <br>Initialise en créant les instances des éléménts à observer</li>
+        <li><button onclick="scrollSyncBar.update({scrollSteps:500})">scrollSyncBar.update({scrollSteps:500})</button> <br>Plus le paramètre scrollSteps est élevé, plus l'effet est lent (200 par défa ut)</li>
+        <li><button onclick="scrollSyncBar.update({scrollSteps:50})">scrollSyncBar.update({scrollSteps:50})</button> <br>Plus le paramètre scrollSteps est petit, plus l'effet est rapide (200 par défa ut)</li>
         <li><button onclick="scrollSyncBar.pause()">scrollSyncBar.pause()</button> <br>Stoppe et laisse l'élément en l'état</li>
-        <li><button onclick="scrollSyncBar.reset()">scrollSyncBar.reset()</button> <br>Stoppe et rétablit l'état d'origne de l'élément</li>
+        <li><button onclick="scrollSyncBar.stop()">scrollSyncBar.stop()</button> <br>Stoppe et rétablit l'état d'origne de l'élément</li>
         <li><button onclick="scrollSyncBar.start()">scrollSyncBar.start()</button> <br>Démarre la synchronisation</li>
     </menu>
 </nav>
