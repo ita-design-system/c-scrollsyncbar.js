@@ -1,9 +1,14 @@
 # c-scrollsyncbar.js
 
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/ita-design-system/c-scrollsyncbar.js?style=for-the-badge)](https://github.com/ita-design-system/c-scrollsyncbar.js/releases)
+
 c-scrollsyncbar.js est une librairie permettant d'afficher/masquer des éléments HTML progressivement en fonction du sens de défilement de la fenêtre.
 
 ![GIF exemple usage c-scrollsyncbar.js 1](https://user-images.githubusercontent.com/13103047/234616162-0b5b4222-8bce-4d18-ab16-709a6ead5a11.gif)
 ![GIF exemple usage c-scrollsyncbar.js 2](https://user-images.githubusercontent.com/13103047/234616353-a2431b8d-6e02-422a-a2de-05fb4dbff243.gif)
+
+* [Démo](https://ita-design-system.github.io/c-scrollsyncbar.js/)
+* [Exemple avec formule personnalisée](https://ita-design-system.github.io/c-scrollsyncbar.js/content/custom-formula.html)
 
 ## Installation
 

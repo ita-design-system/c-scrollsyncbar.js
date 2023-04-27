@@ -12,7 +12,7 @@ order: 10
     <a href="#">c-scrollsyncbar.js</a>
 </nav>
 
-<p>Défiler vers le bas pour observer l'effet.</p>
+<p>Défiler vers le bas pour observer l'effet, vers le haut pour inverser immédiatement le mouvement.</p>
 
 <footer>
     <nav c-scrollsyncbar="bar"
