@@ -7,10 +7,20 @@ unlisted: true
     <a href="#">ScrollSyncBar</a>
 </nav>
 
-<p>ScrollSyncBar is a scroll synced show hide. ScrollSyncBar makes navigation or any element show and hide progressively in sync with window scroll.</p>
+<p>ScrollSyncBar est une barre d'affichage et de masquage synchronisée avec le défilement de la fenêtre.</p>
 
-<nav c-scrollsyncbar="bar" data-transform="translateY(calc(0.01 * |x| * 100%))">
-    <a href="#">top</a>
+<p>ScrollSyncBar permet d'afficher et de masquer progressivement la navigation ou tout autre élément en synchronisation avec le défilement de la fenêtre.</p>
+
+<nav id="commands">
+    <menu>
+        <li><button onclick="scrollSyncBar.pause()">scrollSyncBar.pause()</button> <br>Stoppe et laisse l'élément en l'état</li>
+        <li><button onclick="scrollSyncBar.reset()">scrollSyncBar.reset()</button> <br>Stoppe et rétablit l'état d'origne de l'élément</li>
+        <li><button onclick="scrollSyncBar.start()">scrollSyncBar.start()</button> <br>Démarre la synchronisation</li>
+    </menu>
+</nav>
+
+<nav c-scrollsyncbar="bar">
+    <a href="#">Retour vers le haut</a>
 </nav>
 
 <!-- DEMO ONLY -->
@@ -19,25 +29,45 @@ unlisted: true
         box-sizing: border-box;
     }
     body {
-        height: 500vh;
-        margin: 0;
-        padding: 0;
+        min-height: 500vh;
+        padding: var(--ita-spacing-14) var(--ita-spacing-8);
+        color: var(--ita-color-primary-800);
+        font-family: var(--ita-font-family-mono);
+        font-size: 1rem;
+        line-height: 1.5rem;
         background-color: ghostwhite;
     }
-    [c-scrollsyncbar="foo"] {
+    #commands {
+        margin-top: 10em;
+        margin-bottom: 10em;
         position: sticky;
+        top: 5em;
+    }
+    #commands menu {
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+    }
+    [c-scrollsyncbar="foo"] {
+        position: fixed;
         top: 0%;
         left: 0;
         width: 100%;
         padding: 1em;
-        background-color: dodgerblue;
+        background-color: var(--ita-color-primary-500);
     }
     [c-scrollsyncbar="bar"] {
         position: fixed;
-        bottom: 0%;
+        top: 100%;
         left: 0;
         width: 100%;
-        padding: 1em;
-        background-color: yellowgreen;
+        padding: 2em;
+        background-color: var(--ita-color-support-success-100);
+    }
+    [c-scrollsyncbar="foo"] a {
+        color: var(--ita-color-neutral-100);
+    }
+    [c-scrollsyncbar="bar"] a {
+        color: var(--ita-color-support-success-700);
     }
 </style>

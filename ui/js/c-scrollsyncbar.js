@@ -27,7 +27,8 @@ const scrollSyncBar = {
             const identifier = el.getAttribute('c-scrollsyncbar');
             scrollSyncBar.instances[identifier] = {
                 el: el,
-                formula: el.dataset.transform || 'translateY(-|x|%)'
+                formula: el.dataset.transform || 'translateY(-|x|%)',
+                class_origin: el.getAttribute('class')
             }
         });
         scrollSyncBar.raf = requestAnimationFrame(scrollSyncBar._running);
