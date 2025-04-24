@@ -1,14 +1,8 @@
-# MacOS
-.DS_Store
+node_modules
 .vscode
-# Jekyll / Design System
-/design-system
-/_site
-/.sass-cache
-/_config-test.yml
-/_site
-/_config-local-ip.yml
-/_config-ip.yml
-/.jekyll-cache
-.jekyll-metadata
-Gemfile.lock
+_site/
+.cache
+.DS_Store
+_data/envlocal.json
+.env
+c-scrollsyncbar.js/

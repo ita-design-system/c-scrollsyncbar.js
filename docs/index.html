@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>c-scrollsyncbar.js</title>
+    
+
+    <meta itemprop="name" content="c-scrollsyncbar.js">
+    <meta name="description" itemprop="description" content="Documentation de la librairie c-scrollsyncbar.js permettant d’afficher/masquer des éléments HTML progressivement en fonction du sens de défilement de la fenêtre.">
+    <meta name="application-name" content="c-scrollsyncbar.js">
+    <meta name="author" content="Olivier 3lanc">
+    <link rel="icon" type="image/png" href="/c-scrollsyncbar.js/favicon.png">
+    
+    <meta name="msapplication-TileColor" content="#FFFFFF">
+    <meta name="theme-color" content="#FFFFFF">
+    
+    <!-- Microsoft -->
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="msapplication-starturl" content="/">
+    <meta name="msapplication-tooltip" content="c-scrollsyncbar.js">
+    <meta name="msapplication-TileColor" content="#FFFFFF">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="/">
+    <meta property="og:title" content="c-scrollsyncbar.js">
+    <meta property="og:description" content="Documentation de la librairie c-scrollsyncbar.js permettant d’afficher/masquer des éléments HTML progressivement en fonction du sens de défilement de la fenêtre.">
+    <meta property="og:image" content="https://og-image.vercel.app/c-scrollsyncbar.js.png?theme=light&md=1&fontSize=140px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fhyper-color-logo.svg">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="c-scrollsyncbar.js">
+    <meta name="twitter:description" content="Documentation de la librairie c-scrollsyncbar.js permettant d’afficher/masquer des éléments HTML progressivement en fonction du sens de défilement de la fenêtre.">
+    <meta name="twitter:url" content="/">
+    <meta name="twitter:image" content="https://og-image.vercel.app/c-scrollsyncbar.js.png?theme=light&md=1&fontSize=140px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fhyper-color-logo.svg">
+    
+    <!-- iOS -->
+    <meta name="apple-mobile-web-app-title" content="c-scrollsyncbar.js">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#FFFFFF">
+    
+    <!-- Android -->
+    <meta name="theme-color" content="#FFFFFF">
+    <meta name="color-scheme" content="light">
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <meta name="generator" content="Eleventy v3.0.0">
+    
+    <link rel="stylesheet" href="/c-scrollsyncbar.js/core/assets/css/ds__defaults.css">
+    <link rel="stylesheet" href="/c-scrollsyncbar.js/core/assets/css/ds.css">
+    <link rel="stylesheet" href="/c-scrollsyncbar.js/core/assets/css/hljs/night-owl.css">
+    <link rel="stylesheet" href="/c-scrollsyncbar.js/core/assets/fonts/icomoon/style.css">
+    <style>
+        :root {
+            --ita-widths-sidebar: 300px;
+            --ita-widths-content: 700px;
+        }
+    </style>
+    <noscript>
+        <link rel="stylesheet" href="/c-scrollsyncbar.js/core/assets/css/noscript.css">
+    </noscript>
+    
+    
+    
+    
+    <script>
+        const libdocMessages = {
+            
+                copiedToClipboard: `Copié dans le presse-papiers`,
+                code: `Code`,
+                copied: `Copié`,
+                copy: `Copier`,
+                copyCode: `Copier le code`,
+                copyHTML: `Copier le HTML`,
+                copyURL: `Copier l’URL`,
+                enable: `Activer`,
+                goToTopOfPage: `Aller en haut de page`,
+                height: `Hauteur`,
+                homepage: `Page d’accueil`,
+                homepageShort: `Accueil`,
+                inANewTab: `Dans un nouvel onglet`,
+                lastModified: `Dernière modification`,
+                menu: `Menu`,
+                open: `Ouvrir`,
+                openInANewTab: `Ouvrir dans un nouvel onglet`,
+                page: `Page`,
+                pages: `Pages`,
+                pagesTagged: `Pages taguées`,
+                reload: `Recharger`,
+                reloaded: `Rechargé`,
+                result: `Résultat`,
+                sandbox: `Bac à sable`,
+                sandboxResizeHelper: `Cliquer déplacer pour redimensionner code et résultat`,
+                search: `Rechercher`,
+                searchClear: `Effacer la saisie`,
+                searchMinimumCharacters: `3 caractères min.`,
+                searchResultsNoResultForQuery: `Aucun résultat pour la requête`,
+                searchOccurrencesCurrent: `Occurrence actuelle`,
+                searchOccurrencesNext: `Occurrence suivante`,
+                searchOccurrencesPrevious: `Occurrence précédente`,
+                searchOccurrencesStop: `Fermet la recherches d’occurrences`,
+                searchPlaceholder: `Texte à rechercher`,
+                searchSubmit: `Lancer la recherche`,
+                tableOfContent: `Table des matières`,
+                tag: `Tag`,
+                tagsList: `Liste des tags`,
+                tagsListDescription: `Liste de l’ensemble des tags disponibles`,
+                toggleFloatingToc: `Basculer la table des matières flottante`,
+                top: `Haut`,
+                width: `Largeur`,
+        }
+        const libdocConfig = {
+            searchIndexUrl: `/c-scrollsyncbar.js/core/assets/js/search_index.json`
+        }
+    </script>
+</head>
+<body class="d-flex fd-column | m-0">
+    <div class="d-flex" fd-column="xs,sm" ai-start="md" ai-center="xs,sm" pl-5="md">
+        <div class="d-flex fd-column | pos-sticky top-0 z-2" ai-center="xs,sm" w-100="xs,sm" w-sidebar="md">
+            <nav id="nav_small_devices" class="d-flex | pos-fixed bottom-0 left-0 z-1 | w-100 h-60px" d-none="md">
+                <div class="d-flex jc-space-between | w-100 | bc-neutral-100 btwidth-1 btstyle-dashed bcolor-neutral-500">
+                    <a href="/c-scrollsyncbar.js/" class="d-flex fd-column jc-center ai-center gap-1 | pl-5 pr-2 | td-none ta-center | c-primary-900 b-0 brad-3">
+                        <span class="icon-house fs-6"></span>
+                        <span class="fvs-wght-400 fs-1 tt-uppercase">Accueil</span>
+                    </a>
+                    
+                    <button type="button" id="sd_floating_toc_toggle_btn" class="d-flex fd-column jc-center ai-center gap-1 | pl-2 pr-2 | ta-center | cur-pointer c-primary-900 bc-neutral-100 b-0 brad-3" disabled="">
+                        <span class="icon-list-dashes fs-6"></span>
+                        <span class="fvs-wght-400 fs-1 tt-uppercase">Table des matières</span>
+                    </button>
+                    <button type="button" id="sd_gtt_btn" class="d-flex fd-column jc-center ai-center gap-1 | pl-2 pr-2 | ta-center | cur-pointer c-primary-900 bc-neutral-100 b-0 brad-3" onclick="libdocUi.handlers._clickGTT()">
+                        <span class="icon-arrow-line-up fs-6"></span>
+                        <span class="fvs-wght-400 fs-1 tt-uppercase">Haut</span>
+                    </button>
+                    <button type="button" class="d-flex fd-column jc-center ai-center gap-1 | pl-2 pr-5 | ta-center | cur-pointer c-primary-900 bc-neutral-100 b-0 brad-3" c-toggle="nav_primary" data-dismiss="true">
+                        <span class="icon-list fs-6" c-toggle-name="nav_primary" data-opened-state-class="icon-x fs-6"></span>
+                        <span class="fvs-wght-400 fs-1 tt-uppercase">Menu</span>
+                    </button>
+                </div>
+            </nav>
+            <nav id="nav_primary_container" class="d-flex d-none--xs d-none--sm fd-column | w-100 o-hidden | bc-neutral-100 bwidth-1 bstyle-dashed bcolor-neutral-500" mt-5="md" maxw-sidebar="md" brad-3="md" c-toggle-name="nav_primary" data-opened-state-class="d-flex fd-column | w-100 o-hidden | bc-neutral-100 bwidth-1 bstyle-dashed bcolor-neutral-500">
+                <menu id="nav_primary_header" class="d-flex fd-column | pos-sticky top-0 z-1 | m-0 p-0  | ls-none bc-neutral-100 bbwidth-0 bbstyle-dashed bcolor-neutral-500" gap-5="md" bradtl-3="md" bradtr-3="md">
+                    <li class="d-flex ai-center">
+                        
+                            <a href="/c-scrollsyncbar.js/" class="p-5 | td-none fvs-wght-700 lsp-5 fs-8 tws-balance | c-neutral-900" title="Documentation de la librairie c-scrollsyncbar.js permettant d’afficher/masquer des éléments HTML progressivement en fonction du sens de défilement de la fenêtre.">
+                                c-scrollsyncbar.js
+                            </a>
+                        
+                    </li>
+                    
+                    
+                        <li class="d-flex ai-center fw-wrap gap-7 rgap-1 | pb-3 pl-4">
+                            
+                                <a href="https://github.com/ita-design-system/c-scrollsyncbar.js" class="
+                                    d-flex ai-center gap-1
+                                    pt-2 pb-2
+                                    fvs-wght-600 fs-2 lsp-3 lh-1 tt-uppercase td-none
+                                    c-primary-600" target="_blank">
+                                    GitHub
+                                    <span class=""><span class="icon-arrow-square-out | pos-absolute t-tY-50 | c-primary-300"></span></span>
+                                </a>
+                            
+                                <a href="https://github.com/ita-design-system" class="
+                                    d-flex ai-center gap-1
+                                    pt-2 pb-2
+                                    fvs-wght-600 fs-2 lsp-3 lh-1 tt-uppercase td-none
+                                    c-primary-600" target="_blank">
+                                    ITADS
+                                    <span class=""><span class="icon-arrow-square-out | pos-absolute t-tY-50 | c-primary-300"></span></span>
+                                </a>
+                            
+                        </li>
+                    
+                </menu>
+                
+                
+
+                
+
+                
+
+
+
+
+
+
+<div id="nav_primary" class="pos-relative | fg-1 o-auto">
+    
+    
+    
+</div>
+            </nav>
+        </div>
+        <main class="pos-relative" w-100-minus-sidebar="md" w-100="xs,sm">
+            <header class="d-flex fd-column | pt-5 pb-7">
+                <ul class="d-flex ai-center gap-2 | p-0 m-0 o-auto | fs-2 lh-3 | ls-none">
+    <li class="d-flex ai-center gap-2">
+        <a href="/c-scrollsyncbar.js/" class="pos-relative | p-5 | fs-4 td-none | brad-4 bc-neutral-100 bwidth-1 bstyle-dashed bcolor-neutral-500 __hover-1" title="Page d’accueil">
+            <span class="icon-house | pos-absolute top-50 left-50 t-tY-50 t-tX-50"></span>
+        </a> /
+    </li>
+    
+    
+    
+    <li class="c-neutral-800 ws-nowrap">c-scrollsyncbar.js</li>
+</ul>
+                <h1 class="mt-3 mb-0 | lsp-5 fvs-wght-700 tws-balance " fs-10="md" fs-9="xs,sm">
+                    c-scrollsyncbar.js
+                </h1>
+                
+                    <p class="d-flex ai-center fw-wrap gap-2 | pt-5 pl-5 pb-5 m-0 | fvs-wght-400 tws-balance fs-7 lsp-3 lh-5 | blwidth-1 blstyle-dashed bcolor-neutral-500" pt-3="xs" pb-3="xs" fs-6="sm" fs-5="xs">
+                        Documentation de la librairie c-scrollsyncbar.js permettant d’afficher/masquer des éléments HTML progressivement en fonction du sens de défilement de la fenêtre.
+                    </p>
+                
+                
+                    
+                    <div class="d-flex ai-center | m-0 | blwidth-1 blstyle-dashed bcolor-neutral-500">
+                        <div class="pl-5 | bbwidth-1 bbstyle-dashed bcolor-neutral-500"></div>
+                        
+                            <p class="d-flex ai-center gap-2 | m-0 pr-2 | fvs-wght-400 fs-3 lsp-3 lh-3 | c-neutral-700 bc-primary-100" fs-2="xs">
+                                <span class="icon-calendar-dots fs-6"></span>
+                                <span ws-nowrap="sm,md">
+                                    <span class="ws-nowrap">Dernière modification</span>
+                                    2023-04-27
+                                </span>
+                            </p>
+                        
+                        <div class="pl-5 w-100 | bbwidth-1 bbstyle-dashed bcolor-neutral-500"></div>
+                        
+                            <div class="d-flex ai-center gap-3">
+                                <div class="pos-relative | p-5 | brad-4 bc-neutral-100 bwidth-1 bstyle-dashed bcolor-neutral-500">
+                                    <div class="icon-user | pos-absolute top-50 left-50 t-tY-50 t-tX-50 | fs-6"></div>
+                                </div>
+                                <p class="d-flex fd-column | m-0 | fvs-wght-400 fs-3 lsp-3 lh-3 | c-neutral-700 bc-primary-100" fs-2="xs" ws-nowrap="sm,md" style="min-width: 10ch">
+                                    Olivier 3lanc
+                                </p>
+                            </div>
+                        
+                    </div>
+                
+                
+                    <details id="toc_main" open="">
+                        <summary class="d-flex ai-center | pt-5 pb-5 | fvs-wght-500 fs-3 | bwidth-1 bstyle-dashed bcolor-neutral-500 btwidth-0 brwidth-0 cur-pointer">
+                            <span class="pl-5 | bbwidth-1 bbstyle-dashed bcolor-neutral-500"></span>
+                            <span class="d-flex ai-center gap-1 | lsp-2">
+                                <span class="icon-minus-circle | fs-6 | c-primary-500"></span>
+                                <span class="icon-plus-circle | fs-6 | c-primary-500"></span>
+                                Table des matières
+                            </span>
+                        </summary>
+                        
+                <ol class="cgap-3em | m-0 pl-0 pb-5 o-auto | lh-1 | ls-none bwidth-1 bstyle-dashed bcolor-neutral-500 btwidth-0 brwidth-0" d-flex="xs,sm" fd-column="xs,sm" fw-wrap="xs,sm" columns-3="md" columns-2="sm" maxh-300px="sm" maxh-200px="xs">
+                    <li class="d-flex">
+                        <a href="#installation" class="pl-5 pt-1 pb-1 | fs-4 lsp-3 lh-5 fvs-wght-400 | blwidth-1 blstyle-dashed bcolor-neutral-500">
+                            Installation
+                        </a>
+                    </li>
+                    <li class="d-flex">
+                        <a href="#en-local" class="pl-5 pt-1 pb-1 | fs-4 lsp-3 lh-5 fvs-wght-400 | blwidth-1 blstyle-dashed bcolor-neutral-500">
+                            En local
+                        </a>
+                    </li>
+                    <li class="d-flex">
+                        <a href="#sur-cdn" class="pl-5 pt-1 pb-1 | fs-4 lsp-3 lh-5 fvs-wght-400 | blwidth-1 blstyle-dashed bcolor-neutral-500">
+                            Sur CDN
+                        </a>
+                    </li>
+                    <li class="d-flex">
+                        <a href="#usage" class="pl-5 pt-1 pb-1 | fs-4 lsp-3 lh-5 fvs-wght-400 | blwidth-1 blstyle-dashed bcolor-neutral-500">
+                            Usage
+                        </a>
+                    </li>
+                    <li class="d-flex">
+                        <a href="#sensibilit" class="pl-5 pt-1 pb-1 | fs-4 lsp-3 lh-5 fvs-wght-400 | blwidth-1 blstyle-dashed bcolor-neutral-500">
+                            Sensibilité
+                        </a>
+                    </li>
+                    <li class="d-flex">
+                        <a href="#formule-personnalise" class="pl-5 pt-1 pb-1 | fs-4 lsp-3 lh-5 fvs-wght-400 | blwidth-1 blstyle-dashed bcolor-neutral-500">
+                            Formule personnalisée
+                        </a>
+                    </li>
+                    <li class="d-flex">
+                        <a href="#mthode-update" class="pl-5 pt-1 pb-1 | fs-4 lsp-3 lh-5 fvs-wght-400 | blwidth-1 blstyle-dashed bcolor-neutral-500">
+                            Méthode update
+                        </a>
+                    </li>
+                    <li class="d-flex">
+                        <a href="#mthode-pause" class="pl-5 pt-1 pb-1 | fs-4 lsp-3 lh-5 fvs-wght-400 | blwidth-1 blstyle-dashed bcolor-neutral-500">
+                            Méthode pause
+                        </a>
+                    </li>
+                    <li class="d-flex">
+                        <a href="#mthode-stop" class="pl-5 pt-1 pb-1 | fs-4 lsp-3 lh-5 fvs-wght-400 | blwidth-1 blstyle-dashed bcolor-neutral-500">
+                            Méthode stop
+                        </a>
+                    </li>
+                    <li class="d-flex">
+                        <a href="#api" class="pl-5 pt-1 pb-1 | fs-4 lsp-3 lh-5 fvs-wght-400 | blwidth-1 blstyle-dashed bcolor-neutral-500">
+                            API
+                        </a>
+                    </li></ol>
+                    </details>
+                
+            </header>
+            <p><a href="https://github.com/ita-design-system/c-scrollsyncbar.js/releases"><img src="/c-scrollsyncbar.js/c-scrollsyncbar-gX82GP_P-M-__145__.svg" alt="GitHub release (latest by date)" loading="lazy" decoding="async" width="145" height="28"></a></p>
+<p><img src="/c-scrollsyncbar.js/img/capture-1-BAjpdUKpTw-__256__.webp" alt="GIF exemple usage c-scrollsyncbar.js 1" loading="lazy" decoding="async" width="256" height="193">
+<img src="/c-scrollsyncbar.js/img/capture-2-tIXRUk0LGJ-__191__.webp" alt="GIF exemple usage c-scrollsyncbar.js 2" loading="lazy" decoding="async" width="191" height="60"></p>
+<aside class="d-flex | sandbox" fd-column="xs,sm" gap-2="xs,sm" ai-start="xs,sm" o-hidden="md" pl-9="md" pr-9="md" pl-5="xs,sm" pr-5="xs,sm">
+<div class="d-flex | p-1 | bc-primary-200 brad-2" d-none="md">
+<button type="button" class="d-flex | pt-2 pb-2 pl-5 pr-5 | fvs-wght-400 fs-2 tt-uppercase | c-primary-900 bc-0 b-0 cur-pointer | sandbox__tab" data-name="code">
+Code
+</button>
+<button type="button" class="d-flex | pt-2 pb-2 pl-5 pr-5 | fvs-wght-400 fs-2 tt-uppercase | c-primary-900 bc-neutral-100 b-0 brad-1 cur-pointer | sandbox__tab" data-name="iframe">
+Résultat
+</button>
+</div>
+<div class="d-flex fd-column d-none--xs d-none--sm | o-hidden | bc-neutral-900 c-neutral-200 brad-3 bwidth-1 bstyle-solid bcolor-neutral-900 | sandbox__code_wrapper" w-50="md" w-100="xs,sm" bradtr-0="md" bradbr-0="md">
+<header class="d-flex jc-space-between | pl-5" style="height: 58px">
+<p class="d-flex ai-center | m-0 | fvs-wght-400 fs-3 lh-1 | c-neutral-600" fs-2="xs">
+Démo c-scrollsyncbar.js
+</p>
+<button type="button" class="d-flex ai-center | pl-5 pr-5 | fvs-wght-400 fs-2 tt-uppercase | bc-0 c-neutral-300 b-0 cur-pointer | sandbox__copy_code" title="Copier le HTML">
+<span class="o-hidden | to-ellipsis ws-nowrap">Copier</span>
+</button>
+</header>
+<div class="pos-relative" pl-5="md">
+<pre class="m-0 h-500px o-auto" bradtl-3="md" bradbl-3="md">
+<code class="language-html fvs-mono-on fvs-wght-300 fs-3 lh-6 | sandbox__code" fs-2="xs">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;fr&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;Démo scrollsyncbar&lt;/title&gt;
+    &lt;style&gt;
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            min-height: 500vh;
+            padding: 3em;
+            font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, Cantarell, Ubuntu, roboto, noto, helvetica, arial, sans-serif; 
+            line-height: 1.5em;
+            background-color: ghostwhite;
+        }
+        #commands {
+            margin-top: 13em;
+            margin-bottom: 10em;
+            position: sticky;
+            top: 5em;
+        }
+        #commands menu {
+            display: flex;
+            flex-direction: column;
+            gap: 1em;
+        }
+        [c-scrollsyncbar=&quot;&quot;] {
+            position: fixed;
+            top: 0%;
+            left: 0;
+            width: 100%;
+            padding: 1em;
+            background-color: dodgerblue;
+            color: white;
+        }
+        [c-scrollsyncbar=&quot;bar&quot;] {
+            position: fixed;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            padding: 2em;
+            background-color: yellowgreen;
+            color: green;
+        }
+        [c-scrollsyncbar=&quot;&quot;] a {
+            color: white;
+        }
+        [c-scrollsyncbar=&quot;bar&quot;] a {
+            color: green;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;nav c-scrollsyncbar=&quot;&quot;&gt;
+    &lt;a href=&quot;#&quot;&gt;c-scrollsyncbar.js&lt;/a&gt;
+&lt;/nav&gt;
+
+&lt;p&gt;Défiler vers le bas pour observer l'effet, vers le haut pour inverser immédiatement le mouvement.&lt;/p&gt;
+
+&lt;p&gt;ScrollSyncBar est une barre d'affichage et de masquage synchronisée avec le défilement de la fenêtre.&lt;/p&gt;
+
+&lt;p&gt;ScrollSyncBar permet d'afficher et de masquer progressivement la navigation ou tout autre élément en synchronisation avec le défilement de la fenêtre.&lt;/p&gt;
+
+&lt;nav id=&quot;commands&quot;&gt;
+    &lt;menu&gt;
+        &lt;li&gt;
+            &lt;button onclick=&quot;cScrollSyncBar.update()&quot;&gt;
+                cScrollSyncBar.update()
+            &lt;/button&gt; &lt;br&gt;
+            Initialise en créant les instances des éléménts à activer
+        &lt;/li&gt;
+        &lt;li&gt;
+            &lt;button onclick=&quot;cScrollSyncBar.update({scrollSteps:500})&quot;&gt;
+                cScrollSyncBar.update({scrollSteps:500})
+            &lt;/button&gt; &lt;br&gt;
+            Plus le paramètre scrollSteps est élevé,
+            plus la course du défilement nécessaire est longue (200 par défaut)
+        &lt;/li&gt;
+        &lt;li&gt;
+            &lt;button onclick=&quot;cScrollSyncBar.update({scrollSteps:50})&quot;&gt;
+                cScrollSyncBar.update({scrollSteps:50})
+            &lt;/button&gt; &lt;br&gt;
+            Plus le paramètre scrollSteps est petit,
+            plus la course du défilement nécessaire est courte (200 par défaut)
+        &lt;/li&gt;
+        &lt;li&gt;
+            &lt;button onclick=&quot;cScrollSyncBar.pause()&quot;&gt;
+                cScrollSyncBar.pause()
+            &lt;/button&gt; &lt;br&gt;
+            Stoppe et laisse l'élément en l'état
+        &lt;/li&gt;
+        &lt;li&gt;
+            &lt;button onclick=&quot;cScrollSyncBar.stop()&quot;&gt;
+                cScrollSyncBar.stop()
+            &lt;/button&gt; &lt;br&gt;
+            Stoppe et rétablit l'état d'origne de l'élément
+        &lt;/li&gt;
+        &lt;li&gt;
+            &lt;button onclick=&quot;cScrollSyncBar.start()&quot;&gt;
+                cScrollSyncBar.start()
+            &lt;/button&gt; &lt;br&gt;
+            Démarre la synchronisation
+        &lt;/li&gt;
+    &lt;/menu&gt;
+&lt;/nav&gt;
+
+&lt;nav c-scrollsyncbar=&quot;bar&quot;&gt;
+    &lt;a href=&quot;#&quot;&gt;Retour vers le haut&lt;/a&gt;
+&lt;/nav&gt;
+
+&lt;script src=&quot;/assets/c-scrollsyncbar.js&quot;&gt;&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code>
+</pre>
+<div class="d-flex jc-center ai-center | pos-absolute top-0 left-0 | w-100 h-100 | sandbox__enable_wrapper" style="background-color: rgba(0,0,0,0.5)">
+<input type="checkbox" id="epbtKPZP_code" value="" class="pos-absolute | opa-0 | sandbox__enable_switch" checked="">
+<label for="epbtKPZP_code" class="d-flex ai-center gap-1 | p-5 | fvs-wght-500 tt-uppercase | bc-neutral-900 brad-2 cur-pointer">
+<span class="icon-play"></span>
+Activer
+</label>
+</div>
+</div>
+<div class="d-flex gap-2 | m-0 pt-1 pb-1 pl-0 | fvs-wght-400 fs-2 lh-1 | c-neutral-500 ls-none" pl-2="xs,sm">
+ 
+</div>
+</div>
+<button class="pos-relative | p-0 | bc-neutral-800 c-neutral-500 b-0 | sandbox__resizer" title="Cliquer déplacer pour redimensionner code et résultat" d-none="xs,sm">
+<span class="icon-dots-six-vertical fs-5"></span>
+</button>
+<div class="d-flex fd-column | pos-relative | o-hidden | bc-neutral-900 c-neutral-200 brad-3 bwidth-1 bstyle-solid bcolor-neutral-900 | sandbox__iframe_wrapper" w-50="md" w-100="xs,sm" bradtl-0="md" bradbl-0="md" style="box-sizing: content-box"><header class="d-flex jc-space-between gap-5 | pl-5 pr-5" style="height: 58px">
+<a href="/c-scrollsyncbar.js/sandboxes/1/" target="_blank" title="Ouvrir dans un nouvel onglet" class="d-flex ai-center gap-1 | p-0 | fvs-wght-400 fs-2 tt-uppercase td-none | sandbox__permalink" fs-2="xs">
+<span class="fvs-wght-400 | c-neutral-300">Ouvrir</span>
+<span class="icon-arrow-square-out c-neutral-500"></span>
+</a>
+<div class="d-flex gap-5">
+<button type="button" class="d-flex ai-center | p-0 | fvs-wght-400 fs-2 tt-uppercase | bc-0 c-neutral-300 b-0 cur-pointer | sandbox__reload">
+<span class="o-hidden | to-ellipsis ws-nowrap">Recharger</span>
+</button>
+<button type="button" class="d-flex ai-center | p-0 | fvs-wght-400 fs-2 tt-uppercase | bc-0 c-neutral-300 b-0 cur-pointer | sandbox__copy_url">
+<span class="o-hidden | to-ellipsis ws-nowrap">Copier l’URL</span>
+</button>
+</div>
+</header>
+<div class="d-flex | pos-relative">
+<iframe src="/c-scrollsyncbar.js/sandboxes/1/" loading="lazy" class="w-100 h-500px | b-0 bc-neutral-100 | sandbox__iframe"></iframe>
+<div class="d-flex jc-center ai-center | pos-absolute top-0 left-0 | w-100 h-100 | sandbox__enable_wrapper" style="background-color: rgba(0,0,0,0.5)">
+<input type="checkbox" id="epbtKPZP_iframe" value="" class="pos-absolute | opa-0 | sandbox__enable_switch" checked="">
+<label for="epbtKPZP_iframe" class="d-flex ai-center gap-1 | p-5 | fvs-wght-500 tt-uppercase | bc-neutral-900 brad-2 cur-pointer">
+<span class="icon-play"></span> Activer
+</label>
+</div>
+</div>
+<ul class="d-flex gap-2 | m-0 pt-1 pb-1 pl-2 | fvs-wght-400 fs-2 lh-1 | c-neutral-500 ls-none">
+<li>Largeur: <span class="sandbox__monitor__iframe_width">-</span>px</li>
+<li>Hauteur: <span class="sandbox__monitor__iframe_height">-</span>px</li>
+</ul>
+</div>
+</aside>
+
+                    <h2 id="installation" pl-9="xs,sm">
+                        <a href="#installation" title="Installation" class="pos-absolute top-50 left-0 t-tY-50 | p-4 ml-1 | td-none | brad-4 bc-neutral-100 bwidth-1 bstyle-dashed bcolor-neutral-500 __hover-1" ml-3="xs,sm">
+                            <span class="icon-link-simple | pos-absolute top-50 left-50 t-tY-50 t-tX-50 | fs-4"></span>
+                        </a>
+                Installation</h2>
+<p>Il est recommandé de placer les fichiers dans cet ordre avant la balise fin de body.</p>
+
+                    <h3 id="en-local" pl-9="xs,sm">
+                        <a href="#en-local" title="En local" class="pos-absolute top-50 left-0 t-tY-50 | p-4 ml-1 | td-none | brad-4 bc-neutral-100 bwidth-1 bstyle-dashed bcolor-neutral-500 __hover-1" ml-3="xs,sm">
+                            <span class="icon-link-simple | pos-absolute top-50 left-50 t-tY-50 t-tX-50 | fs-4"></span>
+                        </a>
+                En local</h3>
+<pre><code class="language-html">&lt;script src=&quot;/path/to/c-scrollsyncbar.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+
+                    <h3 id="sur-cdn" pl-9="xs,sm">
+                        <a href="#sur-cdn" title="Sur CDN" class="pos-absolute top-50 left-0 t-tY-50 | p-4 ml-1 | td-none | brad-4 bc-neutral-100 bwidth-1 bstyle-dashed bcolor-neutral-500 __hover-1" ml-3="xs,sm">
+                            <span class="icon-link-simple | pos-absolute top-50 left-50 t-tY-50 t-tX-50 | fs-4"></span>
+                        </a>
+                Sur CDN</h3>
+<p>Via <a href="https://www.jsdelivr.com/">https://www.jsdelivr.com/</a></p>
+<p>Version la plus récente:</p>
+<pre><code class="language-html">https://cdn.jsdelivr.net/gh/ita-design-system/c-scrollsyncbar.js/ui/js/c-scrollsyncbar.js
+</code></pre>
+<p>Version la plus récente minifiée:</p>
+<pre><code class="language-html">https://cdn.jsdelivr.net/gh/ita-design-system/c-scrollsyncbar.js/ui/js/c-scrollsyncbar.min.js
+</code></pre>
+<p>Typologie avec numéro de version:</p>
+<pre><code class="language-html">https://cdn.jsdelivr.net/gh/ita-design-system/c-scrollsyncbar.js@&lt;TAG_VERSION&gt;/ui/js/c-scrollsyncbar.js
+</code></pre>
+<p>Typologie numéro de version + minification automatique:</p>
+<pre><code class="language-html">https://cdn.jsdelivr.net/gh/ita-design-system/c-scrollsyncbar.js@&lt;TAG_VERSION&gt;/ui/js/c-scrollsyncbar.min.js
+</code></pre>
+<p>Exemple v0.1.0:</p>
+<pre><code class="language-html">https://cdn.jsdelivr.net/gh/ita-design-system/c-scrollsyncbar.js@v0.1.0/ui/js/c-scrollsyncbar.js
+https://cdn.jsdelivr.net/gh/ita-design-system/c-scrollsyncbar.js@v0.1.0/ui/js/c-scrollsyncbar.min.js
+</code></pre>
+
+                    <h2 id="usage" pl-9="xs,sm">
+                        <a href="#usage" title="Usage" class="pos-absolute top-50 left-0 t-tY-50 | p-4 ml-1 | td-none | brad-4 bc-neutral-100 bwidth-1 bstyle-dashed bcolor-neutral-500 __hover-1" ml-3="xs,sm">
+                            <span class="icon-link-simple | pos-absolute top-50 left-50 t-tY-50 t-tX-50 | fs-4"></span>
+                        </a>
+                Usage</h2>
+<p>Ajouter <code>c-scrollsyncbar=&quot;IDENTIFIANT_UNIQUE_OPTIONNEL&quot;</code> à l'élément. Par défaut l'élément subit une <a href="https://developer.mozilla.org/fr/docs/Web/CSS/transform">transformation CSS</a> <code>translateY(-|x|%)</code> dans laquelle <code>|x|</code> est un nombre compris entre à et 100.</p>
+<pre><code class="language-html">&lt;!-- Minimal --&gt;
+&lt;div c-scrollsyncbar=&quot;&quot;&gt;
+    &lt;!-- Contenu --&gt;
+&lt;/div&gt;
+
+&lt;!-- Avec id personnalisé --&gt;
+&lt;div c-scrollsyncbar=&quot;foo&quot;&gt;
+    &lt;!-- Contenu --&gt;
+&lt;/div&gt;
+</code></pre>
+
+                    <h2 id="sensibilit" pl-9="xs,sm">
+                        <a href="#sensibilit" title="Sensibilité" class="pos-absolute top-50 left-0 t-tY-50 | p-4 ml-1 | td-none | brad-4 bc-neutral-100 bwidth-1 bstyle-dashed bcolor-neutral-500 __hover-1" ml-3="xs,sm">
+                            <span class="icon-link-simple | pos-absolute top-50 left-50 t-tY-50 t-tX-50 | fs-4"></span>
+                        </a>
+                Sensibilité</h2>
+<p>Par défaut, l'initialisation se fait avec paramètre de sensibilité de <code>scrollSteps: 200</code>, qui correspond au nombre de pixels de défilement qu'il faut pour compléter la course de l'élément.</p>
+<p>Il est possible de modifier cette sensibilité en invoquant la méthode <code>cScrollSyncBar.update({scrollSteps: &lt;INTEGER&gt;});</code></p>
+<ul>
+<li>Plus le paramètre <code>scrollSteps</code> est élevé, plus la course du défilement nécessaire est longue</li>
+<li>Plus le paramètre <code>scrollSteps</code> est petit, plus la course du défilement nécessaire est courte</li>
+</ul>
+<pre><code class="language-javascript">// Faible sensibilité, course longue
+cScrollSyncBar.update({scrollSteps: 500});
+
+// Par défaut
+cScrollSyncBar.update();
+// Est équivalent à
+cScrollSyncBar.update({scrollSteps: 200});
+
+// Haute sensibilité, course courte
+cScrollSyncBar.update({scrollSteps: 50});
+</code></pre>
+
+                    <h2 id="formule-personnalise" pl-9="xs,sm">
+                        <a href="#formule-personnalise" title="Formule personnalisée" class="pos-absolute top-50 left-0 t-tY-50 | p-4 ml-1 | td-none | brad-4 bc-neutral-100 bwidth-1 bstyle-dashed bcolor-neutral-500 __hover-1" ml-3="xs,sm">
+                            <span class="icon-link-simple | pos-absolute top-50 left-50 t-tY-50 t-tX-50 | fs-4"></span>
+                        </a>
+                Formule personnalisée</h2>
+<p>c-scrollsyncbar.js fonctionne uniquement avec la <a href="https://developer.mozilla.org/fr/docs/Web/CSS/transform">propriété CSS transform</a>. Par défaut, la formule de transformation est <code>translateY(-|x|%)</code> dans laquelle <code>|x|</code> est un nombre compris entre à et 100. Il est possible de personnaliser la formule pour chaque élément en l'écrivant dans l'attribut <code>data-transform</code> de l'élément:</p>
+<aside class="d-flex | sandbox" fd-column="xs,sm" gap-2="xs,sm" ai-start="xs,sm" o-hidden="md" pl-9="md" pr-9="md" pl-5="xs,sm" pr-5="xs,sm">
+<div class="d-flex | p-1 | bc-primary-200 brad-2" d-none="md">
+<button type="button" class="d-flex | pt-2 pb-2 pl-5 pr-5 | fvs-wght-400 fs-2 tt-uppercase | c-primary-900 bc-0 b-0 cur-pointer | sandbox__tab" data-name="code">
+Code
+</button>
+<button type="button" class="d-flex | pt-2 pb-2 pl-5 pr-5 | fvs-wght-400 fs-2 tt-uppercase | c-primary-900 bc-neutral-100 b-0 brad-1 cur-pointer | sandbox__tab" data-name="iframe">
+Résultat
+</button>
+</div>
+<div class="d-flex fd-column d-none--xs d-none--sm | o-hidden | bc-neutral-900 c-neutral-200 brad-3 bwidth-1 bstyle-solid bcolor-neutral-900 | sandbox__code_wrapper" w-50="md" w-100="xs,sm" bradtr-0="md" bradbr-0="md">
+<header class="d-flex jc-space-between | pl-5" style="height: 58px">
+<p class="d-flex ai-center | m-0 | fvs-wght-400 fs-3 lh-1 | c-neutral-600" fs-2="xs">
+Démo 2
+</p>
+<button type="button" class="d-flex ai-center | pl-5 pr-5 | fvs-wght-400 fs-2 tt-uppercase | bc-0 c-neutral-300 b-0 cur-pointer | sandbox__copy_code" title="Copier le HTML">
+<span class="o-hidden | to-ellipsis ws-nowrap">Copier</span>
+</button>
+</header>
+<div class="pos-relative" pl-5="md">
+<pre class="m-0 h-500px o-auto" bradtl-3="md" bradbl-3="md">
+<code class="language-html fvs-mono-on fvs-wght-300 fs-3 lh-6 | sandbox__code" fs-2="xs">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;fr&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;Démo scrollsyncbar 2&lt;/title&gt;
+    &lt;style&gt;
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            min-height: 500vh;
+            padding: 5em;
+            font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, Cantarell, Ubuntu, roboto, noto, helvetica, arial, sans-serif; 
+            line-height: 1.5em;
+            background-color: ghostwhite;
+        }
+        [c-scrollsyncbar=&quot;foo&quot;] {
+            position: fixed;
+            top: 0%;
+            left: 0;
+            width: 100%;
+            padding: 1em;
+            background-color: yellowgreen;
+        }
+        footer {
+            position: fixed;
+            perspective: 800px;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+        }
+        [c-scrollsyncbar=&quot;bar&quot;] {
+            padding: 2em;
+            background-color: dodgerblue;
+        }
+        [c-scrollsyncbar=&quot;foo&quot;] a {
+            color: green;
+        }
+        [c-scrollsyncbar=&quot;bar&quot;] a {
+            color: white;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;nav c-scrollsyncbar=&quot;foo&quot;
+    data-transform=&quot;translateY(-|x|%) scale(clamp(0.5, calc(1 - |x| / 100), 1))&quot;&gt;
+    &lt;a href=&quot;#&quot;&gt;c-scrollsyncbar.js&lt;/a&gt;
+&lt;/nav&gt;
+
+&lt;p&gt;Défiler vers le bas pour observer l'effet, vers le haut pour inverser immédiatement le mouvement.&lt;/p&gt;
+
+&lt;footer&gt;
+    &lt;nav c-scrollsyncbar=&quot;bar&quot;
+        data-transform=&quot;rotateY(clamp(0deg, |x|deg, 90deg)&quot;&gt;
+        &lt;a href=&quot;#&quot;&gt;Retour vers le haut&lt;/a&gt;
+    &lt;/nav&gt;
+&lt;/footer&gt;
+
+&lt;script src=&quot;/assets/c-scrollsyncbar.js&quot;&gt;&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code>
+</pre>
+<div class="d-flex jc-center ai-center | pos-absolute top-0 left-0 | w-100 h-100 | sandbox__enable_wrapper" style="background-color: rgba(0,0,0,0.5)">
+<input type="checkbox" id="TQ7gggsB_code" value="" class="pos-absolute | opa-0 | sandbox__enable_switch" checked="">
+<label for="TQ7gggsB_code" class="d-flex ai-center gap-1 | p-5 | fvs-wght-500 tt-uppercase | bc-neutral-900 brad-2 cur-pointer">
+<span class="icon-play"></span>
+Activer
+</label>
+</div>
+</div>
+<div class="d-flex gap-2 | m-0 pt-1 pb-1 pl-0 | fvs-wght-400 fs-2 lh-1 | c-neutral-500 ls-none" pl-2="xs,sm">
+ 
+</div>
+</div>
+<button class="pos-relative | p-0 | bc-neutral-800 c-neutral-500 b-0 | sandbox__resizer" title="Cliquer déplacer pour redimensionner code et résultat" d-none="xs,sm">
+<span class="icon-dots-six-vertical fs-5"></span>
+</button>
+<div class="d-flex fd-column | pos-relative | o-hidden | bc-neutral-900 c-neutral-200 brad-3 bwidth-1 bstyle-solid bcolor-neutral-900 | sandbox__iframe_wrapper" w-50="md" w-100="xs,sm" bradtl-0="md" bradbl-0="md" style="box-sizing: content-box"><header class="d-flex jc-space-between gap-5 | pl-5 pr-5" style="height: 58px">
+<a href="/c-scrollsyncbar.js/sandboxes/2/" target="_blank" title="Ouvrir dans un nouvel onglet" class="d-flex ai-center gap-1 | p-0 | fvs-wght-400 fs-2 tt-uppercase td-none | sandbox__permalink" fs-2="xs">
+<span class="fvs-wght-400 | c-neutral-300">Ouvrir</span>
+<span class="icon-arrow-square-out c-neutral-500"></span>
+</a>
+<div class="d-flex gap-5">
+<button type="button" class="d-flex ai-center | p-0 | fvs-wght-400 fs-2 tt-uppercase | bc-0 c-neutral-300 b-0 cur-pointer | sandbox__reload">
+<span class="o-hidden | to-ellipsis ws-nowrap">Recharger</span>
+</button>
+<button type="button" class="d-flex ai-center | p-0 | fvs-wght-400 fs-2 tt-uppercase | bc-0 c-neutral-300 b-0 cur-pointer | sandbox__copy_url">
+<span class="o-hidden | to-ellipsis ws-nowrap">Copier l’URL</span>
+</button>
+</div>
+</header>
+<div class="d-flex | pos-relative">
+<iframe src="/c-scrollsyncbar.js/sandboxes/2/" loading="lazy" class="w-100 h-500px | b-0 bc-neutral-100 | sandbox__iframe"></iframe>
+<div class="d-flex jc-center ai-center | pos-absolute top-0 left-0 | w-100 h-100 | sandbox__enable_wrapper" style="background-color: rgba(0,0,0,0.5)">
+<input type="checkbox" id="TQ7gggsB_iframe" value="" class="pos-absolute | opa-0 | sandbox__enable_switch" checked="">
+<label for="TQ7gggsB_iframe" class="d-flex ai-center gap-1 | p-5 | fvs-wght-500 tt-uppercase | bc-neutral-900 brad-2 cur-pointer">
+<span class="icon-play"></span> Activer
+</label>
+</div>
+</div>
+<ul class="d-flex gap-2 | m-0 pt-1 pb-1 pl-2 | fvs-wght-400 fs-2 lh-1 | c-neutral-500 ls-none">
+<li>Largeur: <span class="sandbox__monitor__iframe_width">-</span>px</li>
+<li>Hauteur: <span class="sandbox__monitor__iframe_height">-</span>px</li>
+</ul>
+</div>
+</aside>
+
+                    <h2 id="mthode-update" pl-9="xs,sm">
+                        <a href="#mthode-update" title="Méthode update" class="pos-absolute top-50 left-0 t-tY-50 | p-4 ml-1 | td-none | brad-4 bc-neutral-100 bwidth-1 bstyle-dashed bcolor-neutral-500 __hover-1" ml-3="xs,sm">
+                            <span class="icon-link-simple | pos-absolute top-50 left-50 t-tY-50 t-tX-50 | fs-4"></span>
+                        </a>
+                Méthode update</h2>
+<ul>
+<li>Indispensable pour initialiser l'application, crée les instances des éléments sur lequels appliquer l'effet.</li>
+<li>Mettre à jour les options</li>
+</ul>
+<pre><code class="language-javascript">// Initialisation ou mise à jour avec paramètres par défaut
+cScrollSyncBar.update();
+
+// Initialisation ou mise à jour avec paramètres personnalisés
+cScrollSyncBar.update({scrollSteps: 500});
+</code></pre>
+
+                    <h2 id="mthode-pause" pl-9="xs,sm">
+                        <a href="#mthode-pause" title="Méthode pause" class="pos-absolute top-50 left-0 t-tY-50 | p-4 ml-1 | td-none | brad-4 bc-neutral-100 bwidth-1 bstyle-dashed bcolor-neutral-500 __hover-1" ml-3="xs,sm">
+                            <span class="icon-link-simple | pos-absolute top-50 left-50 t-tY-50 t-tX-50 | fs-4"></span>
+                        </a>
+                Méthode pause</h2>
+<p>Interrompre l'effet de la librairie. Maintient les élements dans l'état courant.</p>
+<pre><code class="language-javascript">cScrollSyncBar.pause();
+</code></pre>
+
+                    <h2 id="mthode-stop" pl-9="xs,sm">
+                        <a href="#mthode-stop" title="Méthode stop" class="pos-absolute top-50 left-0 t-tY-50 | p-4 ml-1 | td-none | brad-4 bc-neutral-100 bwidth-1 bstyle-dashed bcolor-neutral-500 __hover-1" ml-3="xs,sm">
+                            <span class="icon-link-simple | pos-absolute top-50 left-50 t-tY-50 t-tX-50 | fs-4"></span>
+                        </a>
+                Méthode stop</h2>
+<p>Stoppe l'effet de la librairie et réinitialise les élements dans leur état d'origine.</p>
+<pre><code class="language-javascript">cScrollSyncBar.stop();
+</code></pre>
+
+                    <h2 id="api" pl-9="xs,sm">
+                        <a href="#api" title="API" class="pos-absolute top-50 left-0 t-tY-50 | p-4 ml-1 | td-none | brad-4 bc-neutral-100 bwidth-1 bstyle-dashed bcolor-neutral-500 __hover-1" ml-3="xs,sm">
+                            <span class="icon-link-simple | pos-absolute top-50 left-50 t-tY-50 t-tX-50 | fs-4"></span>
+                        </a>
+                API</h2>
+<p>Toutes les instances de cScrollSyncBar sont placées dans <code>cScrollSyncBar.instances[ID_DE_L_INSTANCE]</code>. <code>ID_DE_L_INSTANCE</code> est l'id de l'élément s'il est présent, s'il est absent, cScrollSyncBar applique un id préfixé de <code>cssb_</code> suivi de l'index de l'instance.</p>
+<pre><code class="language-javascript">// Élément DOM activé
+cScrollSyncBar.instances[ID_DE_L_INSTANCE].el;
+// Formule CSS transform en application
+cScrollSyncBar.instances[ID_DE_L_INSTANCE].formula;
+</code></pre>
+
+            <footer class="minh-100vh">
+                <div class="pt-11 | bwidth-1 bstyle-dashed bcolor-neutral-500 btwidth-0 brwidth-0"></div>
+                <p class="mt-5 mb-0 | fs-2">
+                    <a href="https://github.com/ita-design-system/eleventy-libdoc" target="_blank" class="td-none">
+                        11ty LibDoc 0.1.0
+                    </a>
+                </p>
+            </footer>
+        </main>
+    </div>
+    
+    
+    <script src="/c-scrollsyncbar.js/core/assets/js/c-toggle.js"></script>
+    <script src="/c-scrollsyncbar.js/core/assets/js/sandbox.js"></script>
+    <script src="/c-scrollsyncbar.js/core/assets/js/hljs/highlight.min.js"></script>
+    
+        <script src="/c-scrollsyncbar.js/core/assets/js/hljs/languages/xml.min.js"></script>
+    
+        <script src="/c-scrollsyncbar.js/core/assets/js/hljs/languages/javascript.min.js"></script>
+    
+        <script src="/c-scrollsyncbar.js/core/assets/js/hljs/languages/yaml.min.js"></script>
+    
+        <script src="/c-scrollsyncbar.js/core/assets/js/hljs/languages/css.min.js"></script>
+    
+    <script src="/c-scrollsyncbar.js/core/assets/js/ui.js"></script>
+</body>
+</html>

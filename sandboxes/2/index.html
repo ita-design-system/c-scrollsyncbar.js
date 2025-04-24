@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Démo scrollsyncbar 2</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            min-height: 500vh;
+            padding: 5em;
+            font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, Cantarell, Ubuntu, roboto, noto, helvetica, arial, sans-serif; 
+            line-height: 1.5em;
+            background-color: ghostwhite;
+        }
+        [c-scrollsyncbar="foo"] {
+            position: fixed;
+            top: 0%;
+            left: 0;
+            width: 100%;
+            padding: 1em;
+            background-color: yellowgreen;
+        }
+        footer {
+            position: fixed;
+            perspective: 800px;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+        }
+        [c-scrollsyncbar="bar"] {
+            padding: 2em;
+            background-color: dodgerblue;
+        }
+        [c-scrollsyncbar="foo"] a {
+            color: green;
+        }
+        [c-scrollsyncbar="bar"] a {
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <nav c-scrollsyncbar="foo"
+    data-transform="translateY(-|x|%) scale(clamp(0.5, calc(1 - |x| / 100), 1))">
+    <a href="#">c-scrollsyncbar.js</a>
+</nav>
+
+<p>Défiler vers le bas pour observer l'effet, vers le haut pour inverser immédiatement le mouvement.</p>
+
+<footer>
+    <nav c-scrollsyncbar="bar"
+        data-transform="rotateY(clamp(0deg, |x|deg, 90deg)">
+        <a href="#">Retour vers le haut</a>
+    </nav>
+</footer>
+
+<script src="/assets/c-scrollsyncbar.js"></script>
+
+</body>
+</html>

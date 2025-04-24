@@ -1,0 +1,37 @@
+{
+    "lang": "fr",
+    "siteTitle": "c-scrollsyncbar.js",
+    "siteDescription": "Documentation de la librairie c-scrollsyncbar.js permettant d’afficher/masquer des éléments HTML progressivement en fonction du sens de défilement de la fenêtre.",
+    "siteLogoUrl": "",
+    "siteLogoMaxHeight": 60,
+    "author": "Olivier 3lanc",
+    "faviconUrl": "/favicon.png",
+    "ogImageUrl": "https://og-image.vercel.app/c-scrollsyncbar.js.png?theme=light&md=1&fontSize=140px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fhyper-color-logo.svg",
+    "customLinks": [
+        {
+            "url": "https://github.com/ita-design-system/c-scrollsyncbar.js",
+            "text": "GitHub"
+        },
+        {
+            "url": "https://github.com/ita-design-system",
+            "text": "ITADS"
+        }
+    ],
+    "blogTitle": "Blog",
+    "blogDescription": "Description du blog",
+    "blogAuthor": "c-scrollsyncbar.js Team",
+    "blogSlug": "blog",
+    "displayTagsListLink": true,
+    "tocEnabled": true,
+    "tocHtmlTags": ["h1", "h2", "h3", "h4", "h5", "h6"],
+    "tocMinTags": 1,
+    "htmlBasePathPrefix": "/c-scrollsyncbar.js/",
+    "sandboxRunSwitch": false,
+    "searchEnabled": false,
+    "hljsLanguages": [
+        "xml",
+        "javascript",
+        "yaml",
+        "css"
+    ]
+}
