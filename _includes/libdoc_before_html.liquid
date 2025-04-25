@@ -61,3 +61,12 @@
 {%- if title -%}
     {%- assign pageTitle = title -%}
 {%- endif -%}
+
+{%- comment -%} Eleventy Navigation {%- endcomment -%}
+{%- assign eleventyNavigationMenu = collections.all | eleventyNavigation | eleventyNavigationToHtml: libdocSystem.navigationOptions -%}
+{%- assign currentPageHrefAttribute = '<a href="' | append: page.url | append: '"' -%}
+{%- capture currentPageReplacementAttribute -%}{{ currentPageHrefAttribute }} aria-current="page"{%- endcapture -%}
+{%- assign eleventyNavigationMenu = eleventyNavigationMenu | replace: currentPageHrefAttribute, currentPageReplacementAttribute -%}
+{%- assign tag_to_replace = '<' | append: libdocSystem.navigationOptions.listElement | append: '>' -%}
+{%- assign tag_replacement = '<' | append: libdocSystem.navigationOptions.listElement | append: ' class="d-flex fd-column fg-1 order-1 | m-0 pl-5 o-hidden | ls-none">' -%}
+{%- assign eleventyNavigationMenu = eleventyNavigationMenu | replace: tag_to_replace, tag_replacement -%}

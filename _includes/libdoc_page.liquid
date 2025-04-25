@@ -128,12 +128,19 @@
                 class="d-flex d-none--xs d-none--sm fd-column | w-100 o-hidden | bc-neutral-100 bwidth-1 bstyle-dashed bcolor-neutral-500"
                 mt-5="md"
                 maxw-sidebar="md"
+                maxh-sidebar="md"
+                h-sidebar="xs,sm"
                 brad-3="md"
                 brad-3="md"
                 c-toggle-name="nav_primary"
                 data-opened-state-class="d-flex fd-column | w-100 o-hidden | bc-neutral-100 bwidth-1 bstyle-dashed bcolor-neutral-500">
                 <menu id="nav_primary_header"
-                    class="d-flex fd-column | pos-sticky top-0 z-1 | m-0 p-0 {% if libdocConfig.customLinks.size == 0 %}pb-7{% endif %} | ls-none bc-neutral-100 bbwidth-0 bbstyle-dashed bcolor-neutral-500"
+                    class="
+                    d-flex fd-column
+                    pos-sticky top-0 z-1
+                    m-0 p-0 {% if libdocConfig.customLinks.size == 0 %}pb-7{% endif %}
+                    ls-none bc-neutral-100
+                    {% if eleventyNavigationMenu.size > 0 %}bbwidth-1 bbstyle-dashed bcolor-neutral-500{% endif %}"
                     gap-5="md"
                     bradtl-3="md"
                     bradtr-3="md">
@@ -232,7 +239,10 @@
                     </a>
                 {% endif %}
 
-                {% include "libdoc_menu_pages" %}
+                <div id="nav_primary"
+                    class="pos-relative | fg-1 o-auto">
+                    {{ eleventyNavigationMenu }}
+                </div>
             </nav>
         </div>
         <main class="pos-relative"
