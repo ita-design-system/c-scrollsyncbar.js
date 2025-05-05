@@ -1,5 +1,5 @@
 import libdocMessages from "./libdocMessages.json" with { "type": "json" };
-import libdocConfig from "./libdocConfig.json" with { "type": "json" };
+import libdocConfig from "./libdocConfig.js";
 import libdocPackage from "../package.json" with { "type": "json" };
 export default {
     version: function() {

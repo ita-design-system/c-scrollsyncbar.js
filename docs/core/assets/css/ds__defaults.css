@@ -2,12 +2,13 @@
     --libdoc-container-width: var(--ita-widths-content);
     --libdoc-font-family: "Recursive", sans-serif;
     --libdoc-damier: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAAHElEQVR4AWP4jwOcwQFoo2FUAy4JXAbRRMOoBgCE0rCfubvZNQAAAABJRU5ErkJggg==');
+    --libdoc-soft-shadow: 0px 0px 10px rgba(0,0,0,0.1);
     --libdoc-long-shadow:
-        1px 1px 2px rgba(15, 49, 86, 0.08),
-        5px 6px 9px rgba(15, 49, 86, 0.16),
-        12px 13px 21px rgba(15, 49, 86, 0.24),
-        22px 24px 38px rgba(15, 49, 86, 0.32),
-        34px 37px 59px rgba(15, 49, 86, 0.40);
+        1px 1px 2px rgba(15, 49, 86, 0.08), 
+        5px 6px 9px rgba(15, 49, 86, 0.26), 
+        12px 13px 21px rgba(15, 49, 86, 0.34), 
+        22px 24px 38px rgba(15, 49, 86, 0.42),
+        34px 37px 59px rgba(15, 49, 86, 0.50);
 }
 /* FONTS */
 /* cyrillic-ext */
@@ -209,6 +210,55 @@ main h6 {
     font-size: var(--ita-fontSizes-7);
     letter-spacing: -0.05em;
 }
+main > *:not(header) h1,
+main > *:not(header) h1,
+main > *:not(header) h2,
+main > *:not(header) h2,
+main > *:not(header) h3,
+main > *:not(header) h3,
+main > *:not(header) h4,
+main > *:not(header) h4,
+main > *:not(header) h5,
+main > *:not(header) h5,
+main > *:not(header) h6,
+main > *:not(header) h6 {
+    margin: 0;
+    padding-left: 0 !important;
+    line-height: 1.2em;
+    display: inline-flex;
+}
+main > *:not(header) h1,
+main > *:not(header) h1 {
+    font-size: var(--ita-fontSizes-7);
+}
+main > *:not(header) h2,
+main > *:not(header) h2 {
+    font-size: var(--ita-fontSizes-6);
+}
+main > *:not(header) h3,
+main > *:not(header) h3,
+main > *:not(header) h4,
+main > *:not(header) h4,
+main > *:not(header) h5,
+main > *:not(header) h5,
+main > *:not(header) h6,
+main > *:not(header) h6 {
+    font-size: var(--ita-fontSizes-5);
+}
+main > *:not(header) h1 a,
+main > *:not(header) h1 a,
+main > *:not(header) h2 a,
+main > *:not(header) h2 a,
+main > *:not(header) h3 a,
+main > *:not(header) h3 a,
+main > *:not(header) h4 a,
+main > *:not(header) h4 a,
+main > *:not(header) h5 a,
+main > *:not(header) h5 a,
+main > *:not(header) h6 a,
+main > *:not(header) h6 a {
+    display: none;
+}
 /* LINKS */
 main a {
     transition: all 300ms;
@@ -313,71 +363,167 @@ main ul,
 main ol {
     line-height: 1.6em;
 }
-main > ol li + li,
-main > ul li + li,
-main li > ul,
-main li > ol   {
-    margin-top: 0.4em;
-}
 main > ol {
     padding-left: var(--ita-spacings-11);
 }
-main > ol,
-main > ol ol {
-    counter-reset: listItem;
-    list-style: none;
-    margin-top: 0.4em;
-}
-main > ol ol {
+main > ol:not(:has(ul)) ol {
     padding-left: var(--ita-spacings-3);
-}
-main > ol li,
-main > ol ol li {
-    counter-increment: listItem;
-    padding-left: var(--ita-spacings-5);
-}
-/* 
-https://www.joshwcomeau.com/css/styling-ordered-lists-with-css-counters/
-*/
-main > ol li::before,
-main > ol ol li::before {
-    content: counters(listItem, '.') '.';
-    position: absolute;
-    transform: translateY(0.2em) translateX(calc(-100% - var(--ita-spacings-3)));
-    display: inline-block;
-    font-variation-settings: "wght" 400, "MONO" 1, "CASL" 1;
-    font-size: var(--ita-fontSizes-2);
-    padding: 0em 1em;
-    background-color: var(--ita-colors-primary-500);
-    color: var(--ita-colors-primary-100);
-    border-radius: 100px;
-    line-height: 2em;
-    letter-spacing: -0.2em;
-}
-main > ul {
-    padding-left: var(--ita-spacings-11);
 }
 main > ul,
 main > ul ul {
     list-style: none;
+    margin-top: 0;
 }
-main > ul li::before,
-main > ul ul li::before {
+main > ol:not(:has(ul)),
+main > ol:not(:has(ul)) li > ol {
+    counter-reset: listItem;
+    list-style: none;
+    margin-top: 1em;
+}
+/* main > ul li + li {
+    padding-top: 0.5em;
+} */
+main > ol > li + li,
+main > ol li > ol > li + li {
+    padding-top: 1em;
+}
+main > ol:not(:has(ul)) > li,
+main > ol:not(:has(ul)) li > ol > li {
+    counter-increment: listItem;
+    padding-left: var(--ita-spacings-7);
+    border-left: 1px dashed var(--ita-colors-neutral-500);
+}
+/* 
+https://www.joshwcomeau.com/css/styling-ordered-lists-with-css-counters/
+*/
+main > ol:not(:has(ul)) > li::before,
+main > ol:not(:has(ul)) li > ol > li::before {
+    content: counters(listItem, '.') '.';
+    position: absolute;
+    transform: translateX(calc(-100% - var(--ita-spacings-4)));
+    display: inline-block;
+    line-height: 2em;
+    letter-spacing: -0.1em;
+    margin-top: 0.1em;
+    font-size: var(--ita-fontSizes-2);
+
+    font-variation-settings: "wght" 500, "MONO" 1, "CASL" 1;
+    padding: 0em 0em 0em 0.5em;
+    background-color: var(--ita-colors-primary-100);
+    color: var(--ita-colors-primary-500);
+    border-bottom: 1px dashed var(--ita-colors-neutral-500);
+    /* content: counters(listItem, '.') '.';
+    position: absolute;
+    transform: translateX(calc(-100% - var(--ita-spacings-2)));
+    display: inline-block;
+    font-variation-settings: "wght" 700, "MONO" 1, "CASL" 1;
+    font-size: var(--ita-fontSizes-2);
+    padding: 0em 1em;
+    background-color: var(--ita-colors-neutral-100);
+    color: var(--ita-colors-primary-500);
+    border-radius: 100px;
+    line-height: 2em;
+    letter-spacing: -0.1em;
+    border: 1px dotted var(--ita-colors-primary-500);
+    margin-top: 0.1em; */
+}
+main > ol:not(:has(ul)) > li {
+    border-left: 1px dashed var(--ita-colors-primary-500);
+}
+main > ol:not(:has(ul)) > li::before {
+    background-color: var(--ita-colors-primary-500);
+    color: var(--ita-colors-neutral-100);
+    margin-top: 0;
+    padding: 0.2em 1em;
+    border-radius: 100px;
+    border: none;
+}
+main > ul {
+    padding-left: var(--ita-spacings-9);
+}
+main > ul ul {
+    padding-left: 0;
+}
+main > ul > li,
+main > ul ul > li,
+main > ol ul > li {
+    border-left: 1px dashed var(--ita-colors-neutral-500);
+    position: relative;
+    padding-left: var(--ita-spacings-8);
+    padding-top: 0.5em;
+}
+main > ul > li::before,
+main > ul ul > li::before,
+main > ol ul > li::before {
     content: '';
     position: absolute;
-    transform: translateX(calc(-100% - var(--ita-spacings-5)));
-    display: inline-block;
-    width: 8px;
-    height: 8px;
+    top: 1.3em;
+    left: 0;
+    width: var(--ita-spacings-5);
+    border-bottom: 1px dashed var(--ita-colors-neutral-500);
+}
+main > ul > li::after,
+main > ul ul > li::after,
+main > ol ul > li::after {
+    content: '';
+    position: absolute;
+    top: calc(1.3em - var(--ita-spacings-2) / 2);
+    left: var(--ita-spacings-4);
+    width: var(--ita-spacings-2);
+    height: var(--ita-spacings-2);
     background-color: var(--ita-colors-primary-500);
     border-radius: 100%;
-    margin-right: var(--ita-spacings-3);
-    margin-left: var(--ita-spacings-2);
-    margin-top: 0.6em;
 }
-/* main li {
-    text-shadow: var(--libdoc-text-shadow-legibility);
-} */
+/* Mixed list type */
+main > ol:has(ul) ul {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 0.5em;
+}
+main > ol:has(ul) ol {
+    padding-left: var(--ita-spacings-7);
+}
+main > ol:has(ul) li > ol,
+main > ol:has(ul) li > ol > li + li,
+main > ul:has(ol) li > ol,
+main > ul:has(ol) li > ol > li + li {
+    margin-top: 0.5em;
+    padding-top: 0;
+}
+main > ul:has(ol) ol {
+    padding-left: var(--ita-spacings-5);
+    margin-top: 0.5em;
+}
+main > ol:has(ul) {
+    list-style: none;
+    counter-reset: mixedItem;
+}
+main > ol:has(ul) > li {
+    counter-increment: mixedItem;
+    padding-left: var(--ita-spacings-6);
+    border-left: 1px dashed var(--ita-colors-primary-500);
+}
+main > ol:has(ul) > li:before  {
+    content: counter(mixedItem) '.';
+    position: absolute;
+    transform: translateX(calc(-100% - var(--ita-spacings-2)));
+    display: inline-block;
+    font-variation-settings: "wght" 700, "MONO" 1, "CASL" 1;
+    font-size: var(--ita-fontSizes-2);
+    padding: 0.2em 1em;
+    background-color: var(--ita-colors-primary-500);
+    color: var(--ita-colors-neutral-100);
+    border-radius: 100px;
+    line-height: 2em;
+    letter-spacing: -0.1em;
+    border: none;
+}
+main > *:not(header) li::marker {
+    font-variation-settings: "wght" 500, "MONO" 1, "CASL" 1;
+    color: var(--ita-colors-primary-500);
+    font-size: var(--ita-fontSizes-3);
+}
+
 /* CODE AND SYNTAX HIGHLIGHTING */
 main > *:not(pre) code {
     background-color: var(--ita-colors-primary-200);
@@ -468,7 +614,7 @@ main blockquote {
 main blockquote::before {
     content: "❝";
     position: absolute;
-    left: calc(-1 * var(--ita-spacings-5));
+    left: 0;
     font-size: 4em;
     color: var(--ita-colors-primary-300);
     transform: translateY(-60%);
@@ -479,7 +625,7 @@ main blockquote::after {
     font-size: 4em;
     color: var(--ita-colors-primary-300);
     transform: translateY(-20%);
-    right: calc(-1 * var(--ita-spacings-5));
+    right: 0;
 }
 main blockquote * {
     font-variation-settings: "slnt" -15, "CASL" 1, "CRSV" 1;
@@ -500,28 +646,45 @@ main dl dd {
     border-left: 1px dashed var(--ita-colors-primary-500);
 }
 /* DETAILS */
-main > details summary {
+main > details summary,
+main > *:not(header) details summary {
     font-variation-settings: "wght" 400, "MONO" 0;
     display: flex;
     align-items: center;
     gap: var(--ita-spacings-2);
+    padding: var(--ita-spacings-2) 0;
     letter-spacing: -0.03em;
+    cursor: pointer;
 }
-main > details summary::before {
+main > details summary::before,
+main > *:not(header) details summary::before {
     content: '\e914';
     font-family: icomoon;
     color: var(--ita-colors-primary-500);
     font-size: var(--ita-fontSizes-6);
 }
-main > details[open] summary {
-    margin-bottom: 1em;
-}
-main > details[open] summary::before {
+main > details[open] summary::before,
+main > *:not(header) details[open] summary::before {
     content: '\e913';
+}
+main > details:has(+ details) summary,
+main > details + details summary,
+main > *:not(header) details:has(+ details) summary,
+main > *:not(header) details + details summary {
+    padding: 1em 0;
+    border-bottom: 1px dashed var(--ita-colors-neutral-500);
+}
+main > details[open]:has(+ details) summary,
+main > details + details[open] summary,
+main > *:not(header) details[open]:has(+ details) summary,
+main > *:not(header) details + details[open] summary {
+    border-bottom: none;
 }
 /* HORIZONTAL RULE */
 main hr {
     border: none;
+    margin-top: 3em;
+    margin-bottom: 3em;
 }
 main hr::before {
     content: "";
@@ -560,10 +723,6 @@ main figure.damier img,
 main picture:has(.damier) img {
     background: var(--libdoc-damier);
 }
-main figure.rounded-corners img,
-main picture:has(.rounded-corners) img {
-    border-radius: 6px;
-}
 main figure.long-shadow {
     row-gap: 2em;
 }
@@ -571,17 +730,13 @@ main figure.long-shadow img,
 main picture:has(.long-shadow) img {
     box-shadow: var(--libdoc-long-shadow);
 }
-main figure.filter-long-shadow img,
-main picture:has(.filter-long-shadow) img {
-    filter: drop-shadow(1em 1em 1em rgba(0,0,0,0.8));
-}
 main figure figcaption {
     font-size: var(--ita-fontSizes-4);
     font-variation-settings: "slnt" -5, "CASL" 0, "CRSV" 1.0, "MONO" 0, "wght" 300;
 }
 main figure.wide,
 main picture:has(.wide) {
-    max-width: clamp(calc(var(--ita-widths-content) - 200px), calc(100vw - var(--ita-widths-sidebar) - 4 * var(--ita-spacings-5)), calc(2 * var(--ita-widths-content)));
+    max-width: calc(100% - 2 * var(--ita-spacings-8));
 }
 /* VIDEO */
 main video {
@@ -619,7 +774,10 @@ main img.long-shadow {
 }
 main abbr[title] {
     cursor: pointer;
-    border-bottom: 1px dotted currentColor;
+    /* Safari hack */
+    text-decoration-style: dotted;
+    text-decoration: underline;
+    text-decoration: underline dotted;
 }
 main abbr[title].expanded::after {
     content: " (" attr(title) ")";
@@ -627,12 +785,95 @@ main abbr[title].expanded::after {
 main abbr[data-title].expanded::after {
     content: " (" attr(data-title) ")";
 }
+main a.btn,
+main button[type="button"].btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--ita-spacings-3);
+    border-radius: 100px;
+    background-color: var(--ita-colors-neutral-200);
+    color: var(--ita-colors-neutral-900);
+    border: 1px dashed var(--ita-colors-neutral-900);
+    padding: var(--ita-spacings-3) var(--ita-spacings-5);
+    text-transform: uppercase;
+    text-decoration: none;
+    font-variation-settings: "slnt" 0, "CASL" 0, "CRSV" 0, "MONO" 0, "wght" 600;
+    font-size: var(--ita-fontSizes-3);
+    line-height: 1em;
+    cursor: pointer;
+    transition: all 300ms;
+}
+main a.btn:hover,
+main button[type="button"].btn:hover {
+    border-style: dotted;
+}
+main a.btn:active,
+main button[type="button"].btn:active {
+    border-style: solid;
+    scale: 0.95;
+}
+main a.btn.btn-primary,
+main button[type="button"].btn.btn-primary {
+    background-color: var(--ita-colors-primary-500);
+    color: var(--ita-colors-neutral-100);
+    border-color: var(--ita-colors-neutral-100);
+}
+main a.btn.btn-primary-light,
+main button[type="button"].btn.btn-primary-light {
+    background-color: var(--ita-colors-primary-100);
+    color: var(--ita-colors-primary-500);
+    border-color: var(--ita-colors-primary-500);
+}
+main a.btn.btn-success,
+main button[type="button"].btn.btn-success {
+    background-color: var(--ita-colors-success-500);
+    color: var(--ita-colors-neutral-100);
+    border-color: var(--ita-colors-success-100);
+}
+main a.btn.btn-success-light,
+main button[type="button"].btn.btn-success-light {
+    background-color: var(--ita-colors-success-100);
+    color: var(--ita-colors-success-900);
+    border-color: var(--ita-colors-success-900);
+}
+main a.btn.btn-warning,
+main button[type="button"].btn.btn-warning {
+    background-color: var(--ita-colors-warning-500);
+    color: var(--ita-colors-neutral-100);
+    border-color: var(--ita-colors-warning-100);
+}
+main a.btn.btn-warning-light,
+main button[type="button"].btn.btn-warning-light {
+    background-color: var(--ita-colors-warning-100);
+    color: var(--ita-colors-warning-900);
+    border-color: var(--ita-colors-warning-900);
+}
+main a.btn.btn-danger,
+main button[type="button"].btn.btn-danger {
+    background-color: var(--ita-colors-danger-500);
+    color: var(--ita-colors-neutral-100);
+    border-color: var(--ita-colors-danger-100);
+}
+main a.btn.btn-danger-light,
+main button[type="button"].btn.btn-danger-light {
+    background-color: var(--ita-colors-danger-100);
+    color: var(--ita-colors-danger-900);
+    border-color: var(--ita-colors-danger-900);
+}
 /* EMBEDS */
 main > iframe {
     aspect-ratio: 2.06;
     width: 100%;
     height: auto;
     border: none;
+}
+main > aside > iframe {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background-color: var(--ita-colors-neutral-900);
+    border-radius: 9px;
+    overflow: hidden;
+    box-shadow: var(--libdoc-long-shadow);
 }
 /* ALERTS */
 main .alert {
@@ -644,6 +885,7 @@ main .alert {
     color: var(--ita-colors-neutral-700);
     background-color: var(--ita-colors-primary-100);
     font-size: var(--ita-fontSizes-4);
+    letter-spacing: -0.01em;
 }
 main .alert[data-title]::before {
     content: attr(data-title);
@@ -658,39 +900,39 @@ main .alert[data-title]::before {
     border-bottom-width: 1px;
     border-color: var(--ita-colors-neutral-500);
 }
-main .alert.info {
+main .alert.alert-info {
     background-color: var(--ita-colors-neutral-100);
     color: var(--ita-colors-primary-900);
     border-color: var(--ita-colors-primary-500);
 }
-main .alert.info::before {
+main .alert.alert-info::before {
     color: var(--ita-colors-primary-500);
     border-color: currentColor;
 }
-main .alert.success {
+main .alert.alert-success {
     background-color: var(--ita-colors-success-100);
     color: var(--ita-colors-success-900);
     border-color: var(--ita-colors-success-500);
 }
-main .alert.success::before {
+main .alert.alert-success::before {
     color: var(--ita-colors-success-500);
     border-color: currentColor;
 }
-main .alert.warning {
+main .alert.alert-warning {
     background-color: var(--ita-colors-warning-100);
     color: var(--ita-colors-warning-900);
     border-color: var(--ita-colors-warning-500);
 }
-main .alert.warning::before {
+main .alert.alert-warning::before {
     color: var(--ita-colors-warning-500);
     border-color: currentColor;
 }
-main .alert.danger {
+main .alert.alert-danger {
     background-color: var(--ita-colors-danger-100);
     color: var(--ita-colors-danger-900);
     border-color: var(--ita-colors-danger-500);
 }
-main .alert.danger::before {
+main .alert.alert-danger::before {
     color: var(--ita-colors-danger-500);
     border-color: currentColor;
 }
@@ -705,9 +947,6 @@ main .__search-occurrence {
     border-radius: 3px;
     animation: flash 1s 0s 1 linear;
 }
-/* main .__search-occurrence * {
-    text-shadow: none;
-} */
 
 #nav_primary .nav_primary__anchor::before,
 .nav_primary .nav_primary__anchor::before {
@@ -771,7 +1010,7 @@ main .__search-occurrence {
 
 /* SANDBOX */
 .sandbox {
-    max-width: calc(2 * var(--libdoc-container-width));
+    max-width: 100%;
     margin-left: auto;
     margin-right: auto;
 }
@@ -793,6 +1032,9 @@ main .__search-occurrence {
 .sandbox:has(.sandbox__enable_switch:checked) .sandbox__enable_wrapper {
     display: none;
 }
+.sandbox + .sandbox {
+    margin-top: 2em;
+}
 
 /* FLOATING TABLE OF CONTENT */
 #floating_toc[open] summary [class*="icon-"]::before {
@@ -800,14 +1042,24 @@ main .__search-occurrence {
 }
 #floating_toc a {
     transition: all 300ms;
+    max-width: 80vw;
 }
 #floating_toc a:hover {
     color: var(--ita-colors-primary-700);
     font-variation-settings: "wght" 700, "MONO" 0;
 }
 
+/* GTT / Go to top button */
+#gtt_btn {
+    right: clamp(var(--ita-spacings-5), 100%, calc(50% - var(--ita-widths-content) - 130px));
+}
+
 /* RESPONSIVE MD */
 @media (min-width: 960px) {
+    #floating_toc_container {
+        /* Limit floating TOC left position */
+        right: clamp(var(--ita-spacings-5), 100%, calc(50% - var(--ita-widths-content) - 130px));
+    }
     #floating_toc__list {
         width: 200px;
         max-height: calc(100vh - 160px);
@@ -826,22 +1078,58 @@ main .__search-occurrence {
         padding-left: var(--ita-spacings-5);
         padding-right: var(--ita-spacings-5);
     }
-    main > ol,
-    main > ul {
-        padding-left: var(--ita-spacings-8);
+    main h1,
+    main h2 {
+        font-size: var(--ita-fontSizes-8);
     }
-    main li > ol,
-    main li > ul {
+    main h3,
+    main h4 {
+        font-size: var(--ita-fontSizes-7);
+        letter-spacing: -0.05em;
+    }
+    main h5,
+    main h6 {
+        font-size: var(--ita-fontSizes-6);
+    }
+    main > ul {
         padding-left: var(--ita-spacings-5);
     }
-    main > ol li,
-    main > ol ol li {
-        padding-left: var(--ita-spacings-2);
+    main > ol {
+        padding-left: var(--ita-spacings-6);
     }
-    main > ol li::before,
-    main > ol ol li::before {
-        transform: translateY(0.3em) translateX(calc(-100% - var(--ita-spacings-2)));
+    main > ul > li,
+    main > ul ul > li {
+        padding-left: var(--ita-spacings-7);
+    }
+    main > ul > li::before,
+    main > ul ul > li::before {
+        width: var(--ita-spacings-3);
+    }
+    main > ul > li::after,
+    main > ul ul > li::after {
+        left: var(--ita-spacings-3);
+    }
+    main > ol:not(:has(ul)) > li,
+    main > ol:not(:has(ul)) li > ol > li {
+        padding-left: var(--ita-spacings-5);
+    }
+    main > ol:not(:has(ul)) > li::before,
+    main > ol:not(:has(ul)) li > ol > li::before {
         font-size: var(--ita-fontSizes-1);
+        transform: translateX(calc(-100% - var(--ita-spacings-2)));
+    }
+    main > ul:has(ol) ol {
+        padding-left: var(--ita-spacings-3);
+    }
+    main > ol:has(ul) ol {
+        padding-left: var(--ita-spacings-5);
+    }
+    main > ol:has(ul) > li:before {
+        font-size: var(--ita-fontSizes-1);
+        transform: translateX(calc(-100% - var(--ita-spacings-3)));
+    }
+    main > *:not(header) li::marker {
+        font-size: var(--ita-fontSizes-2);
     }
     main > pre {
         padding: var(--ita-spacings-5);
@@ -857,6 +1145,23 @@ main .__search-occurrence {
         border: var(--ita-spacings-5) solid var(--ita-colors-neutral-100);
         font-size: var(--ita-fontSizes-6);
         padding: var(--ita-spacings-5) var(--ita-spacings-7);
+    }
+    #floating_toc_container {
+        box-shadow: var(--libdoc-soft-shadow);
+    }
+    main .alert {
+        font-size: var(--ita-fontSizes-3);
+    }
+}
+
+/* RESPONSIVE XS + SM */
+@media (min-width: 960px) and (max-width: 1440px) {
+    body:not(.touch-device) #floating_toc__list {
+        transition: opacity 300ms;
+        opacity: 0.3;
+    }
+    body:not(.touch-device) #floating_toc:hover #floating_toc__list {
+        opacity: 1;
     }
 }
 
@@ -882,4 +1187,9 @@ main .__search-occurrence {
 }
 .__hover-2:hover > * {
     color: var(--ita-colors-success-100);
+}
+
+/* SHADOWS */
+.__soft-shadow {
+    box-shadow: var(--libdoc-soft-shadow);
 }

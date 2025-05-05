@@ -1,6 +1,5 @@
 const libdocUi = {
     defaults: {
-        headingsSelector: `main > h1, main > h2, main > h3, main > h4, main > h5, main > h6`,
         localStorageIdentifier: 'eleventyLibdoc',
         screenSizes: {
             xs: [0, 599],
@@ -13,7 +12,8 @@ const libdocUi = {
         navPrimaryAccordion: 'pages'
     },
     el: {
-        tocMain: document.querySelector('#toc_main > ol'),
+        tocMain: document.querySelector('#toc_main'),
+        tocMainOl: document.querySelector('#toc_main > ol'),
         navSmallDevicesFTOCBtn: document.querySelector('#sd_floating_toc_toggle_btn'),
         navSmallDevicesGTTBtn: document.querySelector('#sd_gtt_btn'),
         main: document.querySelector('main'),
@@ -22,7 +22,8 @@ const libdocUi = {
         navSmallDevices: document.querySelector('#nav_small_devices'),
         searchForms: document.querySelectorAll('.search_form'),
         searchInputs: document.querySelectorAll('input[type="search"][name="search"]'),
-        searchClearBtns: document.querySelectorAll('.search_form__clear_btn')
+        searchClearBtns: document.querySelectorAll('.search_form__clear_btn'),
+        ftocHeadings: []
     },
     getCurrentScreenSizeName: function() {
         let response = '';
@@ -211,13 +212,52 @@ const libdocUi = {
             document.body.insertAdjacentHTML('beforeend', n_markup);
         }
     },
+    // getUserSelection: function() {
+    //     let result = { text: "", selection: null };
+    //     if (window.getSelection) {
+    //         result.text = window.getSelection().toString();
+    //         result.selection = window.getSelection();
+    //     } else if (document.selection && document.selection.type != "Control") {
+    //         result.text = document.selection.createRange().text;
+    //     }
+    //     return result;
+    // },
     handlers: {
+        // _selectionChange: function(evt) {
+        //     const selection = libdocUi.getUserSelection();
+        //     if (libdocUi.el.selectionCmd === undefined) {
+        //         libdocUi.el.selectionCmd = document.createElement('a');
+        //         libdocUi.el.selectionCmd.href = '';
+        //         libdocUi.el.selectionCmd.setAttribute(
+        //             'class',
+        //             'pos-absolute t-tX-100 | p-4 | td-none | brad-4 bc-neutral-100 bwidth-1 bstyle-dashed bcolor-neutral-500 __hover-1 __soft-shadow'
+        //         );
+        //         libdocUi.el.selectionCmd.innerHTML = `<span class="icon-link-simple | pos-absolute top-50 left-50 t-tY-50 t-tX-50 | fs-4"></span>`;
+        //     }
+        //     if (selection.selection !== null && selection.text.length > 0) {
+        //         const elSelectionParent = selection.selection.anchorNode.parentElement;
+        //         Object.keys(libdocUi.el.main.children).forEach(function(indexString) {
+        //             const elMainChild = libdocUi.el.main.children[parseInt(indexString)];
+        //             if (elMainChild.contains(elSelectionParent)) {
+        //                 libdocUi.el.selectionCmd.href = `${location.host}${location.pathname}#__${indexString}`;
+        //                 elSelectionParent.prepend(libdocUi.el.selectionCmd);
+        //             }
+        //         })
+        //     }
+        // },
+        _touchStart: function(evt) {
+            document.body.classList.add('touch-device');
+            document.body.removeEventListener('touch', libdocUi.handlers._touchStart);
+        },
         _clickCopyCodeBlock: function(evt) {
             const elBtn = evt.target.closest('button');
             const content = evt.target.closest('pre').querySelector('code').innerText;
             libdocUi.copyToClipboard(content, {notificationEnabled: false});
             if (elBtn.dataset.originalText === undefined) elBtn.dataset.originalText = elBtn.innerText;
-            elBtn.innerHTML = `<span class="c-success-500">${libdocMessages.copied}!</span>`;
+            elBtn.innerHTML = `<span style="margin-left: -4px;"
+                    class="d-flex | pos-absolute t-tX-100 | p-2 mr-1 | c-neutral-100 bc-success-500 brad-4">
+                    <span class="icon-check pos-absolute top-50 left-50 t-tY-50 t-tX-50 | fs-1"></span>
+                </span> ${libdocMessages.copied}!`;
             setTimeout(function() {
                 elBtn.innerHTML = elBtn.dataset.originalText;
                 elBtn.classList.remove('pe-none');
@@ -240,18 +280,12 @@ const libdocUi = {
         _scrollWindowForFTOC: function() {
             libdocUi.updateFtocList();
         },
-        _toggleFtocLargeDevices: function() {
+        _toggleFtocLargeDevices: function(evt) {
             if (libdocUi.el.ftocDetails.open) {
-                if (libdocUi._currentScreenSizeName == 'md') {
-                    // libdocUi.updateUserPreferences({FTOCNormallyOpened: true});
-                    libdocUi.updateFtocList();
-                } else {
-                    // libdocUi.updateUserPreferences({FTOCNormallyOpened: false});
-                }
+                libdocUi.updateUserPreferences({FTOCNormallyOpened: true});
             } else {
-                // libdocUi.updateUserPreferences({FTOCNormallyOpened: false});
+                libdocUi.updateUserPreferences({FTOCNormallyOpened: false});
             }
-            libdocUi.updateFTOCBtns();
         },
         _scrollNavPrimaryPreviousPreferenceValue: 0,
         _scrollNavPrimary: function() {
@@ -323,6 +357,54 @@ const libdocUi = {
             evt.target.removeAttribute('title');
         }
     },
+    fitSvgToItsContent: function(svgElement) {
+        // https://typeofnan.dev/how-to-perfectly-fit-an-svg-to-its-contents-using-javascript/
+        const svg = svgElement;
+        const { xMin, xMax, yMin, yMax } = [...svg.children].reduce((acc, el) => {
+        const { x, y, width, height } = el.getBBox();
+        if (!acc.xMin || x < acc.xMin) acc.xMin = x;
+        if (!acc.xMax || x + width > acc.xMax) acc.xMax = x + width;
+        if (!acc.yMin || y < acc.yMin) acc.yMin = y;
+        if (!acc.yMax || y + height > acc.yMax) acc.yMax = y + height;
+            return acc;
+        }, {});
+
+        const viewbox = `${xMin} ${yMin} ${xMax - xMin} ${yMax - yMin}`;
+
+        svg.setAttribute('viewBox', viewbox);
+    },
+    renderIcomoon: function(id) {
+        if (typeof id == 'string') {
+            const elIconsContainer = document.getElementById(id);
+            if (elIconsContainer !== null) {
+                fetch('/core/assets/fonts/icomoon/selection.json')
+                    .then(response => response.json())
+                    .then(json => {
+                        json.icons.forEach(function(iconData) {
+                            const   elItem = document.createElement('li'),
+                                    elSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                            elItem.setAttribute('class', 'd-flex fd-column ai-center | ta-center');
+                            elSvg.setAttribute('width', '32');
+                            elSvg.setAttribute('height', '32');
+                            elSvg.setAttributeNS(null, "viewBox", "0 0 32 32");
+                            elSvg.setAttribute('fill', 'none');
+                            iconData.icon.paths.forEach(function(pathData) {
+                                elSvg.innerHTML += `<path d="${pathData}" fill="currentColor"></path>`;
+                            });
+                            elItem.appendChild(elSvg);
+                            elIconsContainer.appendChild(elItem);
+                            libdocUi.fitSvgToItsContent(elSvg);
+                            elItem.innerHTML += `<code>icon-${iconData.properties.name}</code>`;
+                        });
+                    })
+                    .catch(error => {
+                        // Handle the error
+                        console.log(error);
+                    });
+            }
+        }
+    },
+
     updateSearchInputClearBtns: function() {
         libdocUi.el.searchInputs.forEach(function(elInput) {
             const elClearBtn = elInput.form.querySelector('.search_form__clear_btn');
@@ -369,18 +451,18 @@ const libdocUi = {
         return linkIndexesArray;
     },
     createFloatingToc: function() {;
-        if (libdocUi.el.ftoc === undefined && libdocUi.el.tocMain !== null) {
+        if (libdocUi.el.ftoc === undefined && libdocUi.el.tocMainOl !== null) {
             libdocUi.el.ftocDetails = document.createElement('details');
             const elDetails = libdocUi.el.ftocDetails;
             elDetails.setAttribute('w-100', 'xs,sm');
             elDetails.id = 'floating_toc';
             const elSummary = document.createElement('summary');
-            elSummary.setAttribute('class', 'd-flex jc-end | pt-5 pr-5 | cur-pointer');
+            elSummary.setAttribute('class', 'd-flex jc-end | pt-5 | cur-pointer');
             elSummary.setAttribute('d-none', 'xs,sm');
             elSummary.title = libdocMessages.toggleFloatingToc;
             elSummary.ariaLabel = libdocMessages.tableOfContent;
             elSummary.innerHTML = `
-                <span class="d-flex jc-center ai-center gap-2 | pos-relative ar-square | h-50px | brad-4 c-primary-500 bc-neutral-100 bwidth-1 bstyle-dashed bcolor-neutral-500 __hover-1">
+                <span class="d-flex jc-center ai-center gap-2 | pos-relative ar-square | h-50px | brad-4 c-primary-500 bc-neutral-100 bwidth-1 bstyle-dashed bcolor-neutral-500 __hover-1 __soft-shadow">
                     <span class="icon-list-dashes fs-6"></span>
                 </span>`;
             elDetails.appendChild(elSummary);
@@ -394,33 +476,38 @@ const libdocUi = {
                         pos-relative
                         o-auto pl-0 mb-0 pt-3 pb-3
                         lsp-3
-                        bc-primary-100 blwidth-0 bwidth-1 bstyle-dashed bcolor-primary-300 ls-none"
+                        bc-primary-100 blwidth-0 bwidth-1 bstyle-dashed bcolor-primary-300 ls-none
+                        __soft-shadow"
                         fw-wrap="xs,sm"
                         mt-2="md"
-                        mr-5="md"
                         mt-0="xs,sm"
                         maxh-200px="xs,sm"
                         brad-3="md"
                         bb-0="xs,sm"
                         br-0="xs,sm">`;
-            libdocUi.el.tocMain.querySelectorAll('a').forEach(function(el) {
+            libdocUi.el.ftocHeadings = [];
+            libdocUi.el.tocMainOl.querySelectorAll('a').forEach(function(el) {
+                const   headingReference = el.getAttribute(`href`),
+                        elHeading = libdocUi.el.main.querySelector(headingReference);
+                libdocUi.el.ftocHeadings.push(elHeading);
                 floatingTocMarkup += `
-                <li>
-                    <a  href="${el.getAttribute(`href`)}"
-                        class="d-flex | pl-5 pr-5 | fs-4 lsp-3 lh-5 fvs-wght-500 | c-primary-500 blwidth-1 blstyle-dashed bcolor-primary-300"
-                        pt-2="md"
-                        pb-2="md"
-                        pt-1="xs,sm"
-                        pb-1="xs,sm">
-                        ${el.innerHTML}
-                    </a>
-                </li>`;
+                    <li>
+                        <a  href="${headingReference}"
+                            class="d-flex | pl-5 pr-5 | fs-4 lsp-3 lh-5 fvs-wght-500 | c-primary-500 blwidth-1 blstyle-dashed bcolor-primary-300"
+                            pt-2="md"
+                            pb-2="md"
+                            pt-1="xs,sm"
+                            pb-1="xs,sm">
+                            ${el.innerHTML}
+                        </a>
+                    </li>`;
             });
             floatingTocMarkup += '</ul></div>';
             elDetails.innerHTML += floatingTocMarkup;
 
             libdocUi.el.ftoc = document.createElement('div');
-            libdocUi.el.ftoc.setAttribute('class', 'd-flex | pos-fixed z-2 | floating_toc');
+            libdocUi.el.ftoc.id = 'floating_toc_container';
+            libdocUi.el.ftoc.setAttribute('class', 'd-flex | pos-fixed z-2');
             libdocUi.el.ftoc.setAttribute('top-0', 'md');
             libdocUi.el.ftoc.setAttribute('right-0', 'md');
             libdocUi.el.ftoc.setAttribute('left-0', 'xs,sm');
@@ -433,18 +520,24 @@ const libdocUi = {
             window.addEventListener('scroll', libdocUi.handlers._scrollWindowForFTOC);
             libdocUi.el.ftocLinks = libdocUi.el.ftoc.querySelectorAll('a');
             libdocUi.el.ftocList = libdocUi.el.ftoc.querySelector('#floating_toc__list');
-            libdocUi.el.ftocHeadings = document.querySelectorAll(libdocUi.defaults.headingsSelector);
             libdocUi.el.navSmallDevicesFTOCBtn.disabled = false;
             libdocUi.el.navSmallDevicesFTOCBtn.addEventListener('click', libdocUi.toggleFtocSmallDevices);
             libdocUi.el.navSmallDevicesFTOCBtn.addEventListener('click', libdocUi.updateSearchOccurrenceCmdBottom);
             elDetails.addEventListener("toggle", libdocUi.handlers._toggleFtocLargeDevices);
-            if (libdocUi.getUserPreferences().FTOCNormallyOpened) elDetails.open = true;
+            if (libdocUi.getUserPreferences().FTOCNormallyOpened) {
+                elDetails.open = true;
+                if (libdocUi._currentScreenSizeName == 'xs'
+                    || libdocUi._currentScreenSizeName == 'sm') {
+                    libdocUi.el.tocMain.open = false;
+                }
+            }
         }
     },
     createGoToTop: function() {
         if (libdocUi.el.gtt === undefined) {
             libdocUi.el.gtt = document.createElement('button');
-            libdocUi.el.gtt.setAttribute('class', 'd-none--xs d-none--sm | pos-fixed z-2 bottom-0 right-0 | p-0 h-50px ar-square mb-5 mr-5 | fs-6 | brad-4 bc-neutral-100 bwidth-1 bstyle-dashed bcolor-neutral-500 cur-pointer __hover-1');
+            libdocUi.el.gtt.id = 'gtt_btn';
+            libdocUi.el.gtt.setAttribute('class', 'd-none--xs d-none--sm | pos-fixed z-2 bottom-0 | p-0 h-50px ar-square mb-5 | fs-6 | brad-4 bc-neutral-100 bwidth-1 bstyle-dashed bcolor-neutral-500 cur-pointer __hover-1 __soft-shadow');
             libdocUi.el.gtt.innerHTML = `<span class="icon-arrow-line-up | pos-absolute top-50 left-50 t-tY-50 t-tX-50 | c-primary-500"></span>`;
             libdocUi.el.gtt.title = libdocMessages.goToTopOfPage;
             libdocUi.el.gtt.addEventListener('click', libdocUi.handlers._clickGTT);
@@ -508,6 +601,9 @@ const libdocUi = {
                 });
             } else {
                 let newStorage = {};
+                for (const key in currentUserPreference) {
+                    newStorage[key] = currentUserPreference[key];
+                }
                 for (const key in newPreferences) {
                     newStorage[key] = newPreferences[key];
                 }
@@ -519,7 +615,7 @@ const libdocUi = {
         }
     },
     updateFTOCBtns: function() {
-        if (libdocUi.el.tocMain !== null) {
+        if (libdocUi.el.tocMainOl !== null) {
             if (cToggle.instances.nav_primary.opened) {
                 libdocUi.el.navSmallDevicesFTOCBtn.disabled = true;
             } else {
@@ -767,6 +863,11 @@ const libdocUi = {
         libdocUi.el.main.querySelectorAll('abbr[title]').forEach(function(el) {
             el.addEventListener('click', libdocUi.handlers._clickAbbr);
         });
+        document.querySelectorAll('main svg.icomoon-icon').forEach(function(el) {
+            libdocUi.fitSvgToItsContent(el)
+        });
+        document.body.addEventListener('touchstart', libdocUi.handlers._touchStart);
+        // document.addEventListener('selectionchange', libdocUi.handlers._selectionChange);
     }
 }
 libdocUi.update();

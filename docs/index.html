@@ -55,7 +55,13 @@
         :root {
             --ita-widths-sidebar: 300px;
             --ita-widths-content: 700px;
+            --ita-widths-main-container-max: calc(2 * var(--ita-widths-content) + var(--ita-widths-sidebar));
         }
+        
+            main img {
+                border-radius: 9px;
+            }
+        
     </style>
     <noscript>
         <link rel="stylesheet" href="/c-scrollsyncbar.js/core/assets/css/noscript.css">
@@ -115,8 +121,8 @@
         }
     </script>
 </head>
-<body class="d-flex fd-column | m-0">
-    <div class="d-flex" fd-column="xs,sm" ai-start="md" ai-center="xs,sm" pl-5="md">
+<body class="d-flex fd-column ai-center | m-0">
+    <div class="d-flex | w-100" fd-column="xs,sm" ai-start="md" ai-center="xs,sm" pl-5="md" style="max-width: var(--ita-widths-main-container-max)">
         <div class="d-flex fd-column | pos-sticky top-0 z-2" ai-center="xs,sm" w-100="xs,sm" w-sidebar="md">
             <nav id="nav_small_devices" class="d-flex | pos-fixed bottom-0 left-0 z-1 | w-100 h-60px" d-none="md">
                 <div class="d-flex jc-space-between | w-100 | bc-neutral-100 btwidth-1 btstyle-dashed bcolor-neutral-500">
@@ -124,6 +130,11 @@
                         <span class="icon-house fs-6"></span>
                         <span class="fvs-wght-400 fs-1 tt-uppercase">Accueil</span>
                     </a>
+                    
+                        <a href="/c-scrollsyncbar.js/search/" class="d-flex fd-column jc-center ai-center gap-1 | pl-2 pr-2 | td-none ta-center | c-primary-900 b-0 brad-3">
+                            <span class="icon-magnifying-glass fs-6"></span>
+                            <span class="fvs-wght-400 fs-1 tt-uppercase">Rechercher</span>
+                        </a>
                     
                     <button type="button" id="sd_floating_toc_toggle_btn" class="d-flex fd-column jc-center ai-center gap-1 | pl-2 pr-2 | ta-center | cur-pointer c-primary-900 bc-neutral-100 b-0 brad-3" disabled="">
                         <span class="icon-list-dashes fs-6"></span>
@@ -139,7 +150,7 @@
                     </button>
                 </div>
             </nav>
-            <nav id="nav_primary_container" class="d-flex d-none--xs d-none--sm fd-column | w-100 o-hidden | bc-neutral-100 bwidth-1 bstyle-dashed bcolor-neutral-500" mt-5="md" maxw-sidebar="md" maxh-sidebar="md" h-sidebar="xs,sm" brad-3="md" c-toggle-name="nav_primary" data-opened-state-class="d-flex fd-column | w-100 o-hidden | bc-neutral-100 bwidth-1 bstyle-dashed bcolor-neutral-500">
+            <nav id="nav_primary_container" class="d-flex d-none--xs d-none--sm fd-column | w-100 o-hidden | bc-neutral-100 bwidth-1 bstyle-dashed bcolor-neutral-500 |  __soft-shadow" mt-5="md" maxw-sidebar="md" maxh-sidebar="md" h-sidebar="xs,sm" brad-3="md" c-toggle-name="nav_primary" data-opened-state-class="d-flex fd-column | w-100 o-hidden | bc-neutral-100 bwidth-1 bstyle-dashed bcolor-neutral-500">
                 <menu id="nav_primary_header" class="
                     d-flex fd-column
                     pos-sticky top-0 z-1
@@ -153,6 +164,23 @@
                             </a>
                         
                     </li>
+                    
+                        <li d-none="xs,sm">
+                            <form action="/c-scrollsyncbar.js/search/" class="d-flex fd-column | pos-relative | pl-5 pr-5 | search_form">
+                                <label for="searchInput" class="pos-absolute | ml-5 t-tY-50 | fvs-wght-400 fs-1 tt-uppercase | bc-neutral-100">
+                                    Rechercher
+                                </label>
+                                <input id="searchInput" type="search" name="search" class="pl-5 pr-5 pt-4 pb-4 | fs-3 | bc-neutral-100 brad-4 bwidth-1 bstyle-dashed bcolor-neutral-500" placeholder="Texte à rechercher" value="">
+                                <div class="d-flex ai-center gap-2 | pos-absolute top-0 right-0 | h-100 mr-5">
+                                    <button type="button" class="pos-relative | p-4 pr-5 | fs-3 | brad- bc-neutral-100 c-neutral-900 b-0 cur-pointer | search_form__clear_btn" title="Effacer la saisie" hidden="">
+                                        <span class="icon-x | pos-absolute top-50 left-50 t-tY-50 t-tX-50"></span>
+                                    </button>
+                                    <button type="submit" class="pos-relative | h-100 p-0 ar-square | fs-5 | brad-4 bc-primary-500 c-neutral-100 bwidth-1 bstyle-dashed bcolor-neutral-100 cur-pointer" title="Lancer la recherche">
+                                        <span class="icon-magnifying-glass | pos-absolute top-50 left-50 t-tY-50 t-tX-50"></span>
+                                    </button>
+                                </div>
+                            </form>
+                        </li>
                     
                     
                         <li class="d-flex ai-center fw-wrap gap-7 rgap-1 | pb-3 pl-4">
@@ -190,16 +218,20 @@
         </div>
         <main class="pos-relative" w-100-minus-sidebar="md" w-100="xs,sm">
             <header class="d-flex fd-column | pt-5 pb-7">
-                <ul class="d-flex ai-center gap-2 | p-0 m-0 o-auto | fs-2 lh-3 | ls-none">
+                <ul class="d-flex ai-center gap-2 | p-0 m-0 | fs-2 lh-3 | ls-none">
     <li class="d-flex ai-center gap-2">
-        <a href="/c-scrollsyncbar.js/" class="pos-relative | p-5 | fs-4 td-none | brad-4 bc-neutral-100 bwidth-1 bstyle-dashed bcolor-neutral-500 __hover-1" title="Page d’accueil">
+        <a href="/c-scrollsyncbar.js/" class="pos-relative | p-5 | fs-4 td-none | brad-4 bc-neutral-100 bwidth-1 bstyle-dashed bcolor-neutral-500 __hover-1 __soft-shadow" title="Page d’accueil">
             <span class="icon-house | pos-absolute top-50 left-50 t-tY-50 t-tX-50"></span>
         </a> /
     </li>
-    
-    
-    
-    <li class="c-neutral-800 ws-nowrap">c-scrollsyncbar.js</li>
+    <li class="o-auto">
+        <ul class="d-flex ai-center gap-2 | p-0 m-0 | fs-2 lh-3 | ls-none">
+            
+            
+            
+            <li class="c-neutral-800 ws-nowrap">c-scrollsyncbar.js</li>
+        </ul>
+    </li>
 </ul>
                 <h1 class="mt-3 mb-0 | lsp-5 fvs-wght-700 tws-balance " fs-10="md" fs-9="xs,sm">
                     c-scrollsyncbar.js
@@ -246,62 +278,61 @@
                             </span>
                         </summary>
                         
-                <ol class="cgap-3em | m-0 pl-0 pb-5 o-auto | lh-1 | ls-none bwidth-1 bstyle-dashed bcolor-neutral-500 btwidth-0 brwidth-0" d-flex="xs,sm" fd-column="xs,sm" fw-wrap="xs,sm" columns-3="md" columns-2="sm" maxh-300px="sm" maxh-200px="xs">
-                    <li class="d-flex">
-                        <a href="#installation" class="pl-5 pt-1 pb-1 | fs-4 lsp-3 lh-5 fvs-wght-400 | blwidth-1 blstyle-dashed bcolor-neutral-500">
-                            Installation
-                        </a>
-                    </li>
-                    <li class="d-flex">
-                        <a href="#en-local" class="pl-5 pt-1 pb-1 | fs-4 lsp-3 lh-5 fvs-wght-400 | blwidth-1 blstyle-dashed bcolor-neutral-500">
-                            En local
-                        </a>
-                    </li>
-                    <li class="d-flex">
-                        <a href="#sur-cdn" class="pl-5 pt-1 pb-1 | fs-4 lsp-3 lh-5 fvs-wght-400 | blwidth-1 blstyle-dashed bcolor-neutral-500">
-                            Sur CDN
-                        </a>
-                    </li>
-                    <li class="d-flex">
-                        <a href="#usage" class="pl-5 pt-1 pb-1 | fs-4 lsp-3 lh-5 fvs-wght-400 | blwidth-1 blstyle-dashed bcolor-neutral-500">
-                            Usage
-                        </a>
-                    </li>
-                    <li class="d-flex">
-                        <a href="#sensibilit" class="pl-5 pt-1 pb-1 | fs-4 lsp-3 lh-5 fvs-wght-400 | blwidth-1 blstyle-dashed bcolor-neutral-500">
-                            Sensibilité
-                        </a>
-                    </li>
-                    <li class="d-flex">
-                        <a href="#formule-personnalise" class="pl-5 pt-1 pb-1 | fs-4 lsp-3 lh-5 fvs-wght-400 | blwidth-1 blstyle-dashed bcolor-neutral-500">
-                            Formule personnalisée
-                        </a>
-                    </li>
-                    <li class="d-flex">
-                        <a href="#mthode-update" class="pl-5 pt-1 pb-1 | fs-4 lsp-3 lh-5 fvs-wght-400 | blwidth-1 blstyle-dashed bcolor-neutral-500">
-                            Méthode update
-                        </a>
-                    </li>
-                    <li class="d-flex">
-                        <a href="#mthode-pause" class="pl-5 pt-1 pb-1 | fs-4 lsp-3 lh-5 fvs-wght-400 | blwidth-1 blstyle-dashed bcolor-neutral-500">
-                            Méthode pause
-                        </a>
-                    </li>
-                    <li class="d-flex">
-                        <a href="#mthode-stop" class="pl-5 pt-1 pb-1 | fs-4 lsp-3 lh-5 fvs-wght-400 | blwidth-1 blstyle-dashed bcolor-neutral-500">
-                            Méthode stop
-                        </a>
-                    </li>
-                    <li class="d-flex">
-                        <a href="#api" class="pl-5 pt-1 pb-1 | fs-4 lsp-3 lh-5 fvs-wght-400 | blwidth-1 blstyle-dashed bcolor-neutral-500">
-                            API
-                        </a>
-                    </li></ol>
+                    <ol class="cgap-3em | m-0 pl-0 pb-5 o-auto | lh-1 | ls-none bwidth-1 bstyle-dashed bcolor-neutral-500 btwidth-0 brwidth-0" d-flex="xs,sm" fd-column="xs,sm" fw-wrap="xs,sm" columns-3="md" columns-2="sm" maxh-300px="sm" maxh-200px="xs">
+                        <li class="d-flex">
+                            <a href="#installation" class="pl-5 pt-1 pb-1 | fs-4 lsp-3 lh-5 fvs-wght-400 | blwidth-1 blstyle-dashed bcolor-neutral-500">
+                                Installation
+                            </a>
+                        </li>
+                        <li class="d-flex">
+                            <a href="#en-local" class="pl-5 pt-1 pb-1 | fs-4 lsp-3 lh-5 fvs-wght-400 | blwidth-1 blstyle-dashed bcolor-neutral-500">
+                                En local
+                            </a>
+                        </li>
+                        <li class="d-flex">
+                            <a href="#sur-cdn" class="pl-5 pt-1 pb-1 | fs-4 lsp-3 lh-5 fvs-wght-400 | blwidth-1 blstyle-dashed bcolor-neutral-500">
+                                Sur CDN
+                            </a>
+                        </li>
+                        <li class="d-flex">
+                            <a href="#usage" class="pl-5 pt-1 pb-1 | fs-4 lsp-3 lh-5 fvs-wght-400 | blwidth-1 blstyle-dashed bcolor-neutral-500">
+                                Usage
+                            </a>
+                        </li>
+                        <li class="d-flex">
+                            <a href="#sensibilit" class="pl-5 pt-1 pb-1 | fs-4 lsp-3 lh-5 fvs-wght-400 | blwidth-1 blstyle-dashed bcolor-neutral-500">
+                                Sensibilité
+                            </a>
+                        </li>
+                        <li class="d-flex">
+                            <a href="#formule-personnalise" class="pl-5 pt-1 pb-1 | fs-4 lsp-3 lh-5 fvs-wght-400 | blwidth-1 blstyle-dashed bcolor-neutral-500">
+                                Formule personnalisée
+                            </a>
+                        </li>
+                        <li class="d-flex">
+                            <a href="#mthode-update" class="pl-5 pt-1 pb-1 | fs-4 lsp-3 lh-5 fvs-wght-400 | blwidth-1 blstyle-dashed bcolor-neutral-500">
+                                Méthode update
+                            </a>
+                        </li>
+                        <li class="d-flex">
+                            <a href="#mthode-pause" class="pl-5 pt-1 pb-1 | fs-4 lsp-3 lh-5 fvs-wght-400 | blwidth-1 blstyle-dashed bcolor-neutral-500">
+                                Méthode pause
+                            </a>
+                        </li>
+                        <li class="d-flex">
+                            <a href="#mthode-stop" class="pl-5 pt-1 pb-1 | fs-4 lsp-3 lh-5 fvs-wght-400 | blwidth-1 blstyle-dashed bcolor-neutral-500">
+                                Méthode stop
+                            </a>
+                        </li>
+                        <li class="d-flex">
+                            <a href="#api" class="pl-5 pt-1 pb-1 | fs-4 lsp-3 lh-5 fvs-wght-400 | blwidth-1 blstyle-dashed bcolor-neutral-500">
+                                API
+                            </a>
+                        </li></ol>
                     </details>
                 
             </header>
-            <p><a href="https://github.com/ita-design-system/c-scrollsyncbar.js/releases"><img src="/c-scrollsyncbar.js/c-scrollsyncbar-gX82GP_P-M-__145__.svg" alt="GitHub release (latest by date)" loading="lazy" decoding="async" width="145" height="28"></a></p>
-<p><img src="/c-scrollsyncbar.js/img/capture-1-BAjpdUKpTw-__256__.webp" alt="GIF exemple usage c-scrollsyncbar.js 1" loading="lazy" decoding="async" width="256" height="193">
+            <p><img src="/c-scrollsyncbar.js/img/capture-1-BAjpdUKpTw-__256__.webp" alt="GIF exemple usage c-scrollsyncbar.js 1" loading="lazy" decoding="async" width="256" height="193">
 <img src="/c-scrollsyncbar.js/img/capture-2-tIXRUk0LGJ-__191__.webp" alt="GIF exemple usage c-scrollsyncbar.js 2" loading="lazy" decoding="async" width="191" height="60"></p>
 <aside class="d-flex | sandbox" fd-column="xs,sm" gap-2="xs,sm" ai-start="xs,sm" o-hidden="md" pl-9="md" pr-9="md" pl-5="xs,sm" pr-5="xs,sm">
 <div class="d-flex | p-1 | bc-primary-200 brad-2" d-none="md">
@@ -441,8 +472,8 @@ Démo c-scrollsyncbar.js
 &lt;/html&gt;</code>
 </pre>
 <div class="d-flex jc-center ai-center | pos-absolute top-0 left-0 | w-100 h-100 | sandbox__enable_wrapper" style="background-color: rgba(0,0,0,0.5)">
-<input type="checkbox" id="w3fgTEhF_code" value="" class="pos-absolute | opa-0 | sandbox__enable_switch" checked="">
-<label for="w3fgTEhF_code" class="d-flex ai-center gap-1 | p-5 | fvs-wght-500 tt-uppercase | bc-neutral-900 brad-2 cur-pointer">
+<input type="checkbox" id="OGjqWfye_code" value="" class="pos-absolute | opa-0 | sandbox__enable_switch">
+<label for="OGjqWfye_code" class="d-flex ai-center gap-1 | p-5 | fvs-wght-500 tt-uppercase | bc-neutral-900 brad-2 cur-pointer">
 <span class="icon-play"></span>
 Activer
 </label>
@@ -460,7 +491,7 @@ Activer
 <span class="fvs-wght-400 | c-neutral-300">Ouvrir</span>
 <span class="icon-arrow-square-out c-neutral-500"></span>
 </a>
-<div class="d-flex gap-5">
+<div class="d-flex gap-7">
 <button type="button" class="d-flex ai-center | p-0 | fvs-wght-400 fs-2 tt-uppercase | bc-0 c-neutral-300 b-0 cur-pointer | sandbox__reload">
 <span class="o-hidden | to-ellipsis ws-nowrap">Recharger</span>
 </button>
@@ -472,8 +503,8 @@ Activer
 <div class="d-flex | pos-relative">
 <iframe src="/c-scrollsyncbar.js/sandboxes/1/" loading="lazy" class="w-100 h-500px | b-0 bc-neutral-100 | sandbox__iframe"></iframe>
 <div class="d-flex jc-center ai-center | pos-absolute top-0 left-0 | w-100 h-100 | sandbox__enable_wrapper" style="background-color: rgba(0,0,0,0.5)">
-<input type="checkbox" id="w3fgTEhF_iframe" value="" class="pos-absolute | opa-0 | sandbox__enable_switch" checked="">
-<label for="w3fgTEhF_iframe" class="d-flex ai-center gap-1 | p-5 | fvs-wght-500 tt-uppercase | bc-neutral-900 brad-2 cur-pointer">
+<input type="checkbox" id="OGjqWfye_iframe" value="" class="pos-absolute | opa-0 | sandbox__enable_switch">
+<label for="OGjqWfye_iframe" class="d-flex ai-center gap-1 | p-5 | fvs-wght-500 tt-uppercase | bc-neutral-900 brad-2 cur-pointer">
 <span class="icon-play"></span> Activer
 </label>
 </div>
@@ -485,26 +516,26 @@ Activer
 </div>
 </aside>
 
-                    <h2 id="installation" pl-9="xs,sm">
-                        <a href="#installation" title="Installation" class="pos-absolute top-50 left-0 t-tY-50 | p-4 ml-1 | td-none | brad-4 bc-neutral-100 bwidth-1 bstyle-dashed bcolor-neutral-500 __hover-1" ml-3="xs,sm">
-                            <span class="icon-link-simple | pos-absolute top-50 left-50 t-tY-50 t-tX-50 | fs-4"></span>
-                        </a>
-                Installation</h2>
+                        <h2 id="installation" pl-9="xs,sm">
+                            <a href="#installation" title="Installation" class="pos-absolute top-50 left-0 t-tY-50 | p-4 ml-1 | td-none | brad-4 bc-neutral-100 bwidth-1 bstyle-dashed bcolor-neutral-500 __hover-1 __soft-shadow" ml-3="xs,sm">
+                                <span class="icon-link-simple | pos-absolute top-50 left-50 t-tY-50 t-tX-50 | fs-4"></span>
+                            </a>
+                    Installation</h2>
 <p>Il est recommandé de placer les fichiers dans cet ordre avant la balise fin de body.</p>
 
-                    <h3 id="en-local" pl-9="xs,sm">
-                        <a href="#en-local" title="En local" class="pos-absolute top-50 left-0 t-tY-50 | p-4 ml-1 | td-none | brad-4 bc-neutral-100 bwidth-1 bstyle-dashed bcolor-neutral-500 __hover-1" ml-3="xs,sm">
-                            <span class="icon-link-simple | pos-absolute top-50 left-50 t-tY-50 t-tX-50 | fs-4"></span>
-                        </a>
-                En local</h3>
+                        <h3 id="en-local" pl-9="xs,sm">
+                            <a href="#en-local" title="En local" class="pos-absolute top-50 left-0 t-tY-50 | p-4 ml-1 | td-none | brad-4 bc-neutral-100 bwidth-1 bstyle-dashed bcolor-neutral-500 __hover-1 __soft-shadow" ml-3="xs,sm">
+                                <span class="icon-link-simple | pos-absolute top-50 left-50 t-tY-50 t-tX-50 | fs-4"></span>
+                            </a>
+                    En local</h3>
 <pre><code class="language-html">&lt;script src=&quot;/path/to/c-scrollsyncbar.js&quot;&gt;&lt;/script&gt;
 </code></pre>
 
-                    <h3 id="sur-cdn" pl-9="xs,sm">
-                        <a href="#sur-cdn" title="Sur CDN" class="pos-absolute top-50 left-0 t-tY-50 | p-4 ml-1 | td-none | brad-4 bc-neutral-100 bwidth-1 bstyle-dashed bcolor-neutral-500 __hover-1" ml-3="xs,sm">
-                            <span class="icon-link-simple | pos-absolute top-50 left-50 t-tY-50 t-tX-50 | fs-4"></span>
-                        </a>
-                Sur CDN</h3>
+                        <h3 id="sur-cdn" pl-9="xs,sm">
+                            <a href="#sur-cdn" title="Sur CDN" class="pos-absolute top-50 left-0 t-tY-50 | p-4 ml-1 | td-none | brad-4 bc-neutral-100 bwidth-1 bstyle-dashed bcolor-neutral-500 __hover-1 __soft-shadow" ml-3="xs,sm">
+                                <span class="icon-link-simple | pos-absolute top-50 left-50 t-tY-50 t-tX-50 | fs-4"></span>
+                            </a>
+                    Sur CDN</h3>
 <p>Via <a href="https://www.jsdelivr.com/">https://www.jsdelivr.com/</a></p>
 <p>Version la plus récente:</p>
 <pre><code class="language-html">https://cdn.jsdelivr.net/gh/ita-design-system/c-scrollsyncbar.js/ui/js/c-scrollsyncbar.js
@@ -523,11 +554,11 @@ Activer
 https://cdn.jsdelivr.net/gh/ita-design-system/c-scrollsyncbar.js@v0.1.0/ui/js/c-scrollsyncbar.min.js
 </code></pre>
 
-                    <h2 id="usage" pl-9="xs,sm">
-                        <a href="#usage" title="Usage" class="pos-absolute top-50 left-0 t-tY-50 | p-4 ml-1 | td-none | brad-4 bc-neutral-100 bwidth-1 bstyle-dashed bcolor-neutral-500 __hover-1" ml-3="xs,sm">
-                            <span class="icon-link-simple | pos-absolute top-50 left-50 t-tY-50 t-tX-50 | fs-4"></span>
-                        </a>
-                Usage</h2>
+                        <h2 id="usage" pl-9="xs,sm">
+                            <a href="#usage" title="Usage" class="pos-absolute top-50 left-0 t-tY-50 | p-4 ml-1 | td-none | brad-4 bc-neutral-100 bwidth-1 bstyle-dashed bcolor-neutral-500 __hover-1 __soft-shadow" ml-3="xs,sm">
+                                <span class="icon-link-simple | pos-absolute top-50 left-50 t-tY-50 t-tX-50 | fs-4"></span>
+                            </a>
+                    Usage</h2>
 <p>Ajouter <code>c-scrollsyncbar=&quot;IDENTIFIANT_UNIQUE_OPTIONNEL&quot;</code> à l'élément. Par défaut l'élément subit une <a href="https://developer.mozilla.org/fr/docs/Web/CSS/transform">transformation CSS</a> <code>translateY(-|x|%)</code> dans laquelle <code>|x|</code> est un nombre compris entre à et 100.</p>
 <pre><code class="language-html">&lt;!-- Minimal --&gt;
 &lt;div c-scrollsyncbar=&quot;&quot;&gt;
@@ -540,11 +571,11 @@ https://cdn.jsdelivr.net/gh/ita-design-system/c-scrollsyncbar.js@v0.1.0/ui/js/c-
 &lt;/div&gt;
 </code></pre>
 
-                    <h2 id="sensibilit" pl-9="xs,sm">
-                        <a href="#sensibilit" title="Sensibilité" class="pos-absolute top-50 left-0 t-tY-50 | p-4 ml-1 | td-none | brad-4 bc-neutral-100 bwidth-1 bstyle-dashed bcolor-neutral-500 __hover-1" ml-3="xs,sm">
-                            <span class="icon-link-simple | pos-absolute top-50 left-50 t-tY-50 t-tX-50 | fs-4"></span>
-                        </a>
-                Sensibilité</h2>
+                        <h2 id="sensibilit" pl-9="xs,sm">
+                            <a href="#sensibilit" title="Sensibilité" class="pos-absolute top-50 left-0 t-tY-50 | p-4 ml-1 | td-none | brad-4 bc-neutral-100 bwidth-1 bstyle-dashed bcolor-neutral-500 __hover-1 __soft-shadow" ml-3="xs,sm">
+                                <span class="icon-link-simple | pos-absolute top-50 left-50 t-tY-50 t-tX-50 | fs-4"></span>
+                            </a>
+                    Sensibilité</h2>
 <p>Par défaut, l'initialisation se fait avec paramètre de sensibilité de <code>scrollSteps: 200</code>, qui correspond au nombre de pixels de défilement qu'il faut pour compléter la course de l'élément.</p>
 <p>Il est possible de modifier cette sensibilité en invoquant la méthode <code>cScrollSyncBar.update({scrollSteps: &lt;INTEGER&gt;});</code></p>
 <ul>
@@ -563,11 +594,11 @@ cScrollSyncBar.update({scrollSteps: 200});
 cScrollSyncBar.update({scrollSteps: 50});
 </code></pre>
 
-                    <h2 id="formule-personnalise" pl-9="xs,sm">
-                        <a href="#formule-personnalise" title="Formule personnalisée" class="pos-absolute top-50 left-0 t-tY-50 | p-4 ml-1 | td-none | brad-4 bc-neutral-100 bwidth-1 bstyle-dashed bcolor-neutral-500 __hover-1" ml-3="xs,sm">
-                            <span class="icon-link-simple | pos-absolute top-50 left-50 t-tY-50 t-tX-50 | fs-4"></span>
-                        </a>
-                Formule personnalisée</h2>
+                        <h2 id="formule-personnalise" pl-9="xs,sm">
+                            <a href="#formule-personnalise" title="Formule personnalisée" class="pos-absolute top-50 left-0 t-tY-50 | p-4 ml-1 | td-none | brad-4 bc-neutral-100 bwidth-1 bstyle-dashed bcolor-neutral-500 __hover-1 __soft-shadow" ml-3="xs,sm">
+                                <span class="icon-link-simple | pos-absolute top-50 left-50 t-tY-50 t-tX-50 | fs-4"></span>
+                            </a>
+                    Formule personnalisée</h2>
 <p>c-scrollsyncbar.js fonctionne uniquement avec la <a href="https://developer.mozilla.org/fr/docs/Web/CSS/transform">propriété CSS transform</a>. Par défaut, la formule de transformation est <code>translateY(-|x|%)</code> dans laquelle <code>|x|</code> est un nombre compris entre à et 100. Il est possible de personnaliser la formule pour chaque élément en l'écrivant dans l'attribut <code>data-transform</code> de l'élément:</p>
 <aside class="d-flex | sandbox" fd-column="xs,sm" gap-2="xs,sm" ai-start="xs,sm" o-hidden="md" pl-9="md" pr-9="md" pl-5="xs,sm" pr-5="xs,sm">
 <div class="d-flex | p-1 | bc-primary-200 brad-2" d-none="md">
@@ -654,8 +685,8 @@ Démo 2
 &lt;/html&gt;</code>
 </pre>
 <div class="d-flex jc-center ai-center | pos-absolute top-0 left-0 | w-100 h-100 | sandbox__enable_wrapper" style="background-color: rgba(0,0,0,0.5)">
-<input type="checkbox" id="kFa2LKMf_code" value="" class="pos-absolute | opa-0 | sandbox__enable_switch" checked="">
-<label for="kFa2LKMf_code" class="d-flex ai-center gap-1 | p-5 | fvs-wght-500 tt-uppercase | bc-neutral-900 brad-2 cur-pointer">
+<input type="checkbox" id="fl13UN6f_code" value="" class="pos-absolute | opa-0 | sandbox__enable_switch">
+<label for="fl13UN6f_code" class="d-flex ai-center gap-1 | p-5 | fvs-wght-500 tt-uppercase | bc-neutral-900 brad-2 cur-pointer">
 <span class="icon-play"></span>
 Activer
 </label>
@@ -673,7 +704,7 @@ Activer
 <span class="fvs-wght-400 | c-neutral-300">Ouvrir</span>
 <span class="icon-arrow-square-out c-neutral-500"></span>
 </a>
-<div class="d-flex gap-5">
+<div class="d-flex gap-7">
 <button type="button" class="d-flex ai-center | p-0 | fvs-wght-400 fs-2 tt-uppercase | bc-0 c-neutral-300 b-0 cur-pointer | sandbox__reload">
 <span class="o-hidden | to-ellipsis ws-nowrap">Recharger</span>
 </button>
@@ -685,8 +716,8 @@ Activer
 <div class="d-flex | pos-relative">
 <iframe src="/c-scrollsyncbar.js/sandboxes/2/" loading="lazy" class="w-100 h-500px | b-0 bc-neutral-100 | sandbox__iframe"></iframe>
 <div class="d-flex jc-center ai-center | pos-absolute top-0 left-0 | w-100 h-100 | sandbox__enable_wrapper" style="background-color: rgba(0,0,0,0.5)">
-<input type="checkbox" id="kFa2LKMf_iframe" value="" class="pos-absolute | opa-0 | sandbox__enable_switch" checked="">
-<label for="kFa2LKMf_iframe" class="d-flex ai-center gap-1 | p-5 | fvs-wght-500 tt-uppercase | bc-neutral-900 brad-2 cur-pointer">
+<input type="checkbox" id="fl13UN6f_iframe" value="" class="pos-absolute | opa-0 | sandbox__enable_switch">
+<label for="fl13UN6f_iframe" class="d-flex ai-center gap-1 | p-5 | fvs-wght-500 tt-uppercase | bc-neutral-900 brad-2 cur-pointer">
 <span class="icon-play"></span> Activer
 </label>
 </div>
@@ -698,11 +729,11 @@ Activer
 </div>
 </aside>
 
-                    <h2 id="mthode-update" pl-9="xs,sm">
-                        <a href="#mthode-update" title="Méthode update" class="pos-absolute top-50 left-0 t-tY-50 | p-4 ml-1 | td-none | brad-4 bc-neutral-100 bwidth-1 bstyle-dashed bcolor-neutral-500 __hover-1" ml-3="xs,sm">
-                            <span class="icon-link-simple | pos-absolute top-50 left-50 t-tY-50 t-tX-50 | fs-4"></span>
-                        </a>
-                Méthode update</h2>
+                        <h2 id="mthode-update" pl-9="xs,sm">
+                            <a href="#mthode-update" title="Méthode update" class="pos-absolute top-50 left-0 t-tY-50 | p-4 ml-1 | td-none | brad-4 bc-neutral-100 bwidth-1 bstyle-dashed bcolor-neutral-500 __hover-1 __soft-shadow" ml-3="xs,sm">
+                                <span class="icon-link-simple | pos-absolute top-50 left-50 t-tY-50 t-tX-50 | fs-4"></span>
+                            </a>
+                    Méthode update</h2>
 <ul>
 <li>Indispensable pour initialiser l'application, crée les instances des éléments sur lequels appliquer l'effet.</li>
 <li>Mettre à jour les options</li>
@@ -714,29 +745,29 @@ cScrollSyncBar.update();
 cScrollSyncBar.update({scrollSteps: 500});
 </code></pre>
 
-                    <h2 id="mthode-pause" pl-9="xs,sm">
-                        <a href="#mthode-pause" title="Méthode pause" class="pos-absolute top-50 left-0 t-tY-50 | p-4 ml-1 | td-none | brad-4 bc-neutral-100 bwidth-1 bstyle-dashed bcolor-neutral-500 __hover-1" ml-3="xs,sm">
-                            <span class="icon-link-simple | pos-absolute top-50 left-50 t-tY-50 t-tX-50 | fs-4"></span>
-                        </a>
-                Méthode pause</h2>
+                        <h2 id="mthode-pause" pl-9="xs,sm">
+                            <a href="#mthode-pause" title="Méthode pause" class="pos-absolute top-50 left-0 t-tY-50 | p-4 ml-1 | td-none | brad-4 bc-neutral-100 bwidth-1 bstyle-dashed bcolor-neutral-500 __hover-1 __soft-shadow" ml-3="xs,sm">
+                                <span class="icon-link-simple | pos-absolute top-50 left-50 t-tY-50 t-tX-50 | fs-4"></span>
+                            </a>
+                    Méthode pause</h2>
 <p>Interrompre l'effet de la librairie. Maintient les élements dans l'état courant.</p>
 <pre><code class="language-javascript">cScrollSyncBar.pause();
 </code></pre>
 
-                    <h2 id="mthode-stop" pl-9="xs,sm">
-                        <a href="#mthode-stop" title="Méthode stop" class="pos-absolute top-50 left-0 t-tY-50 | p-4 ml-1 | td-none | brad-4 bc-neutral-100 bwidth-1 bstyle-dashed bcolor-neutral-500 __hover-1" ml-3="xs,sm">
-                            <span class="icon-link-simple | pos-absolute top-50 left-50 t-tY-50 t-tX-50 | fs-4"></span>
-                        </a>
-                Méthode stop</h2>
+                        <h2 id="mthode-stop" pl-9="xs,sm">
+                            <a href="#mthode-stop" title="Méthode stop" class="pos-absolute top-50 left-0 t-tY-50 | p-4 ml-1 | td-none | brad-4 bc-neutral-100 bwidth-1 bstyle-dashed bcolor-neutral-500 __hover-1 __soft-shadow" ml-3="xs,sm">
+                                <span class="icon-link-simple | pos-absolute top-50 left-50 t-tY-50 t-tX-50 | fs-4"></span>
+                            </a>
+                    Méthode stop</h2>
 <p>Stoppe l'effet de la librairie et réinitialise les élements dans leur état d'origine.</p>
 <pre><code class="language-javascript">cScrollSyncBar.stop();
 </code></pre>
 
-                    <h2 id="api" pl-9="xs,sm">
-                        <a href="#api" title="API" class="pos-absolute top-50 left-0 t-tY-50 | p-4 ml-1 | td-none | brad-4 bc-neutral-100 bwidth-1 bstyle-dashed bcolor-neutral-500 __hover-1" ml-3="xs,sm">
-                            <span class="icon-link-simple | pos-absolute top-50 left-50 t-tY-50 t-tX-50 | fs-4"></span>
-                        </a>
-                API</h2>
+                        <h2 id="api" pl-9="xs,sm">
+                            <a href="#api" title="API" class="pos-absolute top-50 left-0 t-tY-50 | p-4 ml-1 | td-none | brad-4 bc-neutral-100 bwidth-1 bstyle-dashed bcolor-neutral-500 __hover-1 __soft-shadow" ml-3="xs,sm">
+                                <span class="icon-link-simple | pos-absolute top-50 left-50 t-tY-50 t-tX-50 | fs-4"></span>
+                            </a>
+                    API</h2>
 <p>Toutes les instances de cScrollSyncBar sont placées dans <code>cScrollSyncBar.instances[ID_DE_L_INSTANCE]</code>. <code>ID_DE_L_INSTANCE</code> est l'id de l'élément s'il est présent, s'il est absent, cScrollSyncBar applique un id préfixé de <code>cssb_</code> suivi de l'index de l'instance.</p>
 <pre><code class="language-javascript">// Élément DOM activé
 cScrollSyncBar.instances[ID_DE_L_INSTANCE].el;
@@ -744,11 +775,11 @@ cScrollSyncBar.instances[ID_DE_L_INSTANCE].el;
 cScrollSyncBar.instances[ID_DE_L_INSTANCE].formula;
 </code></pre>
 
-            <footer class="minh-100vh">
+            <footer class="minh-100vh mt-10">
                 <div class="pt-11 | bwidth-1 bstyle-dashed bcolor-neutral-500 btwidth-0 brwidth-0"></div>
                 <p class="mt-5 mb-0 | fs-2">
                     <a href="https://github.com/ita-design-system/eleventy-libdoc" target="_blank" class="td-none">
-                        11ty LibDoc 0.1.0
+                        11ty LibDoc 0.3.0
                     </a>
                 </p>
             </footer>

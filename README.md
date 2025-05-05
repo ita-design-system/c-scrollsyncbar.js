@@ -5,9 +5,6 @@ layout: libdoc_page.liquid
 permalink: index.html
 date: git Last Modified
 ---
-
-[![GitHub release (latest by date)](https://img.shields.io/github/v/release/ita-design-system/c-scrollsyncbar.js?style=for-the-badge)](https://github.com/ita-design-system/c-scrollsyncbar.js/releases)
-
 ![GIF exemple usage c-scrollsyncbar.js 1](/assets/capture-1.gif)
 ![GIF exemple usage c-scrollsyncbar.js 2](/assets/capture-2.gif)
 

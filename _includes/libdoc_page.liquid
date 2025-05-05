@@ -55,7 +55,13 @@
         :root {
             --ita-widths-sidebar: {{ libdocSystem.widthSidebar }}px;
             --ita-widths-content: {{ libdocSystem.widthContent }}px;
+            --ita-widths-main-container-max: calc(2 * var(--ita-widths-content) + var(--ita-widths-sidebar));
         }
+        {% if libdocConfig.roundedImagesCorners %}
+            main img {
+                border-radius: 9px;
+            }
+        {% endif %}
     </style>
     <noscript>
         <link rel="stylesheet" href="/core/assets/css/noscript.css">
@@ -75,12 +81,13 @@
         }
     </script>
 </head>
-<body class="d-flex fd-column | m-0">
-    <div class="d-flex"
+<body class="d-flex fd-column ai-center | m-0">
+    <div class="d-flex | w-100"
         fd-column="xs,sm"
         ai-start="md"
         ai-center="xs,sm"
-        pl-5="md">
+        pl-5="md"
+        style="max-width: var(--ita-widths-main-container-max)">
         <div class="d-flex fd-column | pos-sticky top-0 z-2"
             ai-center="xs,sm"
             w-100="xs,sm"
@@ -125,7 +132,7 @@
                 </div>
             </nav>
             <nav id="nav_primary_container"
-                class="d-flex d-none--xs d-none--sm fd-column | w-100 o-hidden | bc-neutral-100 bwidth-1 bstyle-dashed bcolor-neutral-500"
+                class="d-flex d-none--xs d-none--sm fd-column | w-100 o-hidden | bc-neutral-100 bwidth-1 bstyle-dashed bcolor-neutral-500 |  __soft-shadow"
                 mt-5="md"
                 maxw-sidebar="md"
                 maxh-sidebar="md"
@@ -329,7 +336,7 @@
                 {% endif %}
             </header>
             {{ content | cleanup | autoids }}
-            <footer class="minh-100vh">
+            <footer class="minh-100vh mt-10">
                 <div class="pt-11 | bwidth-1 bstyle-dashed bcolor-neutral-500 btwidth-0 brwidth-0"></div>
                 <p class="mt-5 mb-0 | fs-2">
                     <a  href="https://github.com/ita-design-system/eleventy-libdoc"

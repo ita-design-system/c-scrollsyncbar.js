@@ -30,15 +30,17 @@ eleventyExcludeFromCollections: true
                             decoding="async"
                             class="w-100 h-auto | brad-2 bc-primary-200">
                     {%- endif %}
-                    <strong class="d-flex fd-column | fs-5 fvs-wght-600 lh-3">
-                        <span class="fs-2 | c-primary-400">
+                    <strong class="d-flex fd-column | fs-5 lh-3">
+                        <span class="fs-2 fvs-wght-400 | c-neutral-700">
                             {% if item.data.eleventyNavigation.parent %}
                                 {{ item.data.eleventyNavigation.parent }}
                             {% elsif item.data.tags contains 'post' %}
                                 {{ libdocConfig.blogTitle }}
                             {% endif %}
                         </span>
-                        {{ item.data.eleventyNavigation.key | default: item.data.title | default: item.page.inputPath }}
+                        <span class="fvs-wght-600">
+                            {{ item.data.eleventyNavigation.key | default: item.data.title | default: item.page.inputPath }}
+                        </span>
                     </strong>
                     <span class="fs-4 fvs-wght-300 lh-5 | c-primary-900">
                         {{ item.data.description }}

@@ -140,7 +140,12 @@ const sandbox = {
             elBtn.classList.add('pe-none');
             libdocUi.copyToClipboard(code, {notificationEnabled: false});
             if (elBtn.dataset.originalText === undefined) elBtn.dataset.originalText = elBtn.innerText;
-            elBtn.innerHTML = `<span class="c-success-500">${libdocMessages.copied}!</span>`;
+            elBtn.innerHTML = `
+                <span style="margin-left: -4px;"
+                    class="d-flex | pos-absolute t-tX-100 | p-2 mr-1 | c-neutral-100 bc-success-500 brad-4">
+                    <span class="icon-check pos-absolute top-50 left-50 t-tY-50 t-tX-50 | fs-1"></span>
+                </span>
+                ${libdocMessages.copied}!`;
             setTimeout(function() {
                 elBtn.innerHTML = elBtn.dataset.originalText;
                 elBtn.classList.remove('pe-none');
@@ -152,7 +157,12 @@ const sandbox = {
             elBtn.classList.add('pe-none');
             libdocUi.copyToClipboard(permalink, {notificationEnabled: false});
             if (elBtn.dataset.originalText === undefined) elBtn.dataset.originalText = elBtn.innerText;
-            elBtn.innerHTML = `<span class="c-success-500">${libdocMessages.copied}!</span>`;
+            elBtn.innerHTML = `
+                <span style="margin-left: -4px;"
+                    class="d-flex | pos-absolute t-tX-100 | p-2 mr-1 | c-neutral-100 bc-success-500 brad-4">
+                    <span class="icon-check pos-absolute top-50 left-50 t-tY-50 t-tX-50 | fs-1"></span>
+                </span>
+                ${libdocMessages.copied}!`;
             setTimeout(function() {
                 elBtn.innerHTML = elBtn.dataset.originalText;
                 elBtn.classList.remove('pe-none');
@@ -167,7 +177,12 @@ const sandbox = {
             elTargetDocument.location.reload();
             elTargetWindow.scroll(0,0);
             if (elBtn.dataset.originalText === undefined) elBtn.dataset.originalText = elBtn.innerText;
-            elBtn.innerHTML = `<span class="c-success-500">${libdocMessages.reloaded}!</span>`;
+            elBtn.innerHTML = `
+                <span style="margin-left: -4px;"
+                    class="d-flex | pos-absolute t-tX-100 | p-2 mr-1 | c-neutral-100 bc-success-500 brad-4">
+                    <span class="icon-check pos-absolute top-50 left-50 t-tY-50 t-tX-50 | fs-1"></span>
+                </span>
+                ${libdocMessages.reloaded}!`;
             setTimeout(function() {
                 elBtn.innerHTML = elBtn.dataset.originalText;
                 elBtn.classList.remove('pe-none');
