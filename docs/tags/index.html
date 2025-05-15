@@ -45,7 +45,7 @@
     <meta name="color-scheme" content="light">
     <meta name="mobile-web-app-capable" content="yes">
 
-    <meta name="generator" content="Eleventy v3.0.0">
+    <meta name="generator" content="Eleventy v3.1.0">
     
     <link rel="stylesheet" href="/c-scrollsyncbar.js/core/assets/css/ds__defaults.css">
     <link rel="stylesheet" href="/c-scrollsyncbar.js/core/assets/css/ds.css">
@@ -82,6 +82,7 @@
                 copyURL: `Copier l’URL`,
                 enable: `Activer`,
                 goToTopOfPage: `Aller en haut de page`,
+                editThisPage: `Modifier la page`,
                 height: `Hauteur`,
                 homepage: `Page d’accueil`,
                 homepageShort: `Accueil`,
@@ -119,11 +120,14 @@
         const libdocConfig = {
             searchIndexUrl: `/c-scrollsyncbar.js/core/assets/js/search_index.json`
         }
+        const libdocSystem = {
+            productionUrl: `eleventy-libdoc.netlify.app`
+        }
     </script>
 </head>
 <body class="d-flex fd-column ai-center | m-0">
     <div class="d-flex | w-100" fd-column="xs,sm" ai-start="md" ai-center="xs,sm" pl-5="md" style="max-width: var(--ita-widths-main-container-max)">
-        <div class="d-flex fd-column | pos-sticky top-0 z-2" ai-center="xs,sm" w-100="xs,sm" w-sidebar="md">
+        <div id="sidebar" class="d-flex fd-column | pos-sticky top-0 z-2" ai-center="xs,sm" w-100="xs,sm" w-sidebar="md">
             <nav id="nav_small_devices" class="d-flex | pos-fixed bottom-0 left-0 z-1 | w-100 h-60px" d-none="md">
                 <div class="d-flex jc-space-between | w-100 | bc-neutral-100 btwidth-1 btstyle-dashed bcolor-neutral-500">
                     <a href="/c-scrollsyncbar.js/" class="d-flex fd-column jc-center ai-center gap-1 | pl-5 pr-2 | td-none ta-center | c-primary-900 b-0 brad-3">
@@ -144,13 +148,16 @@
                         <span class="icon-arrow-line-up fs-6"></span>
                         <span class="fvs-wght-400 fs-1 tt-uppercase">Haut</span>
                     </button>
-                    <button type="button" class="d-flex fd-column jc-center ai-center gap-1 | pl-2 pr-5 | ta-center | cur-pointer c-primary-900 bc-neutral-100 b-0 brad-3" c-toggle="nav_primary" data-dismiss="true">
-                        <span class="icon-list fs-6" c-toggle-name="nav_primary" data-opened-state-class="icon-x fs-6"></span>
-                        <span class="fvs-wght-400 fs-1 tt-uppercase">Menu</span>
-                    </button>
+                    <div class="d-flex ai-center">
+                        <input type="checkbox" name="nav_primary" id="nav_primary_checkbox" value="" class="pos-absolute opa-0 pe-none">
+                        <label for="nav_primary_checkbox" class="d-flex fd-column jc-center ai-center gap-1 | h-100 pl-2 pr-5 | ta-center | cur-pointer c-primary-900 bc-neutral-100">
+                            <span class="icon-list fs-6"></span>
+                            <span class="fvs-wght-400 fs-1 tt-uppercase">Menu</span>
+                        </label>
+                    </div>
                 </div>
             </nav>
-            <nav id="nav_primary_container" class="d-flex d-none--xs d-none--sm fd-column | w-100 o-hidden | bc-neutral-100 bwidth-1 bstyle-dashed bcolor-neutral-500 |  __soft-shadow" mt-5="md" maxw-sidebar="md" maxh-sidebar="md" h-sidebar="xs,sm" brad-3="md" c-toggle-name="nav_primary" data-opened-state-class="d-flex fd-column | w-100 o-hidden | bc-neutral-100 bwidth-1 bstyle-dashed bcolor-neutral-500">
+            <nav id="nav_primary_container" class="d-flex d-none--xs d-none--sm fd-column | w-100 o-hidden | bc-neutral-100 bwidth-1 bstyle-dashed bcolor-neutral-500 |  __soft-shadow" mt-5="md" maxw-sidebar="md" maxh-sidebar="md" h-sidebar="xs,sm" brad-3="md">
                 <menu id="nav_primary_header" class="
                     d-flex fd-column
                     pos-sticky top-0 z-1
@@ -262,19 +269,21 @@
     </nav>
 </div>
 
-            <footer class="minh-100vh mt-10">
-                <div class="pt-11 | bwidth-1 bstyle-dashed bcolor-neutral-500 btwidth-0 brwidth-0"></div>
-                <p class="mt-5 mb-0 | fs-2">
-                    <a href="https://github.com/ita-design-system/eleventy-libdoc" target="_blank" class="td-none">
-                        11ty LibDoc 0.3.0
+            <footer class="minh-100vh">
+                <div class="pt-11 | blwidth-1 blstyle-dashed bcolor-neutral-500"></div>
+                <nav class="d-flex ai-center rgap-7 | blwidth-1 blstyle-dashed bcolor-neutral-500" fw-wrap="xs">
+                    <div class="pl-5 | bbwidth-1 bbstyle-dashed bcolor-neutral-500"></div>
+                    
+                    <div class="w-100" d-none="sm,md"></div>
+                    <div class="pl-5 | bbwidth-1 bbstyle-dashed bcolor-neutral-500" w-100="sm,md"></div>
+                    <a href="https://github.com/ita-design-system/eleventy-libdoc" target="_blank" class="d-flex ai-center gap-2 | pl-2 pr-2 | fvs-wght-400 fs-2 lsp-3 lh-3 td-none ws-nowrap">
+                        11ty LibDoc 0.5.1
                     </a>
-                </p>
+                </nav>
             </footer>
         </main>
     </div>
     
-    
-    <script src="/c-scrollsyncbar.js/core/assets/js/c-toggle.js"></script>
     <script src="/c-scrollsyncbar.js/core/assets/js/sandbox.js"></script>
     <script src="/c-scrollsyncbar.js/core/assets/js/hljs/highlight.min.js"></script>
     

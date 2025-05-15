@@ -1,8 +1,22 @@
-import libdocUtils      from "./libdocUtils.js";
-import libdocConfig     from "./libdocConfig.js";
-import libdocSystem     from "./libdocSystem.json" with { "type": "json" };
-import libdocMessages   from "./libdocMessages.json" with { "type": "json" };
-import icomoon          from "../core/assets/fonts/icomoon/selection.json" with { "type": "json" };
+// START IMPORT REQUIRE WORKAROUND
+// To make 11ty --serve work with JSON imports
+// https://github.com/11ty/eleventy/issues/3128#issuecomment-1878745864
+import { createRequire } from "node:module";
+const require = createRequire(import.meta.url);
+// END IMPORT REQUIRE WORKAROUND
+
+// START JSON IMPORT WORKAROUND
+// import libdocMessages   from "./libdocMessages.json" with { "type": "json" };
+// import libdocSystem     from "./libdocSystem.json" with { "type": "json" };
+// import icomoon          from "../core/assets/fonts/icomoon/selection.json" with { "type": "json" };
+const libdocSystem =        require("./libdocSystem.json");
+const libdocMessages =      require("./libdocMessages.json");
+const icomoon =             require("../core/assets/fonts/icomoon/selection.json");
+// END JSON IMPORT WORKAROUND
+
+import libdocUtils          from    "./libdocUtils.js";
+import libdocConfig         from    "./libdocConfig.js";
+
 export default {
     pluginsParameters: {
         eleventyImageTransform: function() {
@@ -30,12 +44,12 @@ export default {
                     const filename = src.split('/').slice(-1)[0].split('.')[0];
                     return `${libdocUtils.slugify(filename)}-${id}-__${width}__.${format}`;
                 },
-                // transform: (sharp) => {
-                //     sharp.trim();
-                // },
                 sharpOptions: {
                     animated: true,
                 },
+                // transform: (sharp) => {
+                //     sharp.trim();
+                // },
                 // optional, attributes assigned on <img> nodes override these values
                 htmlOptions: params.htmlOptions
             }
@@ -74,7 +88,7 @@ export default {
             try {
                 const url = new URL(src);
                 const content = `
-                    <aside>
+                    <aside class="widget widget-embed">
                         <iframe src="${url}"
                             frameborder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -161,11 +175,84 @@ export default {
         }
     },
     shortcodes: {
+        alert: async function(content, type, title) {
+            const validTypes = ['info', 'warning', 'success', 'danger'];
+            let markup = '',
+                titleAttribute = ``,
+                typeClass = ``;
+            if (typeof title == 'string') {
+                titleAttribute = `data-title="${title}"`;
+            }
+            if (typeof type == 'string') {
+                if (validTypes.includes(type)) typeClass = `alert-${type}`;
+            }
+            markup = `
+                <aside class="widget widget-alert">
+                    <div class="alert ${typeClass}" ${titleAttribute}>
+                        ${content}
+                    </div>
+                </aside>
+            `;
+            return markup;
+        },
+        icon: async function(iconName, iconSize) {
+            let markup = '';
+            let isAnIcon = false;
+            icomoon.icons.forEach(function(iconData) {
+                if (iconData.properties.name == iconName) isAnIcon = true;
+            });
+            if (isAnIcon) {
+                const fontSizeParse = parseInt(iconSize);
+                let dsFontSize = '';
+                if (!isNaN(fontSizeParse)) {
+                    if (fontSizeParse < 11 && fontSizeParse > 0) {
+                        dsFontSize = fontSizeParse;
+                    } else {
+                        console.log(`icon shortcode "${iconName}" is a valid icon but "${fontSizeParse}" is not a valid icon size, icon size must be an integer from 1 to 10`)
+                    }
+                }
+                markup = `<span class="icon-${iconName} fs-${dsFontSize}"></span>`;
+            } else {
+                console.log(`icon shortcode "${iconName}" is not a valid icon, see https://eleventy-libdoc.netlify.app/creating-content/widgets/icons/`)
+            }
+            return markup;
+        },
+        iconCard: async function(mainText, description, iconName) {
+            let markup = '';
+            if (typeof mainText == 'string' && typeof description == 'string') {
+                let isAnIcon = false,
+                    finalIconName = 'check-circle';
+                if (typeof iconName == 'string') {
+                    icomoon.icons.forEach(function(iconData) {
+                        if (iconData.properties.name == iconName) {
+                            finalIconName = iconName;
+                            isAnIcon = true;
+                        }
+                    });
+                }
+                if (!isAnIcon && iconName !== undefined) {
+                    console.log(`iconCard shortcode: ${iconName} is not a valid icon, default ${finalIconName} applied.`);
+                }
+                markup = `
+                    <aside class="widget widget-iconCard">
+                        <p class="d-flex gap-5 | p-5 m-0 | brad-3 bc-neutral-100 bwidth-1 bstyle-dashed bcolor-neutral-500">
+                            <span class="icon-${finalIconName} fs-10 | c-primary-500" fs-8="xs"></span>
+                            <span class="d-flex fd-column gap-1">
+                                <strong class="fvs-wght-700 fs-6">${mainText}</strong>
+                                <span>${description}</span>
+                            </span>
+                        </p>
+                    </aside>`;
+            } else {
+                console.log(`iconCard shortcode content: "${content}" wrong format, must specify at least main text and description string fields.`);
+            }
+            return markup;
+        },
         embed: async function(src, height) {
             try {
                 const url = new URL(src);
                 const content = `
-                    <aside>
+                    <aside class="widget widget-embed">
                         <iframe src="${url}"
                             frameborder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -182,8 +269,10 @@ export default {
         icomoon: async function() {
             const w = libdocSystem.icomoonIconSize;
             let markup = `
-                <aside class="mt-10 mb-10" mt-7="xs" mb-7="xs">
-                    <ul class="d-flex jc-center fw-wrap gap-7 | p-0 | ls-none" rgap-10="sm,md">`;
+                <aside class="widget widget-icomoon | mt-10 mb-10"
+                    mt-7="xs"
+                    mb-7="xs">
+                    <ul class="d-flex fw-wrap gap-7 | p-0 | ls-none" rgap-10="sm,md">`;
             icomoon.icons.forEach(function(iconData) {
                 let pathsMarkup = '';
                 iconData.icon.paths.forEach(function(path) {
@@ -199,9 +288,7 @@ export default {
             });
             markup += '</ul></aside>';
             return markup;
-        }
-    },
-    pairedShortcodes: {
+        },
         sandbox: async function(content, sandboxTitle) {
             const   code = libdocUtils.HTMLEncode(content.replace(/[\n\r]/, '')),
                     title = typeof sandboxTitle == `string` ? sandboxTitle : libdocMessages.sandbox[libdocConfig.lang],

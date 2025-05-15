@@ -79,6 +79,9 @@
         const libdocConfig = {
             searchIndexUrl: `{{ '/core/assets/js/search_index.json' | url }}`
         }
+        const libdocSystem = {
+            productionUrl: `{{ libdocSystem.productionUrl }}`
+        }
     </script>
 </head>
 <body class="d-flex fd-column ai-center | m-0">
@@ -88,7 +91,8 @@
         ai-center="xs,sm"
         pl-5="md"
         style="max-width: var(--ita-widths-main-container-max)">
-        <div class="d-flex fd-column | pos-sticky top-0 z-2"
+        <div id="sidebar"
+            class="d-flex fd-column | pos-sticky top-0 z-2"
             ai-center="xs,sm"
             w-100="xs,sm"
             w-sidebar="md">
@@ -122,13 +126,18 @@
                         <span class="icon-arrow-line-up fs-6"></span>
                         <span class="fvs-wght-400 fs-1 tt-uppercase">{{ libdocMessages.top[pageLang] }}</span>
                     </button>
-                    <button type="button"
-                        class="d-flex fd-column jc-center ai-center gap-1 | pl-2 pr-5 | ta-center | cur-pointer c-primary-900 bc-neutral-100 b-0 brad-3"
-                        c-toggle="nav_primary"
-                        data-dismiss="true">
-                        <span class="icon-list fs-6" c-toggle-name="nav_primary" data-opened-state-class="icon-x fs-6"></span>
-                        <span class="fvs-wght-400 fs-1 tt-uppercase">{{ libdocMessages.menu[pageLang] }}</span>
-                    </button>
+                    <div class="d-flex ai-center">
+                        <input type="checkbox"
+                            name="nav_primary"
+                            id="nav_primary_checkbox"
+                            value=""
+                            class="pos-absolute opa-0 pe-none">
+                        <label for="nav_primary_checkbox"
+                            class="d-flex fd-column jc-center ai-center gap-1 | h-100 pl-2 pr-5 | ta-center | cur-pointer c-primary-900 bc-neutral-100">
+                            <span class="icon-list fs-6"></span>
+                            <span class="fvs-wght-400 fs-1 tt-uppercase">{{ libdocMessages.menu[pageLang] }}</span>
+                        </label>
+                    </div>
                 </div>
             </nav>
             <nav id="nav_primary_container"
@@ -138,9 +147,7 @@
                 maxh-sidebar="md"
                 h-sidebar="xs,sm"
                 brad-3="md"
-                brad-3="md"
-                c-toggle-name="nav_primary"
-                data-opened-state-class="d-flex fd-column | w-100 o-hidden | bc-neutral-100 bwidth-1 bstyle-dashed bcolor-neutral-500">
+                brad-3="md">
                 <menu id="nav_primary_header"
                     class="
                     d-flex fd-column
@@ -224,11 +231,9 @@
                         {% if pageUrlSplit[1] == libdocConfig.blogSlug %}
                             aria-current="page"
                         {% endif %}
-                        class="d-flex ai-center | pt-5 pb-5 pl-3 | fvs-wght-500 fs-4 td-none | c-neutral-900 bbwidth-1 bbstyle-dashed bcolor-neutral-500 cur-pointer">
-                        <span class="d-flex ai-center gap-2 | lsp-2">
-                            <span class="icon-tag-simple | fs-6 | c-primary-500"></span>
-                            {{ libdocConfig.blogTitle }}
-                        </span>
+                        class="d-flex ai-center | pt-5 pb-5 | fvs-wght-500 fs-4 td-none lsp-2 | c-neutral-900 bbwidth-1 bbstyle-dashed bcolor-neutral-500 cur-pointer">
+                        {% comment %} <span class="icon-tag-simple | c-primary-500"></span> {% endcomment %}
+                        {{ libdocConfig.blogTitle }}
                     </a>
                 {% endif %}
 
@@ -238,11 +243,9 @@
                         {% if pageUrlSplit[1] == 'tags'%}
                             aria-current="page"
                         {% endif %}
-                        class="d-flex ai-center | pt-5 pb-5 pl-3 | fvs-wght-500 fs-4 td-none | c-neutral-900 bbwidth-1 bbstyle-dashed bcolor-neutral-500 cur-pointer">
-                        <span class="d-flex ai-center gap-2 | lsp-2">
-                            <span class="icon-tag-simple | fs-6 | c-primary-500"></span>
-                            {{ libdocMessages.tagsList[pageLang] }}
-                        </span>
+                        class="d-flex ai-center | pt-5 pb-5 | fvs-wght-500 fs-4 td-none lsp-2 | c-neutral-900 bbwidth-1 bbstyle-dashed bcolor-neutral-500 cur-pointer">
+                        {% comment %} <span class="icon-tag-simple | c-primary-500"></span> {% endcomment %}
+                        {{ libdocMessages.tagsList[pageLang] }}
                     </a>
                 {% endif %}
 
@@ -311,8 +314,7 @@
                                 </div>
                                 <p  class="d-flex fd-column | m-0 | fvs-wght-400 fs-3 lsp-3 lh-3 | c-neutral-700 bc-primary-100"
                                     fs-2="xs"
-                                    ws-nowrap="sm,md"
-                                    style="min-width: 10ch">
+                                    ws-nowrap="sm,md">
                                     {{ pageAuthor }}
                                 </p>
                             </div>
@@ -336,21 +338,31 @@
                 {% endif %}
             </header>
             {{ content | cleanup | autoids }}
-            <footer class="minh-100vh mt-10">
-                <div class="pt-11 | bwidth-1 bstyle-dashed bcolor-neutral-500 btwidth-0 brwidth-0"></div>
-                <p class="mt-5 mb-0 | fs-2">
+            <footer class="minh-100vh">
+                <div class="pt-11 | blwidth-1 blstyle-dashed bcolor-neutral-500"></div>
+                <nav class="d-flex ai-center rgap-7 | blwidth-1 blstyle-dashed bcolor-neutral-500"
+                    fw-wrap="xs">
+                    <div class="pl-5 | bbwidth-1 bbstyle-dashed bcolor-neutral-500"></div>
+                    {% if editThisPageRootUrl.size > 0 %}
+                        <a  href="{{ editThisPageUrl }}"
+                            target="_blank"
+                            class="btn btn-primary-light">
+                            <span class="icon-pencil-simple"></span>
+                            {{ libdocMessages.editThisPage[libdocConfig.lang] }}
+                        </a>
+                    {% endif %}
+                    <div class="w-100" d-none="sm,md"></div>
+                    <div class="pl-5 | bbwidth-1 bbstyle-dashed bcolor-neutral-500" w-100="sm,md"></div>
                     <a  href="https://github.com/ita-design-system/eleventy-libdoc"
                         target="_blank"
-                        class="td-none">
+                        class="d-flex ai-center gap-2 | pl-2 pr-2 | fvs-wght-400 fs-2 lsp-3 lh-3 td-none ws-nowrap">
                         11ty LibDoc {{ libdocUtils.version }}
                     </a>
-                </p>
+                </nav>
             </footer>
         </main>
     </div>
     
-    
-    <script src="/core/assets/js/c-toggle.js"></script>
     <script src="/core/assets/js/sandbox.js"></script>
     <script src="/core/assets/js/hljs/highlight.min.js"></script>
     {% for hljsLang in libdocConfig.hljsLanguages %}

@@ -32,10 +32,14 @@ export default function(eleventyConfig) {
     // END COLLECTIONS
 
     // START SHORTCODES
+    eleventyConfig.addShortcode("alert", libdocFunctions.shortcodes.alert);
+    eleventyConfig.addPairedShortcode("alertAlt", libdocFunctions.shortcodes.alert);
     eleventyConfig.addShortcode("embed", libdocFunctions.shortcodes.embed);
     eleventyConfig.addShortcode("icomoon", libdocFunctions.shortcodes.icomoon);
-    eleventyConfig.addPairedShortcode("sandbox", libdocFunctions.pairedShortcodes.sandbox);
-    eleventyConfig.addPairedShortcode("sandboxFile", libdocFunctions.pairedShortcodes.sandboxFile);
+    eleventyConfig.addShortcode("icon", libdocFunctions.shortcodes.icon);
+    eleventyConfig.addShortcode("iconCard", libdocFunctions.shortcodes.iconCard);
+    eleventyConfig.addPairedShortcode("sandbox", libdocFunctions.shortcodes.sandbox);
+    eleventyConfig.addPairedShortcode("sandboxFile", libdocFunctions.shortcodes.sandboxFile);
     // END SHORTCODES
 
     // START FILE COPY
