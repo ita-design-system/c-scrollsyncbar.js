@@ -301,8 +301,9 @@
                                 fs-2="xs">
                                 <span class="icon-calendar-dots fs-6"></span>
                                 <span ws-nowrap="sm,md">
-                                    <span class="ws-nowrap">{{ libdocMessages.lastModified[pageLang] }}</span>
-                                    {{ page.date|dateString }}
+                                    {% comment %} <span class="ws-nowrap">{{ libdocMessages.lastModified[pageLang] }}</span> {% endcomment %}
+                                    {{ date | datePrefixText }}
+                                    {{ page.date | dateString }}
                                 </span>
                             </p>
                         {% endif %}
