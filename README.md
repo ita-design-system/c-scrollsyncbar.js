@@ -28,32 +28,32 @@ Via [https://www.jsdelivr.com/](https://www.jsdelivr.com/)
 Version la plus récente:
 
 ```html
-https://cdn.jsdelivr.net/gh/ita-design-system/c-scrollsyncbar.js/ui/js/c-scrollsyncbar.js
+https://cdn.jsdelivr.net/gh/ita-design-system/c-scrollsyncbar.js@main/assets/c-scrollsyncbar.js
 ```
 
 Version la plus récente minifiée:
 
 ```html
-https://cdn.jsdelivr.net/gh/ita-design-system/c-scrollsyncbar.js/ui/js/c-scrollsyncbar.min.js
+https://cdn.jsdelivr.net/gh/ita-design-system/c-scrollsyncbar.js@main/assets/c-scrollsyncbar.min.js
 ```
 
 Typologie avec numéro de version:
 
 ```html
-https://cdn.jsdelivr.net/gh/ita-design-system/c-scrollsyncbar.js@<TAG_VERSION>/ui/js/c-scrollsyncbar.js
+https://cdn.jsdelivr.net/gh/ita-design-system/c-scrollsyncbar.js@<TAG_VERSION>/assets/c-scrollsyncbar.js
 ```
 
 Typologie numéro de version + minification automatique:
 
 ```html
-https://cdn.jsdelivr.net/gh/ita-design-system/c-scrollsyncbar.js@<TAG_VERSION>/ui/js/c-scrollsyncbar.min.js
+https://cdn.jsdelivr.net/gh/ita-design-system/c-scrollsyncbar.js@<TAG_VERSION>/assets/c-scrollsyncbar.min.js
 ```
 
 Exemple v0.1.0:
 
 ```html
-https://cdn.jsdelivr.net/gh/ita-design-system/c-scrollsyncbar.js@v0.1.0/ui/js/c-scrollsyncbar.js
-https://cdn.jsdelivr.net/gh/ita-design-system/c-scrollsyncbar.js@v0.1.0/ui/js/c-scrollsyncbar.min.js
+https://cdn.jsdelivr.net/gh/ita-design-system/c-scrollsyncbar.js@0.1.0/assets/c-scrollsyncbar.js
+https://cdn.jsdelivr.net/gh/ita-design-system/c-scrollsyncbar.js@0.1.0/assets/c-scrollsyncbar.min.js
 ```
 
 ## Usage
