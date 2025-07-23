@@ -12,14 +12,10 @@
     <meta name="author" content="ITADS">
     <link rel="icon" type="image/png" href="/c-scrollsyncbar.js/favicon.png">
     
-    <meta name="msapplication-TileColor" content="#FFFFFF">
-    <meta name="theme-color" content="#FFFFFF">
-    
     <!-- Microsoft -->
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="msapplication-starturl" content="/">
     <meta name="msapplication-tooltip" content="c-scrollsyncbar.js">
-    <meta name="msapplication-TileColor" content="#FFFFFF">
     
     <!-- Open Graph -->
     <meta property="og:type" content="website">
@@ -38,21 +34,41 @@
     <!-- iOS -->
     <meta name="apple-mobile-web-app-title" content="c-scrollsyncbar.js">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="#FFFFFF">
     
     <!-- Android -->
-    <meta name="theme-color" content="#FFFFFF">
-    <meta name="color-scheme" content="light">
     <meta name="mobile-web-app-capable" content="yes">
 
-    <meta name="generator" content="Eleventy v3.1.0">
-    
-    <link rel="stylesheet" href="/c-scrollsyncbar.js/core/assets/css/ds__defaults.css">
+    <meta name="color-scheme" content="light dark">
+
+    <meta name="generator" content="Eleventy v3.1.2">
+
+    <!-- Font fallback -->
+    <style>
+        @font-face {
+            font-family: "fallbackFont";
+            src: local("Arial");
+            size-adjust: 103%;
+        }
+        html, body {
+            font-family: fallbackFont, -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, Adwaita Sans, Cantarell, Ubuntu, roboto, noto, helvetica, arial, sans-serif;
+            font-display: swap;
+        }
+        pre, code {
+            font-family: Menlo, Consolas, Monaco, Adwaita Mono, Liberation Mono, Lucida Console, monospace;
+        }
+    </style>
+    <link rel="stylesheet" href="/c-scrollsyncbar.js/core/assets/css/fonts.css">
     <link rel="stylesheet" href="/c-scrollsyncbar.js/core/assets/css/ds.css">
+    <link rel="stylesheet" href="/c-scrollsyncbar.js/core/assets/css/ds__defaults.css">
+    <link rel="stylesheet" href="/c-scrollsyncbar.js/core/assets/css/ds__colors.css">
+    <link rel="stylesheet" href="/c-scrollsyncbar.js/core/assets/css/ds__dark_mode.css" media="(prefers-color-scheme: dark)" id="libdoc_dark_mode_css">
     <link rel="stylesheet" href="/c-scrollsyncbar.js/core/assets/css/hljs/night-owl.css">
     <link rel="stylesheet" href="/c-scrollsyncbar.js/core/assets/fonts/icomoon/style.css">
     <style>
         :root {
+            --libdoc-image-background-color-light-mode: transparent;
+            --libdoc-image-background-color-dark-mode: transparent;
+            --libdoc-image-background-color: var(--libdoc-image-background-color-light-mode);
             --ita-widths-sidebar: 300px;
             --ita-widths-content: 700px;
             --ita-widths-main-container-max: calc(2 * var(--ita-widths-content) + var(--ita-widths-sidebar));
@@ -75,6 +91,13 @@
             
                 copiedToClipboard: `Copié dans le presse-papiers`,
                 code: `Code`,
+                colorSchemes: `Modes d’apparences`,
+                colorSchemeAuto: `Automatique`,
+                colorSchemeDescriptionAuto: `Basé sur les règles d’affichage de votre système`,
+                colorSchemeLight: `Clair`,
+                colorSchemeDescriptionLight: `Toujours appliquer le mode clair`,
+                colorSchemeDark: `Sombre`,
+                colorSchemeDescriptionDark: `Toujours appliquer le mode sombre`,
                 copied: `Copié`,
                 copy: `Copier`,
                 copyCode: `Copier le code`,
@@ -89,11 +112,13 @@
                 inANewTab: `Dans un nouvel onglet`,
                 lastModified: `Dernière modification`,
                 menu: `Menu`,
+                noscriptAlert: `Il semble que JavaScript soit désactivé de votre naviigateur, LibDoc est en mode restreint avec des fonctionnalités réduites.`,
                 open: `Ouvrir`,
                 openInANewTab: `Ouvrir dans un nouvel onglet`,
                 page: `Page`,
                 pages: `Pages`,
                 pagesTagged: `Pages taguées`,
+                preferences: `Préférences`,
                 reload: `Recharger`,
                 reloaded: `Rechargé`,
                 result: `Résultat`,
@@ -109,7 +134,8 @@
                 searchOccurrencesStop: `Fermet la recherches d’occurrences`,
                 searchPlaceholder: `Texte à rechercher`,
                 searchSubmit: `Lancer la recherche`,
-                tableOfContent: `Table des matières`,
+                tableOfContent: `Sommaire`,
+                tableOfContentAbbr: `Sommaire`,
                 tag: `Tag`,
                 tagsList: `Liste des tags`,
                 tagsListDescription: `Liste de l’ensemble des tags disponibles`,
@@ -142,7 +168,7 @@
                     
                     <button type="button" id="sd_floating_toc_toggle_btn" class="d-flex fd-column jc-center ai-center gap-1 | pl-2 pr-2 | ta-center | cur-pointer c-primary-900 bc-neutral-100 b-0 brad-3" disabled="">
                         <span class="icon-list-dashes fs-6"></span>
-                        <span class="fvs-wght-400 fs-1 tt-uppercase">Table des matières</span>
+                        <span class="fvs-wght-400 fs-1 tt-uppercase">Sommaire</span>
                     </button>
                     <button type="button" id="sd_gtt_btn" class="d-flex fd-column jc-center ai-center gap-1 | pl-2 pr-2 | ta-center | cur-pointer c-primary-900 bc-neutral-100 b-0 brad-3" onclick="libdocUi.handlers._clickGTT()">
                         <span class="icon-arrow-line-up fs-6"></span>
@@ -157,12 +183,12 @@
                     </div>
                 </div>
             </nav>
-            <nav id="nav_primary_container" class="d-flex d-none--xs d-none--sm fd-column | w-100 o-hidden | bc-neutral-100 bwidth-1 bstyle-dashed bcolor-neutral-500 |  __soft-shadow" mt-5="md" maxw-sidebar="md" maxh-sidebar="md" h-sidebar="xs,sm" brad-3="md">
+            <nav id="nav_primary_container" class="d-flex d-none--xs d-none--sm fd-column | w-100 o-hidden | bwidth-1 bstyle-dashed bcolor-neutral-500 |  __soft-shadow" mt-5="md" maxw-sidebar="md" maxh-sidebar="md" h-sidebar="xs,sm" brad-3="md">
                 <menu id="nav_primary_header" class="
                     d-flex fd-column
                     pos-sticky top-0 z-1
                     m-0 p-0 
-                    ls-none bc-neutral-100
+                    ls-none
                     " gap-5="md" bradtl-3="md" bradtr-3="md">
                     <li class="d-flex ai-center">
                         
@@ -174,12 +200,12 @@
                     
                         <li d-none="xs,sm">
                             <form action="/c-scrollsyncbar.js/search/" class="d-flex fd-column | pos-relative | pl-5 pr-5 | search_form">
-                                <label for="searchInput" class="pos-absolute | ml-5 t-tY-50 | fvs-wght-400 fs-1 tt-uppercase | bc-neutral-100">
+                                <label for="searchInput" class="pos-absolute | ml-5 t-tY-50 | fvs-wght-400 fs-1 tt-uppercase | c-neutral-900 bc-neutral-100">
                                     Rechercher
                                 </label>
-                                <input id="searchInput" type="search" name="search" class="pl-5 pr-5 pt-4 pb-4 | fs-3 | bc-neutral-100 brad-4 bwidth-1 bstyle-dashed bcolor-neutral-500" placeholder="Texte à rechercher" value="">
+                                <input id="searchInput" type="search" name="search" class="pl-5 pr-5 pt-4 pb-4 | fs-3 | c-neutral-900 bc-neutral-100 brad-4 bwidth-1 bstyle-dashed bcolor-neutral-500" placeholder="Texte à rechercher" value="">
                                 <div class="d-flex ai-center gap-2 | pos-absolute top-0 right-0 | h-100 mr-5">
-                                    <button type="button" class="pos-relative | p-4 pr-5 | fs-3 | brad- bc-neutral-100 c-neutral-900 b-0 cur-pointer | search_form__clear_btn" title="Effacer la saisie" hidden="">
+                                    <button type="button" class="pos-relative | p-4 pr-5 | fs-3 | c-neutral-900 bc-neutral-100 c-neutral-900 b-0 cur-pointer | search_form__clear_btn" title="Effacer la saisie" hidden="">
                                         <span class="icon-x | pos-absolute top-50 left-50 t-tY-50 t-tX-50"></span>
                                     </button>
                                     <button type="submit" class="pos-relative | h-100 p-0 ar-square | fs-5 | brad-4 bc-primary-500 c-neutral-100 bwidth-1 bstyle-dashed bcolor-neutral-100 cur-pointer" title="Lancer la recherche">
@@ -198,7 +224,7 @@
                                     fvs-wght-600 fs-2 lsp-3 lh-1 tt-uppercase td-none
                                     c-primary-600" target="_blank">
                                     GitHub
-                                    <span class=""><span class="icon-arrow-square-out | pos-absolute t-tY-50 | c-primary-300"></span></span>
+                                    <span class=""><span class="icon-arrow-square-out | pos-absolute t-tY-50"></span></span>
                                 </a>
                             
                                 <a href="https://github.com/ita-design-system" class="
@@ -207,7 +233,7 @@
                                     fvs-wght-600 fs-2 lsp-3 lh-1 tt-uppercase td-none
                                     c-primary-600" target="_blank">
                                     ITADS
-                                    <span class=""><span class="icon-arrow-square-out | pos-absolute t-tY-50 | c-primary-300"></span></span>
+                                    <span class=""><span class="icon-arrow-square-out | pos-absolute t-tY-50"></span></span>
                                 </a>
                             
                         </li>
@@ -225,7 +251,8 @@
         </div>
         <main class="pos-relative" w-100-minus-sidebar="md" w-100="xs,sm">
             <header class="d-flex fd-column | pt-5 pb-7">
-                <ul class="d-flex ai-center gap-2 | p-0 m-0 | fs-2 lh-3 | ls-none">
+                <nav class="d-flex jc-space-between | pos-relative">
+                    <ul class="d-flex ai-center gap-2 | p-0 m-0 | fs-2 lh-3 | ls-none" style="width: calc(100% - 42px)">
     <li class="d-flex ai-center gap-2">
         <a href="/c-scrollsyncbar.js/" class="pos-relative | p-5 | fs-4 td-none | brad-4 bc-neutral-100 bwidth-1 bstyle-dashed bcolor-neutral-500 __hover-1 __soft-shadow" title="Page d’accueil">
             <span class="icon-house | pos-absolute top-50 left-50 t-tY-50 t-tX-50"></span>
@@ -240,6 +267,53 @@
         </ul>
     </li>
 </ul>
+                    <details id="user_preferences_btn">
+                        <summary class="d-flex | pos-relative | p-5 | fs-4 td-none | brad-4 bc-neutral-100 bwidth-1 bstyle-dashed bcolor-neutral-500 cur-pointer __hover-1 __soft-shadow" title="Preferences">
+                            <span class="icons">
+                                <span class="icon-faders | pos-absolute top-50 left-50 t-tY-50 t-tX-50"></span>
+                                <span class="icon-x | pos-absolute top-50 left-50 t-tY-50 t-tX-50"></span>
+                            </span>
+                        </summary>
+                        <menu class="d-flex fd-column | pos-absolute right-0 z-1 | w-100 mt-3 mb-0 p-4 | ls-none bc-neutral-100 brad-2 bwidth-1 bstyle-dashed bcolor-neutral-500 | __soft-shadow" style="max-width: 400px">
+                            <li class="d-flex fd-column gap-3 | c-neutral-900">
+                                <p class="m-0 | fs-3 fvs-wght-500">Modes d’apparences</p>
+                                <div class="d-flex fd-column gap-3">
+                                    
+                                        <div>
+                                            <input type="radio" name="libdoc_color_scheme" id="libdoc_color_scheme__auto" class="pos-absolute opa-0" value="auto" checked="">
+                                            <label for="libdoc_color_scheme__auto" class="d-flex ai-start gap-2">
+                                                <span class="d-flex fd-column gap-1">
+                                                    <strong class="fs-2 tt-uppercase">Automatique</strong>
+                                                    <span class="fs-2 | c-neutral-700">Basé sur les règles d’affichage de votre système</span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                    
+                                        <div>
+                                            <input type="radio" name="libdoc_color_scheme" id="libdoc_color_scheme__light" class="pos-absolute opa-0" value="light">
+                                            <label for="libdoc_color_scheme__light" class="d-flex ai-start gap-2">
+                                                <span class="d-flex fd-column gap-1">
+                                                    <strong class="fs-2 tt-uppercase">Clair</strong>
+                                                    <span class="fs-2 | c-neutral-700">Toujours appliquer le mode clair</span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                    
+                                        <div>
+                                            <input type="radio" name="libdoc_color_scheme" id="libdoc_color_scheme__dark" class="pos-absolute opa-0" value="dark">
+                                            <label for="libdoc_color_scheme__dark" class="d-flex ai-start gap-2">
+                                                <span class="d-flex fd-column gap-1">
+                                                    <strong class="fs-2 tt-uppercase">Sombre</strong>
+                                                    <span class="fs-2 | c-neutral-700">Toujours appliquer le mode sombre</span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                    
+                                </div>
+                            </li>
+                        </menu>
+                    </details>
+                </nav>
                 <h1 class="mt-3 mb-0 | lsp-5 fvs-wght-700 tws-balance " fs-10="md" fs-9="xs,sm">
                     c-scrollsyncbar.js
                 </h1>
@@ -282,7 +356,7 @@
                             <span class="d-flex ai-center gap-1 | lsp-2">
                                 <span class="icon-minus-circle | fs-6 | c-primary-500"></span>
                                 <span class="icon-plus-circle | fs-6 | c-primary-500"></span>
-                                Table des matières
+                                Sommaire
                             </span>
                         </summary>
                         
@@ -340,23 +414,33 @@
                     </details>
                 
             </header>
+            <noscript>
+                
+                
+                <aside class="widget widget-alert">
+                    <div class="alert ">
+                        Il semble que JavaScript soit désactivé de votre naviigateur, LibDoc est en mode restreint avec des fonctionnalités réduites.
+                    </div>
+                </aside>
+            
+            </noscript>
             <p><img src="/c-scrollsyncbar.js/img/capture-1-BAjpdUKpTw-__256__.webp" alt="GIF exemple usage c-scrollsyncbar.js 1" loading="lazy" decoding="async" width="256" height="193">
 <img src="/c-scrollsyncbar.js/img/capture-2-tIXRUk0LGJ-__191__.webp" alt="GIF exemple usage c-scrollsyncbar.js 2" loading="lazy" decoding="async" width="191" height="60"></p>
 <aside class="d-flex | sandbox" fd-column="xs,sm" gap-2="xs,sm" ai-start="xs,sm" o-hidden="md" pl-9="md" pr-9="md" pl-5="xs,sm" pr-5="xs,sm">
-<div class="d-flex | p-1 | bc-primary-200 brad-2" d-none="md">
-<button type="button" class="d-flex | pt-2 pb-2 pl-5 pr-5 | fvs-wght-400 fs-2 tt-uppercase | c-primary-900 bc-0 b-0 cur-pointer | sandbox__tab" data-name="code">
+<div class="d-flex | p-1 o-hidden | brad-2 | sandbox__tabs" d-none="md">
+<button type="button" class="d-flex | pt-2 pb-2 pl-5 pr-5 | fvs-wght-400 fs-2 tt-uppercase | b-0 brad-1 cur-pointer | sandbox__tab" data-name="code">
 Code
 </button>
-<button type="button" class="d-flex | pt-2 pb-2 pl-5 pr-5 | fvs-wght-400 fs-2 tt-uppercase | c-primary-900 bc-neutral-100 b-0 brad-1 cur-pointer | sandbox__tab" data-name="iframe">
+<button type="button" class="d-flex | pt-2 pb-2 pl-5 pr-5 | fvs-wght-400 fs-2 tt-uppercase | b-0 brad-1 cur-pointer | sandbox__tab __active" data-name="iframe">
 Résultat
 </button>
 </div>
-<div class="d-flex fd-column d-none--xs d-none--sm | o-hidden | bc-neutral-900 c-neutral-200 brad-3 bwidth-1 bstyle-solid bcolor-neutral-900 | sandbox__code_wrapper" w-50="md" w-100="xs,sm" bradtr-0="md" bradbr-0="md">
+<div class="d-flex fd-column d-none--xs d-none--sm | o-hidden | brad-3 | sandbox__code_wrapper" w-50="md" w-100="xs,sm" bradtr-0="md" bradbr-0="md">
 <header class="d-flex jc-space-between | pl-5" style="height: 58px">
-<p class="d-flex ai-center | m-0 | fvs-wght-400 fs-3 lh-1 | c-neutral-600" fs-2="xs">
+<p class="d-flex ai-center | m-0 | fvs-wght-400 fs-3 lh-1" fs-2="xs">
 Démo c-scrollsyncbar.js
 </p>
-<button type="button" class="d-flex ai-center | pl-5 pr-5 | fvs-wght-400 fs-2 tt-uppercase | bc-0 c-neutral-300 b-0 cur-pointer | sandbox__copy_code" title="Copier le HTML">
+<button type="button" class="d-flex ai-center | pl-5 pr-5 | fvs-wght-400 fs-2 tt-uppercase | bc-0 b-0 cur-pointer | sandbox__copy_code" title="Copier le HTML">
 <span class="o-hidden | to-ellipsis ws-nowrap">Copier</span>
 </button>
 </header>
@@ -480,44 +564,44 @@ Démo c-scrollsyncbar.js
 &lt;/html&gt;</code>
 </pre>
 <div class="d-flex jc-center ai-center | pos-absolute top-0 left-0 | w-100 h-100 | sandbox__enable_wrapper" style="background-color: rgba(0,0,0,0.5)">
-<input type="checkbox" id="Rqn8rrPm_code" value="" class="pos-absolute | opa-0 | sandbox__enable_switch">
-<label for="Rqn8rrPm_code" class="d-flex ai-center gap-1 | p-5 | fvs-wght-500 tt-uppercase | bc-neutral-900 brad-2 cur-pointer">
+<input type="checkbox" id="6N2lSi7x_code" value="" class="pos-absolute | opa-0 | sandbox__enable_switch">
+<label for="6N2lSi7x_code" class="d-flex ai-center gap-1 | p-5 | fvs-wght-500 tt-uppercase | bc-neutral-900 brad-2 cur-pointer">
 <span class="icon-play"></span>
 Activer
 </label>
 </div>
 </div>
-<div class="d-flex gap-2 | m-0 pt-1 pb-1 pl-0 | fvs-wght-400 fs-2 lh-1 | c-neutral-500 ls-none" pl-2="xs,sm">
+<div class="d-flex gap-2 | m-0 pt-1 pb-1 pl-0 | fvs-wght-400 fs-2 lh-1 | ls-none" pl-2="xs,sm">
  
 </div>
 </div>
-<button class="pos-relative | p-0 | bc-neutral-800 c-neutral-500 b-0 | sandbox__resizer" title="Cliquer déplacer pour redimensionner code et résultat" d-none="xs,sm">
+<button class="pos-relative | p-0 | b-0 | sandbox__resizer" title="Cliquer déplacer pour redimensionner code et résultat" d-none="xs,sm">
 <span class="icon-dots-six-vertical fs-5"></span>
 </button>
-<div class="d-flex fd-column | pos-relative | o-hidden | bc-neutral-900 c-neutral-200 brad-3 bwidth-1 bstyle-solid bcolor-neutral-900 | sandbox__iframe_wrapper" w-50="md" w-100="xs,sm" bradtl-0="md" bradbl-0="md" style="box-sizing: content-box"><header class="d-flex jc-space-between gap-5 | pl-5 pr-5" style="height: 58px">
+<div class="d-flex fd-column | pos-relative | o-hidden | brad-3 | sandbox__iframe_wrapper" w-50="md" w-100="xs,sm" bradtl-0="md" bradbl-0="md" style="box-sizing: content-box"><header class="d-flex jc-space-between gap-5 | pl-5 pr-5" style="height: 58px">
 <a href="/c-scrollsyncbar.js/sandboxes/1/index.html" target="_blank" title="Ouvrir dans un nouvel onglet" class="d-flex ai-center gap-1 | p-0 | fvs-wght-400 fs-2 tt-uppercase td-none | sandbox__permalink" fs-2="xs">
-<span class="fvs-wght-400 | c-neutral-300">Ouvrir</span>
-<span class="icon-arrow-square-out c-neutral-500"></span>
+<span class="fvs-wght-400">Ouvrir</span>
+<span class="icon-arrow-square-out"></span>
 </a>
 <div class="d-flex gap-7">
-<button type="button" class="d-flex ai-center | p-0 | fvs-wght-400 fs-2 tt-uppercase | bc-0 c-neutral-300 b-0 cur-pointer | sandbox__reload">
+<button type="button" class="d-flex ai-center | p-0 | fvs-wght-400 fs-2 tt-uppercase | bc-0 b-0 cur-pointer | sandbox__reload">
 <span class="o-hidden | to-ellipsis ws-nowrap">Recharger</span>
 </button>
-<button type="button" class="d-flex ai-center | p-0 | fvs-wght-400 fs-2 tt-uppercase | bc-0 c-neutral-300 b-0 cur-pointer | sandbox__copy_url">
+<button type="button" class="d-flex ai-center | p-0 | fvs-wght-400 fs-2 tt-uppercase | bc-0 b-0 cur-pointer | sandbox__copy_url">
 <span class="o-hidden | to-ellipsis ws-nowrap">Copier l’URL</span>
 </button>
 </div>
 </header>
 <div class="d-flex | pos-relative">
-<iframe src="/c-scrollsyncbar.js/sandboxes/1/index.html" loading="lazy" class="w-100 h-500px | b-0 bc-neutral-100 | sandbox__iframe"></iframe>
+<iframe src="/c-scrollsyncbar.js/sandboxes/1/index.html" loading="lazy" class="w-100 h-500px | b-0 | sandbox__iframe" style="background:white"></iframe>
 <div class="d-flex jc-center ai-center | pos-absolute top-0 left-0 | w-100 h-100 | sandbox__enable_wrapper" style="background-color: rgba(0,0,0,0.5)">
-<input type="checkbox" id="Rqn8rrPm_iframe" value="" class="pos-absolute | opa-0 | sandbox__enable_switch">
-<label for="Rqn8rrPm_iframe" class="d-flex ai-center gap-1 | p-5 | fvs-wght-500 tt-uppercase | bc-neutral-900 brad-2 cur-pointer">
+<input type="checkbox" id="6N2lSi7x_iframe" value="" class="pos-absolute | opa-0 | sandbox__enable_switch">
+<label for="6N2lSi7x_iframe" class="d-flex ai-center gap-1 | p-5 | fvs-wght-500 tt-uppercase | bc-neutral-900 brad-2 cur-pointer">
 <span class="icon-play"></span> Activer
 </label>
 </div>
 </div>
-<ul class="d-flex gap-2 | m-0 pt-1 pb-1 pl-2 | fvs-wght-400 fs-2 lh-1 | c-neutral-500 ls-none">
+<ul class="d-flex gap-2 | m-0 pt-1 pb-1 pl-2 | fvs-wght-400 fs-2 lh-1 | ls-none">
 <li>Largeur: <span class="sandbox__monitor__iframe_width">-</span>px</li>
 <li>Hauteur: <span class="sandbox__monitor__iframe_height">-</span>px</li>
 </ul>
@@ -609,20 +693,20 @@ cScrollSyncBar.update({scrollSteps: 50});
                     Formule personnalisée</h2>
 <p>c-scrollsyncbar.js fonctionne uniquement avec la <a href="https://developer.mozilla.org/fr/docs/Web/CSS/transform">propriété CSS transform</a>. Par défaut, la formule de transformation est <code>translateY(-|x|%)</code> dans laquelle <code>|x|</code> est un nombre compris entre à et 100. Il est possible de personnaliser la formule pour chaque élément en l'écrivant dans l'attribut <code>data-transform</code> de l'élément:</p>
 <aside class="d-flex | sandbox" fd-column="xs,sm" gap-2="xs,sm" ai-start="xs,sm" o-hidden="md" pl-9="md" pr-9="md" pl-5="xs,sm" pr-5="xs,sm">
-<div class="d-flex | p-1 | bc-primary-200 brad-2" d-none="md">
-<button type="button" class="d-flex | pt-2 pb-2 pl-5 pr-5 | fvs-wght-400 fs-2 tt-uppercase | c-primary-900 bc-0 b-0 cur-pointer | sandbox__tab" data-name="code">
+<div class="d-flex | p-1 o-hidden | brad-2 | sandbox__tabs" d-none="md">
+<button type="button" class="d-flex | pt-2 pb-2 pl-5 pr-5 | fvs-wght-400 fs-2 tt-uppercase | b-0 brad-1 cur-pointer | sandbox__tab" data-name="code">
 Code
 </button>
-<button type="button" class="d-flex | pt-2 pb-2 pl-5 pr-5 | fvs-wght-400 fs-2 tt-uppercase | c-primary-900 bc-neutral-100 b-0 brad-1 cur-pointer | sandbox__tab" data-name="iframe">
+<button type="button" class="d-flex | pt-2 pb-2 pl-5 pr-5 | fvs-wght-400 fs-2 tt-uppercase | b-0 brad-1 cur-pointer | sandbox__tab __active" data-name="iframe">
 Résultat
 </button>
 </div>
-<div class="d-flex fd-column d-none--xs d-none--sm | o-hidden | bc-neutral-900 c-neutral-200 brad-3 bwidth-1 bstyle-solid bcolor-neutral-900 | sandbox__code_wrapper" w-50="md" w-100="xs,sm" bradtr-0="md" bradbr-0="md">
+<div class="d-flex fd-column d-none--xs d-none--sm | o-hidden | brad-3 | sandbox__code_wrapper" w-50="md" w-100="xs,sm" bradtr-0="md" bradbr-0="md">
 <header class="d-flex jc-space-between | pl-5" style="height: 58px">
-<p class="d-flex ai-center | m-0 | fvs-wght-400 fs-3 lh-1 | c-neutral-600" fs-2="xs">
+<p class="d-flex ai-center | m-0 | fvs-wght-400 fs-3 lh-1" fs-2="xs">
 Démo 2
 </p>
-<button type="button" class="d-flex ai-center | pl-5 pr-5 | fvs-wght-400 fs-2 tt-uppercase | bc-0 c-neutral-300 b-0 cur-pointer | sandbox__copy_code" title="Copier le HTML">
+<button type="button" class="d-flex ai-center | pl-5 pr-5 | fvs-wght-400 fs-2 tt-uppercase | bc-0 b-0 cur-pointer | sandbox__copy_code" title="Copier le HTML">
 <span class="o-hidden | to-ellipsis ws-nowrap">Copier</span>
 </button>
 </header>
@@ -693,44 +777,44 @@ Démo 2
 &lt;/html&gt;</code>
 </pre>
 <div class="d-flex jc-center ai-center | pos-absolute top-0 left-0 | w-100 h-100 | sandbox__enable_wrapper" style="background-color: rgba(0,0,0,0.5)">
-<input type="checkbox" id="IEq58ae2_code" value="" class="pos-absolute | opa-0 | sandbox__enable_switch">
-<label for="IEq58ae2_code" class="d-flex ai-center gap-1 | p-5 | fvs-wght-500 tt-uppercase | bc-neutral-900 brad-2 cur-pointer">
+<input type="checkbox" id="Oiw1LKu2_code" value="" class="pos-absolute | opa-0 | sandbox__enable_switch">
+<label for="Oiw1LKu2_code" class="d-flex ai-center gap-1 | p-5 | fvs-wght-500 tt-uppercase | bc-neutral-900 brad-2 cur-pointer">
 <span class="icon-play"></span>
 Activer
 </label>
 </div>
 </div>
-<div class="d-flex gap-2 | m-0 pt-1 pb-1 pl-0 | fvs-wght-400 fs-2 lh-1 | c-neutral-500 ls-none" pl-2="xs,sm">
+<div class="d-flex gap-2 | m-0 pt-1 pb-1 pl-0 | fvs-wght-400 fs-2 lh-1 | ls-none" pl-2="xs,sm">
  
 </div>
 </div>
-<button class="pos-relative | p-0 | bc-neutral-800 c-neutral-500 b-0 | sandbox__resizer" title="Cliquer déplacer pour redimensionner code et résultat" d-none="xs,sm">
+<button class="pos-relative | p-0 | b-0 | sandbox__resizer" title="Cliquer déplacer pour redimensionner code et résultat" d-none="xs,sm">
 <span class="icon-dots-six-vertical fs-5"></span>
 </button>
-<div class="d-flex fd-column | pos-relative | o-hidden | bc-neutral-900 c-neutral-200 brad-3 bwidth-1 bstyle-solid bcolor-neutral-900 | sandbox__iframe_wrapper" w-50="md" w-100="xs,sm" bradtl-0="md" bradbl-0="md" style="box-sizing: content-box"><header class="d-flex jc-space-between gap-5 | pl-5 pr-5" style="height: 58px">
+<div class="d-flex fd-column | pos-relative | o-hidden | brad-3 | sandbox__iframe_wrapper" w-50="md" w-100="xs,sm" bradtl-0="md" bradbl-0="md" style="box-sizing: content-box"><header class="d-flex jc-space-between gap-5 | pl-5 pr-5" style="height: 58px">
 <a href="/c-scrollsyncbar.js/sandboxes/2/index.html" target="_blank" title="Ouvrir dans un nouvel onglet" class="d-flex ai-center gap-1 | p-0 | fvs-wght-400 fs-2 tt-uppercase td-none | sandbox__permalink" fs-2="xs">
-<span class="fvs-wght-400 | c-neutral-300">Ouvrir</span>
-<span class="icon-arrow-square-out c-neutral-500"></span>
+<span class="fvs-wght-400">Ouvrir</span>
+<span class="icon-arrow-square-out"></span>
 </a>
 <div class="d-flex gap-7">
-<button type="button" class="d-flex ai-center | p-0 | fvs-wght-400 fs-2 tt-uppercase | bc-0 c-neutral-300 b-0 cur-pointer | sandbox__reload">
+<button type="button" class="d-flex ai-center | p-0 | fvs-wght-400 fs-2 tt-uppercase | bc-0 b-0 cur-pointer | sandbox__reload">
 <span class="o-hidden | to-ellipsis ws-nowrap">Recharger</span>
 </button>
-<button type="button" class="d-flex ai-center | p-0 | fvs-wght-400 fs-2 tt-uppercase | bc-0 c-neutral-300 b-0 cur-pointer | sandbox__copy_url">
+<button type="button" class="d-flex ai-center | p-0 | fvs-wght-400 fs-2 tt-uppercase | bc-0 b-0 cur-pointer | sandbox__copy_url">
 <span class="o-hidden | to-ellipsis ws-nowrap">Copier l’URL</span>
 </button>
 </div>
 </header>
 <div class="d-flex | pos-relative">
-<iframe src="/c-scrollsyncbar.js/sandboxes/2/index.html" loading="lazy" class="w-100 h-500px | b-0 bc-neutral-100 | sandbox__iframe"></iframe>
+<iframe src="/c-scrollsyncbar.js/sandboxes/2/index.html" loading="lazy" class="w-100 h-500px | b-0 | sandbox__iframe" style="background:white"></iframe>
 <div class="d-flex jc-center ai-center | pos-absolute top-0 left-0 | w-100 h-100 | sandbox__enable_wrapper" style="background-color: rgba(0,0,0,0.5)">
-<input type="checkbox" id="IEq58ae2_iframe" value="" class="pos-absolute | opa-0 | sandbox__enable_switch">
-<label for="IEq58ae2_iframe" class="d-flex ai-center gap-1 | p-5 | fvs-wght-500 tt-uppercase | bc-neutral-900 brad-2 cur-pointer">
+<input type="checkbox" id="Oiw1LKu2_iframe" value="" class="pos-absolute | opa-0 | sandbox__enable_switch">
+<label for="Oiw1LKu2_iframe" class="d-flex ai-center gap-1 | p-5 | fvs-wght-500 tt-uppercase | bc-neutral-900 brad-2 cur-pointer">
 <span class="icon-play"></span> Activer
 </label>
 </div>
 </div>
-<ul class="d-flex gap-2 | m-0 pt-1 pb-1 pl-2 | fvs-wght-400 fs-2 lh-1 | c-neutral-500 ls-none">
+<ul class="d-flex gap-2 | m-0 pt-1 pb-1 pl-2 | fvs-wght-400 fs-2 lh-1 | ls-none">
 <li>Largeur: <span class="sandbox__monitor__iframe_width">-</span>px</li>
 <li>Hauteur: <span class="sandbox__monitor__iframe_height">-</span>px</li>
 </ul>
@@ -796,7 +880,7 @@ cScrollSyncBar.instances[ID_DE_L_INSTANCE].formula;
                     <div class="w-100" d-none="sm,md"></div>
                     <div class="pl-5 | bbwidth-1 bbstyle-dashed bcolor-neutral-500" w-100="sm,md"></div>
                     <a href="https://github.com/ita-design-system/eleventy-libdoc" target="_blank" class="d-flex ai-center gap-2 | pl-2 pr-2 | fvs-wght-400 fs-2 lsp-3 lh-3 td-none ws-nowrap">
-                        11ty LibDoc 0.5.3
+                        11ty LibDoc 0.7.1
                     </a>
                 </nav>
             </footer>

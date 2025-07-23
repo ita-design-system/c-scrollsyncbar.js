@@ -7,6 +7,9 @@ const search = {
             return String.fromCharCode(charCode);
         });
     },
+    sanitizeQuery: function(queryString) {
+        return queryString.replaceAll('\\', '');
+    },
     HTMLEncode: function(str) {
         // https://stackoverflow.com/a/784765
         str = [...str];
@@ -27,6 +30,7 @@ const search = {
         if (typeof search.searchIndexArray == 'object') {
             let markup = '';
             search.searchIndexArray.forEach(function(item) {
+                query = search.sanitizeQuery(query);
                 const   itemContent = `${item.content} ${item.title}`,
                         content = search.decodeHtmlCharCodes(itemContent).toLowerCase(),
                         queryLowered = query.toLowerCase(),
@@ -58,12 +62,12 @@ const search = {
     },
     renderSearchResult: function({url, title, summary}) {
         return `
-            <li class="d-flex fd-column">
+            <li class="d-flex fd-column gap-2 | pb-5">
                 <a  href="${url}"
                     class="fvs-wght-600 fs-5">
                     ${title}
                 </a>
-                <div class="wb-break-all">
+                <div class="wb-break-all fs-4" fs-3="xs">
                     ${summary}
                 </div>
             </li>
