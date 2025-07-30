@@ -66,26 +66,25 @@ export default function(eleventyConfig) {
     eleventyConfig.addFilter("changelog", function(filePath) {
         // Run the git log command
         let fileHistory = childProcess
-            .execSync(`git log --pretty=tformat:"%h | %cs | %s" ${filePath}`)
+            .execSync(`git log --pretty=tformat:"%cs" ${filePath}`)
             .toString()
             .trim();
 
         // If the file isn't committed to git then ignore
         if (fileHistory == "") { return false }
-
-        const fileLog = [];
+        console.log(fileHistory.split(/\r?\n/)[0])
 
         // Split the response on a new line (for each commit)
-        fileHistory.split(/\r?\n/).forEach((change) => {
-        // Split out the string at the pipe
-        const commitInfo = change.split(' | ');
-        // Destructure the array into named vars
-        const [hash, date, subject] = commitInfo;
-        // Create a new object with the commit history and push it to the log
-        fileLog.push({hash, date, subject});
-        });
+        // fileHistory.split(/\r?\n/).forEach((change) => {
+        //     // Split out the string at the pipe
+        //     const commitInfo = change.split(' | ');
+        //     // Destructure the array into named vars
+        //     const [hash, date, subject] = commitInfo;
+        //     // Create a new object with the commit history and push it to the log
+        //     fileLog.push({hash, date, subject});
+        // });
 
-        return fileLog;
+        return fileHistory.split(/\r?\n/)[0];
     });
     return {
         pathPrefix: libdocConfig.htmlBasePathPrefix

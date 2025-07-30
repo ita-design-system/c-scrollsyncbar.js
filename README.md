@@ -141,11 +141,4 @@ cScrollSyncBar.instances[ID_DE_L_INSTANCE].formula;
 ```
 
 
-{% assign changeLog = page.inputPath | changelog %}
-{% if changeLog %}
-    <ul role="list">
-    {% for change in changeLog %}
-        <li>{{ change.date }} – <a href="{{ metadata.gitRepo }}commit/{{ change.hash }}" target="_blank" rel="noopener">{{ change.subject }}</a></li>
-    {% endfor %}
-    </ul>
-{% endif %}
+{{ page.inputPath | changelog }}
