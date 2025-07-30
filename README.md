@@ -3,7 +3,8 @@ title: c-scrollsyncbar.js
 description: Documentation de la librairie c-scrollsyncbar.js permettant d’afficher/masquer des éléments HTML progressivement en fonction du sens de défilement de la fenêtre.
 layout: libdoc_page.liquid
 permalink: index.html
-date: git Last Modified
+# date: git Last Modified
+gitLastModified: true
 ---
 ![GIF exemple usage c-scrollsyncbar.js 1](/assets/capture-1.gif)
 ![GIF exemple usage c-scrollsyncbar.js 2](/assets/capture-2.gif)
@@ -139,6 +140,3 @@ cScrollSyncBar.instances[ID_DE_L_INSTANCE].el;
 // Formule CSS transform en application
 cScrollSyncBar.instances[ID_DE_L_INSTANCE].formula;
 ```
-
-
-{{ page.inputPath | changelog }}

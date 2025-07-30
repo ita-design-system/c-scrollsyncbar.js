@@ -8,8 +8,11 @@ html,
 .o-auto {
     scrollbar-color: var(--ita-colors-primary-500) transparent;
 }
+input {
+  caret-color: var(--ita-colors-primary-500);
+}
 input:focus {
-    outline-color: var(--ita-colors-primary-400);
+    outline-color: var(--ita-colors-primary-500);
 }
 /* MAIN CONTENT */
 main {
@@ -459,7 +462,7 @@ main .sandbox__iframe_wrapper a,
 
 /* BLOG */
 .blog-post-link {
-    background-color: var(--ita-neutral-100);
+    background-color: var(--ita-colors-neutral-100);
     border-color: var(--ita-colors-neutral-500);
 }
 

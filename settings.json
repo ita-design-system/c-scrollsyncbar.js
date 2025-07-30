@@ -19,6 +19,7 @@
     "blogDescription": "Description du blog",
     "blogAuthor": "c-scrollsyncbar.js Team",
     "blogSlug": "blog",
+    "searchEnabled": false,
     "hljsLanguages": [
         "xml",
         "javascript",
